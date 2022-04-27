@@ -1,10 +1,11 @@
 {
   "home": {
-    "title": "¡Bienvenido, Java Hipster!",
+    "title": "Bienvenido a 'Lovelace Academia'",
     "subtitle": "Esta es su página de inicio",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."
     },
+    "selection":"¿Qué quieres hacer?",
     "question": "Si tiene preguntas sobre JHipster:",
     "link": {
       "homepage": "Página de inicio de JHipster",
