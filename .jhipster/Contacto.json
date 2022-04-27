@@ -1,0 +1,36 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427144732",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "contacto",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "correo",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Contacto",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "contacto",
+      "relationshipName": "alumno",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

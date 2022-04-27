@@ -1,0 +1,51 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427144932",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "taller",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "precio",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Taller",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "suscripcion",
+      "otherEntityRelationshipName": "taller",
+      "relationshipName": "suscripcion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "asistencia",
+      "otherEntityRelationshipName": "taller",
+      "relationshipName": "asistencia",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "horario",
+      "otherEntityRelationshipName": "taller",
+      "relationshipName": "horario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "profesor",
+      "otherEntityRelationshipName": "taller",
+      "relationshipName": "profesor",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

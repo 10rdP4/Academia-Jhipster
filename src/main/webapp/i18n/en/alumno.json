@@ -1,0 +1,28 @@
+{
+  "academiaApp": {
+    "alumno": {
+      "home": {
+        "title": "Alumnos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Alumno",
+        "createOrEditLabel": "Create or edit a Alumno",
+        "notFound": "No Alumnos found"
+      },
+      "created": "A new Alumno is created with identifier {{ param }}",
+      "updated": "A Alumno is updated with identifier {{ param }}",
+      "deleted": "A Alumno is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Alumno {{ id }}?"
+      },
+      "detail": {
+        "title": "Alumno"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellido": "Apellido",
+      "suscripcion": "Suscripcion",
+      "asistencia": "Asistencia",
+      "contacto": "Contacto"
+    }
+  }
+}

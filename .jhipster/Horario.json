@@ -1,0 +1,32 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427145232",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "horario",
+  "fields": [
+    {
+      "fieldName": "diaSemana",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "horaInicioTaller",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Horario",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "taller",
+      "otherEntityRelationshipName": "horario",
+      "relationshipName": "taller",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

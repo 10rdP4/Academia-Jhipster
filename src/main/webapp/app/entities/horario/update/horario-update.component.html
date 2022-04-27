@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-horario-heading" data-cy="HorarioCreateUpdateHeading" jhiTranslate="academiaApp.horario.home.createOrEditLabel">
+        Create or edit a Horario
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="academiaApp.horario.diaSemana" for="field_diaSemana">Dia Semana</label>
+          <input type="number" class="form-control" name="diaSemana" id="field_diaSemana" data-cy="diaSemana" formControlName="diaSemana" />
+          <div *ngIf="editForm.get('diaSemana')!.invalid && (editForm.get('diaSemana')!.dirty || editForm.get('diaSemana')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('diaSemana')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('diaSemana')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="academiaApp.horario.horaInicioTaller" for="field_horaInicioTaller"
+            >Hora Inicio Taller</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="horaInicioTaller"
+            id="field_horaInicioTaller"
+            data-cy="horaInicioTaller"
+            formControlName="horaInicioTaller"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="academiaApp.horario.taller" for="field_taller">Taller</label>
+          <select class="form-control" id="field_taller" data-cy="taller" name="taller" formControlName="taller">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tallerOption.id === editForm.get('taller')!.value?.id ? editForm.get('taller')!.value : tallerOption"
+              *ngFor="let tallerOption of tallersSharedCollection; trackBy: trackTallerById"
+            >
+              {{ tallerOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

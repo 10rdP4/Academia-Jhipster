@@ -1,0 +1,38 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427145132",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "asistencia",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "asistencia",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Asistencia",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "asistencia",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "taller",
+      "otherEntityRelationshipName": "asistencia",
+      "relationshipName": "taller",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

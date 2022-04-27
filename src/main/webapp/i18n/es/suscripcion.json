@@ -1,0 +1,27 @@
+{
+  "academiaApp": {
+    "suscripcion": {
+      "home": {
+        "title": "Suscripcions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Suscripcion",
+        "createOrEditLabel": "Crear o editar Suscripcion",
+        "notFound": "Ningún Suscripcions encontrado"
+      },
+      "created": "Un nuevo Suscripcion ha sido creado con el identificador {{ param }}",
+      "updated": "Un Suscripcion ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Suscripcion ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Suscripcion {{ id }}?"
+      },
+      "detail": {
+        "title": "Suscripcion"
+      },
+      "id": "ID",
+      "fecha": "Fecha",
+      "activa": "Activa",
+      "alumno": "Alumno",
+      "taller": "Taller"
+    }
+  }
+}

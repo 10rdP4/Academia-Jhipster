@@ -1,0 +1,44 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427144632",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "alumno",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "apellido",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Alumno",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "suscripcion",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "suscripcion",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "asistencia",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "asistencia",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "contacto",
+      "otherEntityRelationshipName": "alumno",
+      "relationshipName": "contacto",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

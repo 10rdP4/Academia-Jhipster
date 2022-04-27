@@ -1,0 +1,27 @@
+{
+  "academiaApp": {
+    "asistencia": {
+      "home": {
+        "title": "Asistencias",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Asistencia",
+        "createOrEditLabel": "Create or edit a Asistencia",
+        "notFound": "No Asistencias found"
+      },
+      "created": "A new Asistencia is created with identifier {{ param }}",
+      "updated": "A Asistencia is updated with identifier {{ param }}",
+      "deleted": "A Asistencia is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Asistencia {{ id }}?"
+      },
+      "detail": {
+        "title": "Asistencia"
+      },
+      "id": "ID",
+      "fecha": "Fecha",
+      "asistencia": "Asistencia",
+      "alumno": "Alumno",
+      "taller": "Taller"
+    }
+  }
+}

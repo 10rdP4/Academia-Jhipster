@@ -1,0 +1,27 @@
+{
+  "academiaApp": {
+    "profesor": {
+      "home": {
+        "title": "Profesors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Profesor",
+        "createOrEditLabel": "Create or edit a Profesor",
+        "notFound": "No Profesors found"
+      },
+      "created": "A new Profesor is created with identifier {{ param }}",
+      "updated": "A Profesor is updated with identifier {{ param }}",
+      "deleted": "A Profesor is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Profesor {{ id }}?"
+      },
+      "detail": {
+        "title": "Profesor"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellido": "Apellido",
+      "sueldo": "Sueldo",
+      "taller": "Taller"
+    }
+  }
+}

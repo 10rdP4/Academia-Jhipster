@@ -1,0 +1,29 @@
+{
+  "academiaApp": {
+    "taller": {
+      "home": {
+        "title": "Tallers",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Taller",
+        "createOrEditLabel": "Crear o editar Taller",
+        "notFound": "Ningún Tallers encontrado"
+      },
+      "created": "Un nuevo Taller ha sido creado con el identificador {{ param }}",
+      "updated": "Un Taller ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Taller ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Taller {{ id }}?"
+      },
+      "detail": {
+        "title": "Taller"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "precio": "Precio",
+      "suscripcion": "Suscripcion",
+      "asistencia": "Asistencia",
+      "horario": "Horario",
+      "profesor": "Profesor"
+    }
+  }
+}

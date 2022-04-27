@@ -1,0 +1,37 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427145032",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "profesor",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "apellido",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sueldo",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Profesor",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "taller",
+      "otherEntityRelationshipName": "profesor",
+      "relationshipName": "taller",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

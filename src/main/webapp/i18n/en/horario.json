@@ -1,0 +1,26 @@
+{
+  "academiaApp": {
+    "horario": {
+      "home": {
+        "title": "Horarios",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Horario",
+        "createOrEditLabel": "Create or edit a Horario",
+        "notFound": "No Horarios found"
+      },
+      "created": "A new Horario is created with identifier {{ param }}",
+      "updated": "A Horario is updated with identifier {{ param }}",
+      "deleted": "A Horario is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Horario {{ id }}?"
+      },
+      "detail": {
+        "title": "Horario"
+      },
+      "id": "ID",
+      "diaSemana": "Dia Semana",
+      "horaInicioTaller": "Hora Inicio Taller",
+      "taller": "Taller"
+    }
+  }
+}

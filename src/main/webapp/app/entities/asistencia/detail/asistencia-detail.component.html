@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="asistencia">
+      <h2 data-cy="asistenciaDetailsHeading"><span jhiTranslate="academiaApp.asistencia.detail.title">Asistencia</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ asistencia.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="academiaApp.asistencia.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ asistencia.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="academiaApp.asistencia.asistencia">Asistencia</span></dt>
+        <dd>
+          <span>{{ asistencia.asistencia }}</span>
+        </dd>
+        <dt><span jhiTranslate="academiaApp.asistencia.alumno">Alumno</span></dt>
+        <dd>
+          <div *ngIf="asistencia.alumno">
+            <a [routerLink]="['/alumno', asistencia.alumno?.id, 'view']">{{ asistencia.alumno?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="academiaApp.asistencia.taller">Taller</span></dt>
+        <dd>
+          <div *ngIf="asistencia.taller">
+            <a [routerLink]="['/taller', asistencia.taller?.id, 'view']">{{ asistencia.taller?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/asistencia', asistencia.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

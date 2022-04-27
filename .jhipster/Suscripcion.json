@@ -1,0 +1,38 @@
+{
+  "applications": ["Academia"],
+  "changelogDate": "20220427144832",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "suscripcion",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "activa",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Suscripcion",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "alumno",
+      "otherEntityRelationshipName": "suscripcion",
+      "relationshipName": "alumno",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "taller",
+      "otherEntityRelationshipName": "suscripcion",
+      "relationshipName": "taller",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

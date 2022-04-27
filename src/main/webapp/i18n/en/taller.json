@@ -1,0 +1,29 @@
+{
+  "academiaApp": {
+    "taller": {
+      "home": {
+        "title": "Tallers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Taller",
+        "createOrEditLabel": "Create or edit a Taller",
+        "notFound": "No Tallers found"
+      },
+      "created": "A new Taller is created with identifier {{ param }}",
+      "updated": "A Taller is updated with identifier {{ param }}",
+      "deleted": "A Taller is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Taller {{ id }}?"
+      },
+      "detail": {
+        "title": "Taller"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "precio": "Precio",
+      "suscripcion": "Suscripcion",
+      "asistencia": "Asistencia",
+      "horario": "Horario",
+      "profesor": "Profesor"
+    }
+  }
+}
