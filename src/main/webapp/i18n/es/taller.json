@@ -20,6 +20,7 @@
       "id": "ID",
       "nombre": "Nombre",
       "precio": "Precio",
+      "descripcion": "Descripcion",
       "suscripcion": "Suscripcion",
       "asistencia": "Asistencia",
       "horario": "Horario",

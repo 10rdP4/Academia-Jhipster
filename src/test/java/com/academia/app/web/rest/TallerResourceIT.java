@@ -35,6 +35,9 @@ class TallerResourceIT {
     private static final Double DEFAULT_PRECIO = 1D;
     private static final Double UPDATED_PRECIO = 2D;
 
+    private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/tallers";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -59,7 +62,7 @@ class TallerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Taller createEntity(EntityManager em) {
-        Taller taller = new Taller().nombre(DEFAULT_NOMBRE).precio(DEFAULT_PRECIO);
+        Taller taller = new Taller().nombre(DEFAULT_NOMBRE).precio(DEFAULT_PRECIO).descripcion(DEFAULT_DESCRIPCION);
         return taller;
     }
 
@@ -70,7 +73,7 @@ class TallerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Taller createUpdatedEntity(EntityManager em) {
-        Taller taller = new Taller().nombre(UPDATED_NOMBRE).precio(UPDATED_PRECIO);
+        Taller taller = new Taller().nombre(UPDATED_NOMBRE).precio(UPDATED_PRECIO).descripcion(UPDATED_DESCRIPCION);
         return taller;
     }
 
@@ -94,6 +97,7 @@ class TallerResourceIT {
         Taller testTaller = tallerList.get(tallerList.size() - 1);
         assertThat(testTaller.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testTaller.getPrecio()).isEqualTo(DEFAULT_PRECIO);
+        assertThat(testTaller.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
 
     @Test
@@ -161,7 +165,8 @@ class TallerResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(taller.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
-            .andExpect(jsonPath("$.[*].precio").value(hasItem(DEFAULT_PRECIO.doubleValue())));
+            .andExpect(jsonPath("$.[*].precio").value(hasItem(DEFAULT_PRECIO.doubleValue())))
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
     }
 
     @Test
@@ -177,7 +182,8 @@ class TallerResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(taller.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
-            .andExpect(jsonPath("$.precio").value(DEFAULT_PRECIO.doubleValue()));
+            .andExpect(jsonPath("$.precio").value(DEFAULT_PRECIO.doubleValue()))
+            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
     }
 
     @Test
@@ -199,7 +205,7 @@ class TallerResourceIT {
         Taller updatedTaller = tallerRepository.findById(taller.getId()).get();
         // Disconnect from session so that the updates on updatedTaller are not directly saved in db
         em.detach(updatedTaller);
-        updatedTaller.nombre(UPDATED_NOMBRE).precio(UPDATED_PRECIO);
+        updatedTaller.nombre(UPDATED_NOMBRE).precio(UPDATED_PRECIO).descripcion(UPDATED_DESCRIPCION);
 
         restTallerMockMvc
             .perform(
@@ -215,6 +221,7 @@ class TallerResourceIT {
         Taller testTaller = tallerList.get(tallerList.size() - 1);
         assertThat(testTaller.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testTaller.getPrecio()).isEqualTo(UPDATED_PRECIO);
+        assertThat(testTaller.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
     @Test
@@ -301,6 +308,7 @@ class TallerResourceIT {
         Taller testTaller = tallerList.get(tallerList.size() - 1);
         assertThat(testTaller.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testTaller.getPrecio()).isEqualTo(DEFAULT_PRECIO);
+        assertThat(testTaller.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
 
     @Test
@@ -315,7 +323,7 @@ class TallerResourceIT {
         Taller partialUpdatedTaller = new Taller();
         partialUpdatedTaller.setId(taller.getId());
 
-        partialUpdatedTaller.nombre(UPDATED_NOMBRE).precio(UPDATED_PRECIO);
+        partialUpdatedTaller.nombre(UPDATED_NOMBRE).precio(UPDATED_PRECIO).descripcion(UPDATED_DESCRIPCION);
 
         restTallerMockMvc
             .perform(
@@ -331,6 +339,7 @@ class TallerResourceIT {
         Taller testTaller = tallerList.get(tallerList.size() - 1);
         assertThat(testTaller.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testTaller.getPrecio()).isEqualTo(UPDATED_PRECIO);
+        assertThat(testTaller.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
     @Test

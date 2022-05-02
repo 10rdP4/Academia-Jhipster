@@ -39,6 +39,9 @@
           <th scope="col" jhiSortBy="precio">
             <span jhiTranslate="academiaApp.taller.precio">Precio</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="descripcion">
+            <span jhiTranslate="academiaApp.taller.descripcion">Descripcion</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="profesor.id">
             <span jhiTranslate="academiaApp.taller.profesor">Profesor</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -52,6 +55,7 @@
           </td>
           <td>{{ taller.nombre }}</td>
           <td>{{ taller.precio }}</td>
+          <td>{{ taller.descripcion }}</td>
           <td>
             <div *ngIf="taller.profesor">
               <a [routerLink]="['/profesor', taller.profesor?.id, 'view']">{{ taller.profesor?.id }}</a>

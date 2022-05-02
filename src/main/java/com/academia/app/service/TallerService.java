@@ -54,6 +54,9 @@ public class TallerService {
                 if (taller.getPrecio() != null) {
                     existingTaller.setPrecio(taller.getPrecio());
                 }
+                if (taller.getDescripcion() != null) {
+                    existingTaller.setDescripcion(taller.getDescripcion());
+                }
 
                 return existingTaller;
             })

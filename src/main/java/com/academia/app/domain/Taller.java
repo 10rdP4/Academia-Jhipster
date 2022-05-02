@@ -32,6 +32,9 @@ public class Taller implements Serializable {
     @Column(name = "precio", nullable = false)
     private Double precio;
 
+    @Column(name = "descripcion")
+    private String descripcion;
+
     @OneToMany(mappedBy = "taller")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "alumno", "taller" }, allowSetters = true)
@@ -90,6 +93,19 @@ public class Taller implements Serializable {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public Taller descripcion(String descripcion) {
+        this.setDescripcion(descripcion);
+        return this;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Set<Suscripcion> getSuscripcions() {
@@ -224,6 +240,7 @@ public class Taller implements Serializable {
             "id=" + getId() +
             ", nombre='" + getNombre() + "'" +
             ", precio=" + getPrecio() +
+            ", descripcion='" + getDescripcion() + "'" +
             "}";
     }
 }

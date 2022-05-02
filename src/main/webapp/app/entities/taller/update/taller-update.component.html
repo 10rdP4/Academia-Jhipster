@@ -37,6 +37,18 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="academiaApp.taller.descripcion" for="field_descripcion">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="academiaApp.taller.profesor" for="field_profesor">Profesor</label>
           <select class="form-control" id="field_profesor" data-cy="profesor" name="profesor" formControlName="profesor">
             <option [ngValue]="null"></option>

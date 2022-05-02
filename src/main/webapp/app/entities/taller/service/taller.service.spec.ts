@@ -23,6 +23,7 @@ describe('Taller Service', () => {
       id: 0,
       nombre: 'AAAAAAA',
       precio: 0,
+      descripcion: 'AAAAAAA',
     };
   });
 
@@ -60,6 +61,7 @@ describe('Taller Service', () => {
           id: 1,
           nombre: 'BBBBBB',
           precio: 1,
+          descripcion: 'BBBBBB',
         },
         elemDefault
       );
@@ -74,7 +76,12 @@ describe('Taller Service', () => {
     });
 
     it('should partial update a Taller', () => {
-      const patchObject = Object.assign({}, new Taller());
+      const patchObject = Object.assign(
+        {
+          descripcion: 'BBBBBB',
+        },
+        new Taller()
+      );
 
       const returnedFromService = Object.assign(patchObject, elemDefault);
 
@@ -93,6 +100,7 @@ describe('Taller Service', () => {
           id: 1,
           nombre: 'BBBBBB',
           precio: 1,
+          descripcion: 'BBBBBB',
         },
         elemDefault
       );
@@ -144,7 +152,7 @@ describe('Taller Service', () => {
       });
 
       it('should add only unique Taller to an array', () => {
-        const tallerArray: ITaller[] = [{ id: 123 }, { id: 456 }, { id: 61994 }];
+        const tallerArray: ITaller[] = [{ id: 123 }, { id: 456 }, { id: 38247 }];
         const tallerCollection: ITaller[] = [{ id: 123 }];
         expectedResult = service.addTallerToCollectionIfMissing(tallerCollection, ...tallerArray);
         expect(expectedResult).toHaveLength(3);

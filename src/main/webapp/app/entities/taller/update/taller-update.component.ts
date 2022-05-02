@@ -23,6 +23,7 @@ export class TallerUpdateComponent implements OnInit {
     id: [],
     nombre: [null, [Validators.required]],
     precio: [null, [Validators.required]],
+    descripcion: [],
     profesor: [],
   });
 
@@ -83,6 +84,7 @@ export class TallerUpdateComponent implements OnInit {
       id: taller.id,
       nombre: taller.nombre,
       precio: taller.precio,
+      descripcion: taller.descripcion,
       profesor: taller.profesor,
     });
 
@@ -107,6 +109,7 @@ export class TallerUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nombre: this.editForm.get(['nombre'])!.value,
       precio: this.editForm.get(['precio'])!.value,
+      descripcion: this.editForm.get(['descripcion'])!.value,
       profesor: this.editForm.get(['profesor'])!.value,
     };
   }

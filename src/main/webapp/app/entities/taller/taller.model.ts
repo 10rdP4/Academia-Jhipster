@@ -7,6 +7,7 @@ export interface ITaller {
   id?: number;
   nombre?: string;
   precio?: number;
+  descripcion?: string | null;
   suscripcions?: ISuscripcion[] | null;
   asistencias?: IAsistencia[] | null;
   horarios?: IHorario[] | null;
@@ -18,6 +19,7 @@ export class Taller implements ITaller {
     public id?: number,
     public nombre?: string,
     public precio?: number,
+    public descripcion?: string | null,
     public suscripcions?: ISuscripcion[] | null,
     public asistencias?: IAsistencia[] | null,
     public horarios?: IHorario[] | null,
