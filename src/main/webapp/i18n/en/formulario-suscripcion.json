@@ -1,0 +1,10 @@
+{
+  "formulario-suscripcion": {
+    "titulo": "New student registration form",
+    "datos-alumno": "Student's information",
+    "alumno": {
+      "nombre": "Name",
+      "apellido": "Lastname"
+    }
+  }
+}

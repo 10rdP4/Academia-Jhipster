@@ -1,0 +1,10 @@
+{
+  "formulario-suscripcion": {
+    "titulo": "Formulario de inscripcion de un nuevo alumno",
+    "datos-alumno": "Datos del alumno",
+    "alumno": {
+      "nombre": "Nombre",
+      "apellido": "Apellido"
+    }
+  }
+}
