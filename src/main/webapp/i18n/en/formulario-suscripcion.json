@@ -3,6 +3,8 @@
     "titulo": "New student registration form",
     "datos-alumno": "Student's information",
     "datos-contacto": "Contact details",
+    "seleccion-taller": "Select the lesson",
+    "talleres": "Lessons",
     "alumno": {
       "nombre": "Name",
       "apellido": "Lastname"
@@ -11,6 +13,13 @@
       "nombre":"Name",
       "telefono":"Phone number",
       "correo":"Email"
+    },
+    "taller-seleccionado":{
+      "titulo": "Selected lesson details",
+      "nombre": "Name",
+      "precio": "Price",
+      "descripcion": "Description",
+      "profesor": "Teacher"
     }
   }
 }

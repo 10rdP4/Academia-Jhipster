@@ -3,6 +3,8 @@
     "titulo": "Formulario de inscripcion de un nuevo alumno",
     "datos-alumno": "Datos del alumno",
     "datos-contacto": "Datos del contacto",
+    "seleccion-taller": "Selecciona el taller",
+    "talleres": "Talleres",
     "alumno": {
       "nombre": "Nombre",
       "apellido": "Apellido"
@@ -11,6 +13,13 @@
       "nombre":"Nombre",
       "telefono":"Numero de Telefono",
       "correo":"Correo"
+    },
+    "taller-seleccionado":{
+      "titulo": "Datos del taller seleccionado",
+      "nombre": "Nombre",
+      "precio": "Precio",
+      "descripcion": "Descripcion",
+      "profesor": "Profesor"
     }
   }
 }

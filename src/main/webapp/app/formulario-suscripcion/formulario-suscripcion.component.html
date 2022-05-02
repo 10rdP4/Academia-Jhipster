@@ -7,7 +7,9 @@
 
     <div class="d-flex flex-column justify-content-end">
         <!--Datos sobre el Alumno-->
-        <u class="align-self-center"><h2 class="align-self-center" jhiTranslate="formulario-suscripcion.datos-alumno">Datos del alumno</h2></u>
+        <u class="align-self-center">
+            <h2 class="align-self-center" jhiTranslate="formulario-suscripcion.datos-alumno">Datos del alumno</h2>
+        </u>
         <div class="input-group mb-3">
             <div id="labels_alumno">
                 <div class="input-group-prepend mb-1">
@@ -26,7 +28,9 @@
         </div>
 
         <!--Datos sobre el Contacto-->
-        <u class="align-self-center"><h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2></u>
+        <u class="align-self-center">
+            <h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2>
+        </u>
         <div class="input-group mb-3">
             <div id="labels_contacto">
                 <div class="input-group-prepend mb-1">
@@ -44,11 +48,53 @@
             </div>
             <div id="input_alumno">
                 <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1">
-                <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1" pattern="[0-9]{9}">
-                <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1" pattern="[^@\s]+@[^@\s]+">
+                <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
+                    pattern="[0-9]{9}">
+                <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
+                    pattern="[^@\s]+@[^@\s]+">
             </div>
         </div>
 
         <!--Seleccion del Taller-->
+        <u class="align-self-center">
+            <h2 jhiTranslate="formulario-suscripcion.seleccion-taller">Seleccion de taller</h2>
+        </u>
+        <div class="row">
+            <div class="col">
+                <div ngbDropdown class="d-inline-block">
+                    <button type="button" class="btn btn-outline-primary" ngbDropdownToggle
+                        jhiTranslate="formulario-suscripcion.talleres">Toggle dropdown</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
+                        <button ngbDropdownItem *ngFor="let taller of talleres_disponibles"
+                            (click)="seleccionarTaller(taller)">
+                            {{taller.nombre}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span *ngIf="taller_seleccionado != undefined" class="mt-3">
+            <span jhiTranslate="formulario-suscripcion.taller-seleccionado.titulo">Datos del Taller</span>
+            <br>
+            <ul>
+                <li>
+                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.nombre">
+                        Nombre
+                    </span>
+                    : {{taller_seleccionado.nombre}}
+                </li>
+                <li>
+                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.precio">
+                        Precio
+                    </span>
+                    : {{taller_seleccionado.precio}}€
+                </li>
+                <li>
+                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.profesor">
+                        Profesor
+                    </span>
+                    : {{taller_seleccionado.profesor?.nombre}}
+                </li>
+            </ul>
+        </span>
     </div>
-</div>
