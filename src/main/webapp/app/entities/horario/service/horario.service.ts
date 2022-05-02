@@ -57,4 +57,8 @@ export class HorarioService {
     }
     return horarioCollection;
   }
+
+  findHorarioByTaller(id_taller:number):Observable<EntityArrayResponseType>{
+    return this.http.get<IHorario[]>(`${this.resourceUrl}/taller/${id_taller}`, {observe: 'response' });
+  }
 }

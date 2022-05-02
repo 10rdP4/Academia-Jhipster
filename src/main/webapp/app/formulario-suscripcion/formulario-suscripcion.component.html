@@ -84,6 +84,12 @@
                     : {{taller_seleccionado.nombre}}
                 </li>
                 <li>
+                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.descripcion">
+                        Descripcion
+                    </span>
+                    : {{taller_seleccionado.descripcion}}
+                </li>
+                <li>
                     <span jhiTranslate="formulario-suscripcion.taller-seleccionado.precio">
                         Precio
                     </span>
@@ -94,6 +100,14 @@
                         Profesor
                     </span>
                     : {{taller_seleccionado.profesor?.nombre}}
+                </li>
+                <li>
+                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.horario">
+                        Horario
+                    </span>
+                    <span *ngFor="let horario of taller_seleccionado.horarios">
+                        {{this.formatoHorario(horario)}}
+                    </span>
                 </li>
             </ul>
         </span>

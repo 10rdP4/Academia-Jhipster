@@ -19,7 +19,8 @@
       "nombre": "Name",
       "precio": "Price",
       "descripcion": "Description",
-      "profesor": "Teacher"
+      "profesor": "Teacher",
+      "horario": "Timetable"
     }
   }
 }

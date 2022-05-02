@@ -19,7 +19,8 @@
       "nombre": "Nombre",
       "precio": "Precio",
       "descripcion": "Descripcion",
-      "profesor": "Profesor"
+      "profesor": "Profesor",
+      "horario" : "Horarios"
     }
   }
 }

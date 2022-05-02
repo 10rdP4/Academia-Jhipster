@@ -166,6 +166,20 @@ public class HorarioResource {
     }
 
     /**
+     * {@code GET  /horarios/taller/:id_taller} : get all the horarios where taller id = id_taller.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of horarios in body.
+     */
+    @GetMapping("/horarios/taller/{id_taller}")
+    public ResponseEntity<List<Horario>> getAllHorariosByTallerId(@org.springdoc.api.annotations.ParameterObject Pageable pageable, @PathVariable Integer id_taller) {
+        log.debug("REST request to get a page of Horarios by Taller Id");
+        Page<Horario> page = horarioService.findHorarioByTallerId(pageable, id_taller);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code DELETE  /horarios/:id} : delete the "id" horario.
      *
      * @param id the id of the horario to delete.
