@@ -5,9 +5,9 @@
 
     <hr>
 
-    <div class="d-flex flex-column justify-content-end ">
+    <div class="d-flex flex-column justify-content-end">
         <!--Datos sobre el Alumno-->
-        <h2 jhiTranslate="formulario-suscripcion.datos-alumno">Datos del alumno</h2>
+        <u class="align-self-center"><h2 class="align-self-center" jhiTranslate="formulario-suscripcion.datos-alumno">Datos del alumno</h2></u>
         <div class="input-group mb-3">
             <div id="labels_alumno">
                 <div class="input-group-prepend mb-1">
@@ -26,6 +26,28 @@
         </div>
 
         <!--Datos sobre el Contacto-->
+        <u class="align-self-center"><h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2></u>
+        <div class="input-group mb-3">
+            <div id="labels_contacto">
+                <div class="input-group-prepend mb-1">
+                    <label for="nombre_contacto" class="input-group-text"
+                        jhiTranslate="formulario-suscripcion.contacto.nombre">Nombre del contacto</label>
+                </div>
+                <div class="input-group-prepend mb-1">
+                    <label for="telefono_contacto" class="input-group-text"
+                        jhiTranslate="formulario-suscripcion.contacto.telefono">Telefono del contacto</label>
+                </div>
+                <div class="input-group-prepend mb-1">
+                    <label for="correo_contacto" class="input-group-text"
+                        jhiTranslate="formulario-suscripcion.contacto.correo">Correo del contacto</label>
+                </div>
+            </div>
+            <div id="input_alumno">
+                <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1">
+                <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1" pattern="[0-9]{9}">
+                <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1" pattern="[^@\s]+@[^@\s]+">
+            </div>
+        </div>
 
         <!--Seleccion del Taller-->
     </div>

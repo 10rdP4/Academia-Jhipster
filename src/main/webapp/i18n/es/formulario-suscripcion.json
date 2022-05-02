@@ -2,9 +2,15 @@
   "formulario-suscripcion": {
     "titulo": "Formulario de inscripcion de un nuevo alumno",
     "datos-alumno": "Datos del alumno",
+    "datos-contacto": "Datos del contacto",
     "alumno": {
       "nombre": "Nombre",
       "apellido": "Apellido"
+    },
+    "contacto":{
+      "nombre":"Nombre",
+      "telefono":"Numero de Telefono",
+      "correo":"Correo"
     }
   }
 }

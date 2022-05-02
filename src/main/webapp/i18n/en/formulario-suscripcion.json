@@ -2,9 +2,15 @@
   "formulario-suscripcion": {
     "titulo": "New student registration form",
     "datos-alumno": "Student's information",
+    "datos-contacto": "Contact details",
     "alumno": {
       "nombre": "Name",
       "apellido": "Lastname"
+    },
+    "contacto":{
+      "nombre":"Name",
+      "telefono":"Phone number",
+      "correo":"Email"
     }
   }
 }
