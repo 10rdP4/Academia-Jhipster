@@ -1,10 +1,11 @@
-import { HttpResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { IHorario } from "app/entities/horario/horario.model";
-import { HorarioService } from "app/entities/horario/service/horario.service";
-import { TallerService } from "app/entities/taller/service/taller.service";
-import { ITaller } from "app/entities/taller/taller.model";
-
+import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IHorario } from 'app/entities/horario/horario.model';
+import { HorarioService } from 'app/entities/horario/service/horario.service';
+import { TallerService } from 'app/entities/taller/service/taller.service';
+import { ITaller } from 'app/entities/taller/taller.model';
+import { ResumenSuscripcionModalComponent } from './resumen-suscripcion-modal/resumen-suscripcion-modal.component';
 
 @Component({
   selector: 'jhi-formulario-suscripcion',
@@ -12,19 +13,33 @@ import { ITaller } from "app/entities/taller/taller.model";
   styleUrls: ['./formulario-suscripcion.component.scss'],
 })
 export class FormularioSuscripcionComponent implements OnInit {
-  titulo = ''
+  titulo = '';
 
-  talleres_disponibles: ITaller[] = []
+  // alumno
+  nombre_alumno = '';
+  apellido_alumno = '';
+
+  // contacto
+  nombre_contacto = '';
+  telefono_contacto = '';
+  correo_contacto = '';
+
+  // taller
+  talleres_disponibles: ITaller[] = [];
   taller_seleccionado?: ITaller = undefined;
 
-  constructor(public tallerService: TallerService, public horarioService: HorarioService) {
-    this.titulo = ''
+  // error al rellenar formulario
+  error = false;
+  lista_errores: string[] = [];
+
+  constructor(public tallerService: TallerService, public horarioService: HorarioService, private modalService: NgbModal) {
+    this.titulo = '';
 
     this.loadTalleres();
   }
 
   ngOnInit(): void {
-    this.titulo = ''
+    this.titulo = '';
   }
 
   loadTalleres(): void {
@@ -35,7 +50,7 @@ export class FormularioSuscripcionComponent implements OnInit {
       .subscribe({
         next: (res: HttpResponse<ITaller[]>) => {
           this.talleres_disponibles = res.body ?? [];
-        }
+        },
       });
   }
 
@@ -46,41 +61,82 @@ export class FormularioSuscripcionComponent implements OnInit {
     this.horarioService.findHorarioByTaller(this.taller_seleccionado.id!).subscribe({
       next: (res: HttpResponse<IHorario[]>) => {
         this.taller_seleccionado!.horarios = res.body ?? [];
-      }
+      },
     });
   }
 
   formatoHorario(horario: IHorario): string {
-    let dia_semana = ''
+    let dia_semana = '';
 
     switch (horario.diaSemana) {
       case 0:
-          dia_semana = 'Lunes'
+        dia_semana = 'Lunes';
         break;
       case 1:
-        dia_semana = 'Martes'
+        dia_semana = 'Martes';
         break;
       case 2:
-        dia_semana = 'Miercoles'
+        dia_semana = 'Miercoles';
         break;
       case 3:
-        dia_semana = 'Jueves'
+        dia_semana = 'Jueves';
         break;
       case 4:
-        dia_semana = 'Viernes'
+        dia_semana = 'Viernes';
         break;
       case 5:
-        dia_semana = 'Sábado'
+        dia_semana = 'Sábado';
         break;
       case 6:
-        dia_semana = 'Domingo'
+        dia_semana = 'Domingo';
         break;
 
       default:
-        dia_semana = 'Error'
+        dia_semana = 'Error';
         break;
     }
 
-    return `${dia_semana} - ${horario.horaInicioTaller!}`
+    return `${dia_semana} - ${horario.horaInicioTaller!}`;
+  }
+
+  vaciarCampos(): void {
+    this.nombre_alumno = '';
+    this.apellido_alumno = '';
+    this.nombre_contacto = '';
+    this.telefono_contacto = '';
+    this.correo_contacto = '';
+    this.taller_seleccionado = undefined;
+  }
+
+  resumenSuscripcion(): void {
+    if(!this.comprobacionErrores()){
+      this.modalService.open(ResumenSuscripcionModalComponent);
+    }
+  }
+
+  comprobacionErrores(): boolean {
+    this.lista_errores = [];
+
+    if(this.nombre_alumno === ''){
+      this.lista_errores.push("Nombre del alumno no puede estar vacio")
+    }
+
+    if(this.apellido_alumno === ''){
+      this.lista_errores.push("Apellido del alumno no puede estar vacio")
+    }
+
+    if(this.nombre_contacto === ''){
+      this.lista_errores.push("Nombre del contacto no puede estar vacio")
+    }
+
+    if(this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0){
+      this.lista_errores.push("Telefono Incorrecto")
+    }
+
+    if(this.telefono_contacto === '' && this.correo_contacto === ''){
+      this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
+    }
+
+    return (this.error = this.lista_errores.length > 0);
   }
 }

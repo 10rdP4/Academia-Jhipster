@@ -22,8 +22,10 @@
                 </div>
             </div>
             <div id="input_alumno">
-                <input type="text" name="nombre_alumno" id="nombre_alumno_in_text" class="form-control mb-1">
-                <input type="text" name="apellido_alumno" id="apellido_alumno_in_text" class="form-control">
+                <input type="text" name="nombre_alumno" id="nombre_alumno_in_text" class="form-control mb-1"
+                    [(ngModel)]="nombre_alumno">
+                <input type="text" name="apellido_alumno" id="apellido_alumno_in_text" class="form-control"
+                    [(ngModel)]="apellido_alumno">
             </div>
         </div>
 
@@ -47,11 +49,12 @@
                 </div>
             </div>
             <div id="input_alumno">
-                <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1">
+                <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1"
+                    [(ngModel)]="nombre_contacto">
                 <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
-                    pattern="[0-9]{9}">
+                    pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
                 <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
-                    pattern="[^@\s]+@[^@\s]+">
+                    pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
             </div>
         </div>
 
@@ -62,7 +65,7 @@
         <div class="row">
             <div class="col">
                 <div ngbDropdown class="d-inline-block">
-                    <button type="button" class="btn btn-outline-primary" ngbDropdownToggle
+                    <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle
                         jhiTranslate="formulario-suscripcion.talleres">Toggle dropdown</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
                         <button ngbDropdownItem *ngFor="let taller of talleres_disponibles"
@@ -111,4 +114,20 @@
                 </li>
             </ul>
         </span>
+
+        <hr>
+
+        <!--Botones fin del formulario-->
+        <div class="d-flex justify-content-around">
+            <button class="btn btn-danger btn-lg" (click)="vaciarCampos()">Cancelar</button>
+            <button class="btn btn-success btn-lg" (click)="resumenSuscripcion()">Aceptar</button>
+        </div>
+
+        <!--Errores-->
+        <div *ngIf="error" class="alert alert-danger border border-danger mt-2">
+            <p>Error en el formulario</p>
+            <ul>
+                <li *ngFor="let error of lista_errores">{{error}}</li>
+            </ul>
+        </div>
     </div>
