@@ -14,7 +14,15 @@
         <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }">
           You are logged in as user "{{ account.login }}".
         </span>
+
+        <!--Componentes para testear-->
         <jhi-formulario-suscripcion></jhi-formulario-suscripcion>
+        <br>
+        <br>
+        <hr>
+        <hr>
+        <jhi-horario-semanal></jhi-horario-semanal>
+        <!--Fin de componentes para testear-->
       </div>
 
 

@@ -1,0 +1,37 @@
+<div class="container d-flex flex-row">
+
+    <div>
+        <button class="btn btn-outline-success mb-1" *ngFor="let taller of talleres_disponibles"
+            style="width: 100%;">{{taller.nombre}}</button>
+        <button class="btn btn-danger" style="width: 100%;">Eliminar</button>
+    </div>
+
+    <div class="container align-self-start">
+
+       <div class="row" *ngFor="let hora of [].constructor(12); let i = index">
+
+            <div *ngIf="i == 0; then thenBlock else elseBlock"></div>
+
+            <ng-template #thenBlock>
+                <div class="col 1">hora</div>
+                <div class="col 1">lunes</div>
+                <div class="col 1">martes</div>
+                <div class="col 1">miercoles</div>
+                <div class="col 1">jueves</div>
+                <div class="col 1">viernes</div>
+                <div class="col 1">sabado</div>
+                <div class="col 1">domingo</div>
+                <div class="w-100"></div>
+            </ng-template>
+
+            <ng-template #elseBlock>
+                <div class="col 1" *ngFor="let columna of [].constructor(8); let dia = index">
+                    <span *ngIf="dia == 0; then hora else tallerNombre"></span>
+                    
+                    <ng-template #tallerNombre>{{buscarTaller(dia - 1, (i + 9))}}</ng-template>
+                    <ng-template #hora>{{i + 9}}:00</ng-template>
+                </div><div class="w-100"></div>
+            </ng-template>
+        </div>
+    </div>
+</div>
