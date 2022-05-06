@@ -15,12 +15,6 @@ export type EntityArrayResponseType = HttpResponse<ISuscripcion[]>;
 @Injectable({ providedIn: 'root' })
 export class SuscripcionService {
 
-  /*
-  En esta suscripcion guardo los cambios que se vayan haciendo en el formulario
-  Es una suscripcion "carrito"
-  */
-  nuevaSuscripcion:ISuscripcion = {}
-
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/suscripcions');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}

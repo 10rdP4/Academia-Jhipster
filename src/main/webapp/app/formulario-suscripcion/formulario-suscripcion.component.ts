@@ -5,6 +5,8 @@ import { IHorario } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
 import { TallerService } from 'app/entities/taller/service/taller.service';
 import { ITaller } from 'app/entities/taller/taller.model';
+import dayjs from 'dayjs/esm';
+import { FormularioSuscripcionService } from './formulario-suscripcion.service';
 import { ResumenSuscripcionModalComponent } from './resumen-suscripcion-modal/resumen-suscripcion-modal.component';
 
 @Component({
@@ -32,7 +34,7 @@ export class FormularioSuscripcionComponent implements OnInit {
   error = false;
   lista_errores: string[] = [];
 
-  constructor(public tallerService: TallerService, public horarioService: HorarioService, private modalService: NgbModal) {
+  constructor(public tallerService: TallerService, public horarioService: HorarioService, public formularioSuscripcionService: FormularioSuscripcionService, private modalService: NgbModal) {
     this.titulo = '';
 
     this.loadTalleres();
@@ -109,7 +111,8 @@ export class FormularioSuscripcionComponent implements OnInit {
   }
 
   resumenSuscripcion(): void {
-    if(!this.comprobacionErrores()){
+    if (!this.comprobacionErrores()) {
+      this.cargaDatos();
       this.modalService.open(ResumenSuscripcionModalComponent);
     }
   }
@@ -117,26 +120,40 @@ export class FormularioSuscripcionComponent implements OnInit {
   comprobacionErrores(): boolean {
     this.lista_errores = [];
 
-    if(this.nombre_alumno === ''){
+    if (this.nombre_alumno === '') {
       this.lista_errores.push("Nombre del alumno no puede estar vacio")
     }
 
-    if(this.apellido_alumno === ''){
+    if (this.apellido_alumno === '') {
       this.lista_errores.push("Apellido del alumno no puede estar vacio")
     }
 
-    if(this.nombre_contacto === ''){
+    if (this.nombre_contacto === '') {
       this.lista_errores.push("Nombre del contacto no puede estar vacio")
     }
 
-    if(this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0){
+    if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
       this.lista_errores.push("Telefono Incorrecto")
     }
 
-    if(this.telefono_contacto === '' && this.correo_contacto === ''){
+    if (this.telefono_contacto === '' && this.correo_contacto === '') {
       this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
     }
 
+    if (this.taller_seleccionado === undefined) {
+      this.lista_errores.push("No se ha seleccionado ningún taller");
+    }
+
     return (this.error = this.lista_errores.length > 0);
+  }
+
+  cargaDatos():void {
+    this.formularioSuscripcionService.setNombreAlumno(this.nombre_alumno);
+    this.formularioSuscripcionService.setApellidoAlumno(this.apellido_alumno);
+    this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
+    this.formularioSuscripcionService.setTelefonoContacto(this.telefono_contacto);
+    this.formularioSuscripcionService.setCorreoContacto(this.correo_contacto);
+    this.formularioSuscripcionService.setTaller(this.taller_seleccionado!);
+    this.formularioSuscripcionService.setFecha(dayjs());
   }
 }

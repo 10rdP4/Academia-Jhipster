@@ -3,8 +3,10 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <p>FUNCIONA</p>
+    <p>{{suscripcion?.alumno?.nombre}}</p>
+    <p>{{suscripcion?.taller?.nombre}}</p>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer d-flex justify-content-between">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-outline-success" (click)="guardarSuscripcion()">Guardar</button>
   </div>
