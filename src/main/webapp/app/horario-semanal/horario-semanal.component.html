@@ -1,37 +1,40 @@
 <div class="container d-flex flex-row">
 
-    <div>
+    <!--Botones seleccion de curso-->
+    <div class="btn-group-vertical p-1">
+        <button class="btn btn-info mb-1" (click)="seleccionarAccion('inf-td')">Informacion</button>
+
         <button class="btn btn-outline-success mb-1" *ngFor="let taller of talleres_disponibles"
-            style="width: 100%;">{{taller.nombre}}</button>
-        <button class="btn btn-danger" style="width: 100%;">Eliminar</button>
+             (click)="seleccionarAccion('mod-td', taller)">{{taller.nombre}}</button>
+
+        <button class="btn btn-danger" (click)="seleccionarAccion('del-td')">Eliminar</button>
     </div>
 
-    <div class="container align-self-start">
+    <!--tabla horarios-->
 
-       <div class="row" *ngFor="let hora of [].constructor(12); let i = index">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miercoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sabado</th>
+                <th>Domingo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let h of [].constructor(12); let hora = index">
+                <td *ngFor="let columna of [].constructor(8); let dia = index" [ngClass]="accion_seleccionada" (click)="accionTd(dia - 1, hora + hora_minima)">
+                    <span *ngIf="dia == 0; then horas else tallerNombre"></span>
 
-            <div *ngIf="i == 0; then thenBlock else elseBlock"></div>
-
-            <ng-template #thenBlock>
-                <div class="col 1">hora</div>
-                <div class="col 1">lunes</div>
-                <div class="col 1">martes</div>
-                <div class="col 1">miercoles</div>
-                <div class="col 1">jueves</div>
-                <div class="col 1">viernes</div>
-                <div class="col 1">sabado</div>
-                <div class="col 1">domingo</div>
-                <div class="w-100"></div>
-            </ng-template>
-
-            <ng-template #elseBlock>
-                <div class="col 1" *ngFor="let columna of [].constructor(8); let dia = index">
-                    <span *ngIf="dia == 0; then hora else tallerNombre"></span>
-                    
-                    <ng-template #tallerNombre>{{buscarTaller(dia - 1, (i + 9))}}</ng-template>
-                    <ng-template #hora>{{i + 9}}:00</ng-template>
-                </div><div class="w-100"></div>
-            </ng-template>
-        </div>
-    </div>
+                    <ng-template #tallerNombre>{{buscarTallerString(dia - 1, (hora + hora_minima))}}</ng-template>
+                    <ng-template #horas>{{hora + hora_minima}}:00</ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--fin tabla horarios-->
 </div>

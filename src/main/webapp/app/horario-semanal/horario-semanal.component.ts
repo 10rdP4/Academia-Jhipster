@@ -4,6 +4,8 @@ import { ITaller } from 'app/entities/taller/taller.model';
 import { TallerService } from 'app/entities/taller/service/taller.service';
 import { IHorario } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HorarioInfoModalComponent } from './horario-info-modal/horario-info-modal.component';
 
 @Component({
   selector: 'jhi-horario-semanal',
@@ -14,9 +16,12 @@ export class HorarioSemanalComponent implements OnInit {
   titulo = '';
 
   talleres_disponibles: ITaller[] = [];
+  taller_seleccionado?: ITaller;
   horario_semanal: IHorario[] = [];
+  accion_seleccionada = 'inf-td';
+  hora_minima = 9;
 
-  constructor(public tallerService: TallerService, public horarioService: HorarioService) {
+  constructor(public tallerService: TallerService, public horarioService: HorarioService, public modalService: NgbModal) {
     this.titulo = 'Horario semanal';
     this.loadTalleres();
     this.loadHorarios();
@@ -50,15 +55,92 @@ export class HorarioSemanalComponent implements OnInit {
       });
   }
 
-  buscarTaller(dia:number, hora:number):string{
-      const hora_string = hora.toString();
-      let taller:ITaller = {}
+  buscarTallerString(dia: number, hora: number): string {
+    const hora_string = hora.toString();
+    let taller: ITaller = {}
 
-      this.horario_semanal.forEach(horario => {
-        if (horario.diaSemana === dia && horario.horaInicioTaller?.split(":")[0] === hora_string){
-          taller = horario.taller!;
+    this.horario_semanal.forEach(horario => {
+      if (horario.diaSemana === dia && horario.horaInicioTaller?.split(":")[0] === hora_string) {
+        taller = horario.taller!;
+      }
+    });
+
+    return taller.nombre === undefined ? ' ' : `${taller.nombre.substring(0, 6)}...`;
+  }
+
+  buscarHorario(dia: number, hora: number): IHorario {
+    const hora_string = hora.toString();
+    let horario_busqueda: IHorario = {}
+
+    this.horario_semanal.forEach(horario => {
+      if (horario.diaSemana === dia && horario.horaInicioTaller?.split(":")[0] === hora_string) {
+        horario_busqueda = horario;
+      }
+    });
+
+    return horario_busqueda;
+  }
+
+  seleccionarAccion(accion: string, taller?: ITaller): void {
+    if (taller !== undefined) {
+      this.taller_seleccionado = taller;
+    } else {
+      this.taller_seleccionado = undefined;
+    }
+    this.accion_seleccionada = accion;
+  }
+
+  accionTd(dia: number, hora: number): void {
+    const horario_dummy: IHorario = {
+      id: undefined,
+      diaSemana: dia,
+      taller: this.taller_seleccionado,
+      horaInicioTaller: `${hora}:00`
+    }
+    const horario_busquea = this.buscarHorario(dia, hora);
+    const horario = horario_busquea.id !== undefined ? horario_busquea : horario_dummy;
+    let modalRef;
+
+    switch (this.accion_seleccionada) {
+      case "inf-td":
+        modalRef = this.modalService.open(HorarioInfoModalComponent);
+        modalRef.componentInstance.taller = horario_busquea.taller;
+        break;
+
+      case "mod-td":
+        if (horario.id !== undefined) {
+          horario.taller = this.taller_seleccionado;
+          this.horarioService.update(horario).subscribe({
+
+          });
+        } else {
+          this.horarioService.create(horario).subscribe({
+
+          });
         }
-      });
-      return taller.nombre === undefined ? ' ' : taller.nombre;
+        this.loadHorarios()
+        this.refresh()
+        break;
+
+      case "del-td":
+        if (horario.id !== undefined) {
+          this.horarioService.delete(horario.id).subscribe({
+          });
+        } else {
+          alert("No se pudo borrar")
+        }
+        this.loadHorarios();
+        this.refresh();
+        break;
+
+      default:
+        alert("Error de opcion en el td")
+        break;
+    }
+  }
+
+  // Regargar Pagina
+  refresh(): void {
+    window.location.reload();
   }
 }
