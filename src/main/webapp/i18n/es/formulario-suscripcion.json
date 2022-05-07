@@ -7,10 +7,12 @@
     "talleres": "Talleres",
     "alumno": {
       "nombre": "Nombre",
-      "apellido": "Apellido"
+      "apellido": "Apellido",
+      "dni": "DNI"
     },
     "contacto":{
       "nombre":"Nombre",
+      "dni": "DNI",
       "telefono":"Numero de Telefono",
       "correo":"Correo"
     },

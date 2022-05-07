@@ -7,10 +7,12 @@
     "talleres": "Lessons",
     "alumno": {
       "nombre": "Name",
-      "apellido": "Lastname"
+      "apellido": "Lastname",
+      "dni": "DNI"
     },
     "contacto":{
       "nombre":"Name",
+      "dni": "DNI",
       "telefono":"Phone number",
       "correo":"Email"
     },

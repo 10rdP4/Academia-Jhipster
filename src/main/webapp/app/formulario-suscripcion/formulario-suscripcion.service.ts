@@ -20,10 +20,12 @@ export class FormularioSuscripcionService {
     alumno: IAlumno = {
         nombre: '',
         apellido: '',
+        dni: '',
         contacto: {}
     }
     contacto: IContacto = {
         nombre: '',
+        dni: '',
         telefono: '',
         correo: ''
     }
@@ -38,8 +40,14 @@ export class FormularioSuscripcionService {
     setApellidoAlumno(apellido: string): void {
         this.alumno.apellido = apellido;
     }
+    setDniAlumno(dni:string):void{
+        this.alumno.dni = dni;
+    }
     setNombreContacto(nombre: string): void {
         this.contacto.nombre = nombre;
+    }
+    setDniContacto(dni:string):void{
+        this.contacto.dni = dni;
     }
     setTelefonoContacto(telefono: string): void {
         this.contacto.telefono = telefono;

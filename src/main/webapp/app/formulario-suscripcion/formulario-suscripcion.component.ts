@@ -20,9 +20,11 @@ export class FormularioSuscripcionComponent implements OnInit {
   // alumno
   nombre_alumno = '';
   apellido_alumno = '';
+  dni_alumno = '';
 
   // contacto
   nombre_contacto = '';
+  dni_contacto = '';
   telefono_contacto = '';
   correo_contacto = '';
 
@@ -104,7 +106,9 @@ export class FormularioSuscripcionComponent implements OnInit {
   vaciarCampos(): void {
     this.nombre_alumno = '';
     this.apellido_alumno = '';
+    this.dni_alumno = '';
     this.nombre_contacto = '';
+    this.dni_contacto = '';
     this.telefono_contacto = '';
     this.correo_contacto = '';
     this.taller_seleccionado = undefined;
@@ -128,8 +132,16 @@ export class FormularioSuscripcionComponent implements OnInit {
       this.lista_errores.push("Apellido del alumno no puede estar vacio")
     }
 
+    if (this.dni_alumno === '') {
+      this.lista_errores.push("DNI del alumno no puede estar vacio")
+    }
+
     if (this.nombre_contacto === '') {
       this.lista_errores.push("Nombre del contacto no puede estar vacio")
+    }
+
+    if (this.dni_contacto === '') {
+      this.lista_errores.push("DNI del contacto no puede estar vacio")
     }
 
     if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
@@ -150,7 +162,9 @@ export class FormularioSuscripcionComponent implements OnInit {
   cargaDatos():void {
     this.formularioSuscripcionService.setNombreAlumno(this.nombre_alumno);
     this.formularioSuscripcionService.setApellidoAlumno(this.apellido_alumno);
+    this.formularioSuscripcionService.setDniAlumno(this.dni_alumno);
     this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
+    this.formularioSuscripcionService.setDniContacto(this.dni_contacto);
     this.formularioSuscripcionService.setTelefonoContacto(this.telefono_contacto);
     this.formularioSuscripcionService.setCorreoContacto(this.correo_contacto);
     this.formularioSuscripcionService.setTaller(this.taller_seleccionado!);
