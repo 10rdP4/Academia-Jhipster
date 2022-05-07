@@ -5,70 +5,116 @@
 
     <hr>
 
-    <div class="d-flex flex-column justify-content-end">
+    <div class="d-flex flex-column">
         <!--Datos sobre el Alumno-->
         <u class="align-self-center">
             <h2 class="align-self-center" jhiTranslate="formulario-suscripcion.datos-alumno">Datos del alumno</h2>
         </u>
-        <div class="input-group mb-3">
-            <div id="labels_alumno">
-                <div class="input-group-prepend mb-1">
-                    <label for="nombre_alumno" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.alumno.nombre">Nombre del alumno</label>
-                </div>
-                <div class="input-group-prepend mb-1">
-                    <label for="apellido_alumno" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.alumno.apellido">Apellido del alumno</label>
-                </div>
-                <div class="input-group-prepend">
-                    <label for="dni_alumno" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.alumno.dni">DNI del alumno</label>
-                </div>
-            </div>
-            <div id="input_alumno">
-                <input type="text" name="nombre_alumno" id="nombre_alumno_in_text" class="form-control mb-1"
-                    [(ngModel)]="nombre_alumno">
-                <input type="text" name="apellido_alumno" id="apellido_alumno_in_text" class="form-control mb-1"
-                    [(ngModel)]="apellido_alumno">
-                <input type="text" name="dni_alumno" id="dni_alumno_in_text" class="form-control"
-                    pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_alumno">
+
+        <div class="d-flex flex-row">
+            <label>¿Alumno ya registrado?</label>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                    #alumno_check (change)="changeAlumnoRegistrado(alumno_check.checked)">
             </div>
         </div>
+
+        <div *ngIf="!alumno_registrado; else buscar_alumno">
+            <div class="input-group mb-3">
+                <div id="labels_alumno">
+                    <div class="input-group-prepend mb-1">
+                        <label for="nombre_alumno" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.alumno.nombre">Nombre del alumno</label>
+                    </div>
+                    <div class="input-group-prepend mb-1">
+                        <label for="apellido_alumno" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.alumno.apellido">Apellido del alumno</label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <label for="dni_alumno" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.alumno.dni">DNI del alumno</label>
+                    </div>
+                </div>
+                <div id="input_alumno">
+                    <input type="text" name="nombre_alumno" id="nombre_alumno_in_text" class="form-control mb-1"
+                        [(ngModel)]="nombre_alumno">
+                    <input type="text" name="apellido_alumno" id="apellido_alumno_in_text" class="form-control mb-1"
+                        [(ngModel)]="apellido_alumno">
+                    <input type="text" name="dni_alumno" id="dni_alumno_in_text" class="form-control"
+                        pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_alumno">
+                </div>
+            </div>
+        </div>
+
+        <ng-template #buscar_alumno>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Datos</span>
+                </div>
+                <input type="text" class="form-control">
+                <div class="input-group-end">
+                    <button class="btn btn-outline-primary">Buscar</button>
+                </div>
+              </div>
+        </ng-template>
 
         <!--Datos sobre el Contacto-->
         <u class="align-self-center">
             <h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2>
         </u>
-        <div class="input-group mb-3">
-            <div id="labels_contacto">
-                <div class="input-group-prepend mb-1">
-                    <label for="nombre_contacto" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.contacto.nombre">Nombre del contacto</label>
-                </div>
-                <div class="input-group-prepend mb-1">
-                    <label for="telefono_contacto" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.contacto.telefono">Telefono del contacto</label>
-                </div>
-                <div class="input-group-prepend mb-1">
-                    <label for="correo_contacto" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.contacto.correo">Correo del contacto</label>
-                </div>
-                <div class="input-group-prepend mb-1">
-                    <label for="dni_contacto" class="input-group-text"
-                        jhiTranslate="formulario-suscripcion.contacto.dni">DNI del contacto</label>
-                </div>
-            </div>
-            <div id="input_alumno">
-                <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1"
-                    [(ngModel)]="nombre_contacto">
-                <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
-                    pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
-                <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
-                    pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
-                <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
-                    pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
+
+        <div class="d-flex flex-row">
+            <label>¿Contacto ya registrado?</label>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                    #contacto_check (change)="changeContactoRegistrado(contacto_check.checked)">
             </div>
         </div>
+
+        <div *ngIf="!contacto_registrado; else buscar_contacto">
+            <div class="input-group mb-3">
+                <div id="labels_contacto">
+                    <div class="input-group-prepend mb-1">
+                        <label for="nombre_contacto" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.contacto.nombre">Nombre del contacto</label>
+                    </div>
+                    <div class="input-group-prepend mb-1">
+                        <label for="telefono_contacto" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.contacto.telefono">Telefono del contacto</label>
+                    </div>
+                    <div class="input-group-prepend mb-1">
+                        <label for="correo_contacto" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.contacto.correo">Correo del contacto</label>
+                    </div>
+                    <div class="input-group-prepend mb-1">
+                        <label for="dni_contacto" class="input-group-text"
+                            jhiTranslate="formulario-suscripcion.contacto.dni">DNI del contacto</label>
+                    </div>
+                </div>
+                <div id="input_alumno">
+                    <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1"
+                        [(ngModel)]="nombre_contacto">
+                    <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
+                        pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
+                    <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
+                        pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
+                    <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
+                        pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
+                </div>
+            </div>
+        </div>
+
+        <ng-template #buscar_contacto>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Datos</span>
+                </div>
+                <input type="text" class="form-control">
+                <div class="input-group-end">
+                    <button class="btn btn-outline-primary">Buscar</button>
+                </div>
+              </div>
+        </ng-template>
 
         <!--Seleccion del Taller-->
         <u class="align-self-center">

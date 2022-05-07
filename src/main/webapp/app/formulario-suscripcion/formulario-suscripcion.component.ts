@@ -1,6 +1,8 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IAlumno } from 'app/entities/alumno/alumno.model';
+import { IContacto } from 'app/entities/contacto/contacto.model';
 import { IHorario } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
 import { TallerService } from 'app/entities/taller/service/taller.service';
@@ -36,9 +38,15 @@ export class FormularioSuscripcionComponent implements OnInit {
   error = false;
   lista_errores: string[] = [];
 
-  constructor(public tallerService: TallerService, public horarioService: HorarioService, public formularioSuscripcionService: FormularioSuscripcionService, private modalService: NgbModal) {
-    this.titulo = '';
+  // Registrados
+  alumno_registrado = false;
+  contacto_registrado = false;
 
+  // Guardar ya registrados
+  alumnos_registrados:IAlumno[] = [];
+  contactos_registrados:IContacto[] = [];
+
+  constructor(public tallerService: TallerService, public horarioService: HorarioService, public formularioSuscripcionService: FormularioSuscripcionService, private modalService: NgbModal) {
     this.loadTalleres();
   }
 
@@ -124,32 +132,36 @@ export class FormularioSuscripcionComponent implements OnInit {
   comprobacionErrores(): boolean {
     this.lista_errores = [];
 
-    if (this.nombre_alumno === '') {
-      this.lista_errores.push("Nombre del alumno no puede estar vacio")
+    if(!this.alumno_registrado){
+      if (this.nombre_alumno === '') {
+        this.lista_errores.push("Nombre del alumno no puede estar vacio")
+      }
+  
+      if (this.apellido_alumno === '') {
+        this.lista_errores.push("Apellido del alumno no puede estar vacio")
+      }
+  
+      if (this.dni_alumno === '') {
+        this.lista_errores.push("DNI del alumno no puede estar vacio")
+      }
     }
 
-    if (this.apellido_alumno === '') {
-      this.lista_errores.push("Apellido del alumno no puede estar vacio")
-    }
-
-    if (this.dni_alumno === '') {
-      this.lista_errores.push("DNI del alumno no puede estar vacio")
-    }
-
-    if (this.nombre_contacto === '') {
-      this.lista_errores.push("Nombre del contacto no puede estar vacio")
-    }
-
-    if (this.dni_contacto === '') {
-      this.lista_errores.push("DNI del contacto no puede estar vacio")
-    }
-
-    if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
-      this.lista_errores.push("Telefono Incorrecto")
-    }
-
-    if (this.telefono_contacto === '' && this.correo_contacto === '') {
-      this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
+    if(!this.contacto_registrado){
+      if (this.nombre_contacto === '') {
+        this.lista_errores.push("Nombre del contacto no puede estar vacio")
+      }
+  
+      if (this.dni_contacto === '') {
+        this.lista_errores.push("DNI del contacto no puede estar vacio")
+      }
+  
+      if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
+        this.lista_errores.push("Telefono Incorrecto")
+      }
+  
+      if (this.telefono_contacto === '' && this.correo_contacto === '') {
+        this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
+      }
     }
 
     if (this.taller_seleccionado === undefined) {
@@ -160,14 +172,31 @@ export class FormularioSuscripcionComponent implements OnInit {
   }
 
   cargaDatos():void {
-    this.formularioSuscripcionService.setNombreAlumno(this.nombre_alumno);
-    this.formularioSuscripcionService.setApellidoAlumno(this.apellido_alumno);
-    this.formularioSuscripcionService.setDniAlumno(this.dni_alumno);
-    this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
+
+    if (!this.alumno_registrado){
+      this.formularioSuscripcionService.setNombreAlumno(this.nombre_alumno);
+      this.formularioSuscripcionService.setApellidoAlumno(this.apellido_alumno);
+      this.formularioSuscripcionService.setDniAlumno(this.dni_alumno);
+    }else{
+      // Cargamos Alumno Buscado
+    }
+
+    if(!this.contacto_registrado){
+      this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
     this.formularioSuscripcionService.setDniContacto(this.dni_contacto);
     this.formularioSuscripcionService.setTelefonoContacto(this.telefono_contacto);
     this.formularioSuscripcionService.setCorreoContacto(this.correo_contacto);
+    }else{
+      // Cargamos Contacto Buscado
+    }
     this.formularioSuscripcionService.setTaller(this.taller_seleccionado!);
     this.formularioSuscripcionService.setFecha(dayjs());
+  }
+
+  changeAlumnoRegistrado(registrado:boolean):void{
+    this.alumno_registrado = registrado;
+  }
+  changeContactoRegistrado(registrado:boolean):void{
+    this.contacto_registrado = registrado;
   }
 }
