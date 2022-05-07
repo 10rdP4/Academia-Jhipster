@@ -2,7 +2,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAlumno } from 'app/entities/alumno/alumno.model';
+import { AlumnoService } from 'app/entities/alumno/service/alumno.service';
 import { IContacto } from 'app/entities/contacto/contacto.model';
+import { ContactoService } from 'app/entities/contacto/service/contacto.service';
 import { IHorario } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
 import { TallerService } from 'app/entities/taller/service/taller.service';
@@ -43,10 +45,20 @@ export class FormularioSuscripcionComponent implements OnInit {
   contacto_registrado = false;
 
   // Guardar ya registrados
-  alumnos_registrados:IAlumno[] = [];
-  contactos_registrados:IContacto[] = [];
+  alumno_busqueda = '';
+  alumnos_registrados: IAlumno[] = [];
+  alumno_seleccionado?: IAlumno = undefined;
+  contacto_busqueda = '';
+  contactos_registrados: IContacto[] = [];
+  contacto_seleccionado?: IContacto = undefined;
 
-  constructor(public tallerService: TallerService, public horarioService: HorarioService, public formularioSuscripcionService: FormularioSuscripcionService, private modalService: NgbModal) {
+  constructor(
+    public tallerService: TallerService,
+    public horarioService: HorarioService,
+    public alumnoService: AlumnoService,
+    public contactoService: ContactoService,
+    public formularioSuscripcionService: FormularioSuscripcionService,
+    private modalService: NgbModal) {
     this.loadTalleres();
   }
 
@@ -125,42 +137,53 @@ export class FormularioSuscripcionComponent implements OnInit {
   resumenSuscripcion(): void {
     if (!this.comprobacionErrores()) {
       this.cargaDatos();
-      this.modalService.open(ResumenSuscripcionModalComponent);
+      const modalRef = this.modalService.open(ResumenSuscripcionModalComponent);
+      modalRef.componentInstance.crear_alumno = !this.alumno_registrado;
+      modalRef.componentInstance.crear_contacto = !this.contacto_registrado;
     }
   }
 
   comprobacionErrores(): boolean {
     this.lista_errores = [];
 
-    if(!this.alumno_registrado){
+    if (!this.alumno_registrado) {
       if (this.nombre_alumno === '') {
         this.lista_errores.push("Nombre del alumno no puede estar vacio")
       }
-  
       if (this.apellido_alumno === '') {
         this.lista_errores.push("Apellido del alumno no puede estar vacio")
       }
-  
       if (this.dni_alumno === '') {
         this.lista_errores.push("DNI del alumno no puede estar vacio")
       }
-    }
 
-    if(!this.contacto_registrado){
-      if (this.nombre_contacto === '') {
-        this.lista_errores.push("Nombre del contacto no puede estar vacio")
+      // Validaciones Creacion Contacto
+      if (!this.contacto_registrado) {
+        if (this.nombre_contacto === '') {
+          this.lista_errores.push("Nombre del contacto no puede estar vacio")
+        }
+
+        if (this.dni_contacto === '') {
+          this.lista_errores.push("DNI del contacto no puede estar vacio")
+        }
+
+        if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
+          this.lista_errores.push("Telefono Incorrecto")
+        }
+
+        if (this.telefono_contacto === '' && this.correo_contacto === '') {
+          this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
+        }
+      } else {
+        if (this.contacto_seleccionado === undefined) {
+          this.lista_errores.push("Es necesario seleccionar un contacto")
+        }
       }
-  
-      if (this.dni_contacto === '') {
-        this.lista_errores.push("DNI del contacto no puede estar vacio")
-      }
-  
-      if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
-        this.lista_errores.push("Telefono Incorrecto")
-      }
-  
-      if (this.telefono_contacto === '' && this.correo_contacto === '') {
-        this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
+      // Fin Validaciones Creacion contacto
+
+    } else {
+      if (this.alumno_seleccionado === undefined) {
+        this.lista_errores.push("Es necesario seleccionar un alumno")
       }
     }
 
@@ -171,32 +194,64 @@ export class FormularioSuscripcionComponent implements OnInit {
     return (this.error = this.lista_errores.length > 0);
   }
 
-  cargaDatos():void {
+  cargaDatos(): void {
 
-    if (!this.alumno_registrado){
+    if (!this.alumno_registrado) {
       this.formularioSuscripcionService.setNombreAlumno(this.nombre_alumno);
       this.formularioSuscripcionService.setApellidoAlumno(this.apellido_alumno);
       this.formularioSuscripcionService.setDniAlumno(this.dni_alumno);
-    }else{
-      // Cargamos Alumno Buscado
+
+      if (!this.contacto_registrado) {
+        this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
+        this.formularioSuscripcionService.setDniContacto(this.dni_contacto);
+        this.formularioSuscripcionService.setTelefonoContacto(this.telefono_contacto);
+        this.formularioSuscripcionService.setCorreoContacto(this.correo_contacto);
+      } else {
+        this.formularioSuscripcionService.setContactoAlumno(this.contacto_seleccionado!);
+      }
+
+    } else {
+      this.formularioSuscripcionService.setAlumno(this.alumno_seleccionado!);
     }
 
-    if(!this.contacto_registrado){
-      this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
-    this.formularioSuscripcionService.setDniContacto(this.dni_contacto);
-    this.formularioSuscripcionService.setTelefonoContacto(this.telefono_contacto);
-    this.formularioSuscripcionService.setCorreoContacto(this.correo_contacto);
-    }else{
-      // Cargamos Contacto Buscado
-    }
     this.formularioSuscripcionService.setTaller(this.taller_seleccionado!);
     this.formularioSuscripcionService.setFecha(dayjs());
   }
 
-  changeAlumnoRegistrado(registrado:boolean):void{
+  changeAlumnoRegistrado(registrado: boolean): void {
     this.alumno_registrado = registrado;
   }
-  changeContactoRegistrado(registrado:boolean):void{
+  changeContactoRegistrado(registrado: boolean): void {
     this.contacto_registrado = registrado;
+  }
+
+  buscarAlumno(): void {
+    this.alumnoService.buscarAlumno(this.alumno_busqueda).subscribe({
+      next: (res: HttpResponse<IAlumno[]>) => {
+        this.alumnos_registrados = res.body ?? [];
+      },
+      error: () => {
+        this.alumnos_registrados = [];
+      }
+    });
+  }
+
+  buscarContacto(): void {
+    this.contactoService.buscarContacto(this.contacto_busqueda).subscribe({
+      next: (res: HttpResponse<IContacto[]>) => {
+        this.contactos_registrados = res.body ?? [];
+      },
+      error: () => {
+        this.contactos_registrados = [];
+      }
+    });
+  }
+
+  seleccionarAlumnoExistente(alumno: IAlumno): void {
+    this.alumno_seleccionado = alumno;
+  }
+
+  seleccionarContactoExistente(contacto: IContacto): void {
+    this.contacto_seleccionado = contacto;
   }
 }

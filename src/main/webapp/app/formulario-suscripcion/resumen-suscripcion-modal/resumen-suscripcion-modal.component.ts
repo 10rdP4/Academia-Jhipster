@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
-import {Component} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAlumno } from 'app/entities/alumno/alumno.model';
 import { AlumnoService } from 'app/entities/alumno/service/alumno.service';
 import { IContacto } from 'app/entities/contacto/contacto.model';
@@ -15,47 +15,58 @@ import { FormularioSuscripcionService } from '../formulario-suscripcion.service'
 })
 export class ResumenSuscripcionModalComponent {
 
-  suscripcion?:ISuscripcion;
-  contacto_recibido?:IContacto;
-  alumno_recibido?:IAlumno;
+  suscripcion?: ISuscripcion;
+  contacto_recibido?: IContacto;
+  alumno_recibido?: IAlumno;
+
+  crear_contacto = false;
+  crear_alumno = false;
 
   constructor(
     public activeModal: NgbActiveModal,
-    public formularioSuscripcionService:FormularioSuscripcionService,
+    public formularioSuscripcionService: FormularioSuscripcionService,
     public suscripcionService: SuscripcionService,
     public contactoService: ContactoService,
     public alumnoService: AlumnoService
-    ) {
+  ) {
     this.suscripcion = formularioSuscripcionService.nuevaSuscripcion;
   }
 
-  guardarSuscripcion():void{
+  guardarSuscripcion(): void {
 
-      this.contactoService.create(this.formularioSuscripcionService.contacto).subscribe({
-        next: (contacto: HttpResponse<IContacto>) => {
-          this.contacto_recibido = contacto.body ?? undefined ;
-          this.formularioSuscripcionService.setContactoAlumno(this.contacto_recibido!);
-
-          // Esto es horrible
-          this.guardarAlumno();
-        }
+    if (this.crear_alumno) {
+      if (this.crear_contacto) {
+        this.crearTodo();
+      } else {
+        this.guardarAlumno();
+      }
+    } else {
+      this.suscripcionService.create(this.formularioSuscripcionService.nuevaSuscripcion).subscribe({
       });
-
-    
-      this.activeModal.close('Close click');
+    }
+    this.activeModal.close('Close click');
   }
 
-  guardarAlumno():void{
+  crearTodo(): void {
+    this.contactoService.create(this.formularioSuscripcionService.contacto).subscribe({
+      next: (contacto: HttpResponse<IContacto>) => {
+        this.contacto_recibido = contacto.body ?? undefined;
+        this.formularioSuscripcionService.setContactoAlumno(this.contacto_recibido!);
+        this.guardarAlumno();
+      }
+    });
+  }
+
+  guardarAlumno(): void {
     this.alumnoService.create(this.formularioSuscripcionService.alumno).subscribe({
       next: (alumno: HttpResponse<IAlumno>) => {
-        this.alumno_recibido = alumno.body ?? undefined ;
+        this.alumno_recibido = alumno.body ?? undefined;
         this.formularioSuscripcionService.setAlumno(this.alumno_recibido!);
 
-        // Guardar Suscripcion
         this.suscripcionService.create(this.formularioSuscripcionService.nuevaSuscripcion).subscribe({
         });
       }
     }
-  );
+    );
   }
 }

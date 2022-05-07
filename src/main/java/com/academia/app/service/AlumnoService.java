@@ -76,6 +76,18 @@ public class AlumnoService {
     }
 
     /**
+     * Get all the alumnos.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Alumno> findByBusqueda(String busqueda, Pageable pageable) {
+        log.debug("Request to get all Alumnos");
+        return alumnoRepository.findByBusqueda(busqueda, pageable);
+    }
+
+    /**
      * Get one alumno by id.
      *
      * @param id the id of the entity.

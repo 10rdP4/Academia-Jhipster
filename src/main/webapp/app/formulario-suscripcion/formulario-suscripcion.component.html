@@ -14,8 +14,8 @@
         <div class="d-flex flex-row">
             <label>¿Alumno ya registrado?</label>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                    #alumno_check (change)="changeAlumnoRegistrado(alumno_check.checked)">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" #alumno_check
+                    (change)="changeAlumnoRegistrado(alumno_check.checked)">
             </div>
         </div>
 
@@ -49,72 +49,132 @@
         <ng-template #buscar_alumno>
             <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Datos</span>
+                    <span class="input-group-text" id="">Datos</span>
                 </div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" [(ngModel)]="alumno_busqueda">
                 <div class="input-group-end">
-                    <button class="btn btn-outline-primary">Buscar</button>
-                </div>
-              </div>
-        </ng-template>
-
-        <!--Datos sobre el Contacto-->
-        <u class="align-self-center">
-            <h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2>
-        </u>
-
-        <div class="d-flex flex-row">
-            <label>¿Contacto ya registrado?</label>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                    #contacto_check (change)="changeContactoRegistrado(contacto_check.checked)">
-            </div>
-        </div>
-
-        <div *ngIf="!contacto_registrado; else buscar_contacto">
-            <div class="input-group mb-3">
-                <div id="labels_contacto">
-                    <div class="input-group-prepend mb-1">
-                        <label for="nombre_contacto" class="input-group-text"
-                            jhiTranslate="formulario-suscripcion.contacto.nombre">Nombre del contacto</label>
-                    </div>
-                    <div class="input-group-prepend mb-1">
-                        <label for="telefono_contacto" class="input-group-text"
-                            jhiTranslate="formulario-suscripcion.contacto.telefono">Telefono del contacto</label>
-                    </div>
-                    <div class="input-group-prepend mb-1">
-                        <label for="correo_contacto" class="input-group-text"
-                            jhiTranslate="formulario-suscripcion.contacto.correo">Correo del contacto</label>
-                    </div>
-                    <div class="input-group-prepend mb-1">
-                        <label for="dni_contacto" class="input-group-text"
-                            jhiTranslate="formulario-suscripcion.contacto.dni">DNI del contacto</label>
-                    </div>
-                </div>
-                <div id="input_alumno">
-                    <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1"
-                        [(ngModel)]="nombre_contacto">
-                    <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
-                        pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
-                    <input type="email" name="correo_contacto" id="apellido_alumno_in_text" class="form-control mb-1"
-                        pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
-                    <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
-                        pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
+                    <button class="btn btn-outline-primary" (click)="buscarAlumno()">Buscar</button>
                 </div>
             </div>
+
+            <div class="alert alert-info border border-info" *ngIf="alumnos_registrados.length > 0; else error_alumnos">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let alumno of alumnos_registrados">
+                            <td>{{alumno.nombre}}</td>
+                            <td>{{alumno.apellido}}</td>
+                            <td>{{alumno.dni}}</td>
+                            <td><button class="btn btn-primary"
+                                    (click)="seleccionarAlumnoExistente(alumno)">Seleccionar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ng-template #error_alumnos>
+                <p class="alert alert-warning">Ningun Alumno Seleccionado</p>
+            </ng-template>
+
+        </ng-template>
+
+        <div *ngIf="!alumno_registrado">
+            <!--Datos sobre el Contacto-->
+            <u class="align-self-center">
+                <h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2>
+            </u>
+
+            <div class="d-flex flex-row">
+                <label>¿Contacto ya registrado?</label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" #contacto_check
+                        (change)="changeContactoRegistrado(contacto_check.checked)">
+                </div>
+            </div>
+
+            <div *ngIf="!contacto_registrado; else buscar_contacto">
+                <div class="input-group mb-3">
+                    <div id="labels_contacto">
+                        <div class="input-group-prepend mb-1">
+                            <label for="nombre_contacto" class="input-group-text"
+                                jhiTranslate="formulario-suscripcion.contacto.nombre">Nombre del contacto</label>
+                        </div>
+                        <div class="input-group-prepend mb-1">
+                            <label for="telefono_contacto" class="input-group-text"
+                                jhiTranslate="formulario-suscripcion.contacto.telefono">Telefono del contacto</label>
+                        </div>
+                        <div class="input-group-prepend mb-1">
+                            <label for="correo_contacto" class="input-group-text"
+                                jhiTranslate="formulario-suscripcion.contacto.correo">Correo del contacto</label>
+                        </div>
+                        <div class="input-group-prepend mb-1">
+                            <label for="dni_contacto" class="input-group-text"
+                                jhiTranslate="formulario-suscripcion.contacto.dni">DNI del contacto</label>
+                        </div>
+                    </div>
+                    <div id="input_alumno">
+                        <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1"
+                            [(ngModel)]="nombre_contacto">
+                        <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text"
+                            class="form-control mb-1" pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
+                        <input type="email" name="correo_contacto" id="apellido_alumno_in_text"
+                            class="form-control mb-1" pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
+                        <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
+                            pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #buscar_contacto>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Datos</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="contacto_busqueda">
+                    <div class="input-group-end">
+                        <button class="btn btn-outline-primary" (click)="buscarContacto()">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-info border border-info"
+                    *ngIf="contactos_registrados.length > 0; else error_contactos">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">DNI</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let contacto of contactos_registrados">
+                                <td>{{contacto.nombre}}</td>
+                                <td>{{contacto.dni}}</td>
+                                <td>{{contacto.telefono}}</td>
+                                <td>{{contacto.correo}}</td>
+                                <td>
+                                    <button class="btn btn-primary"
+                                        (click)="seleccionarContactoExistente(contacto)">Seleccionar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <ng-template #error_contactos>
+                    <p class="alert alert-warning">Ningun Contacto Seleccionado</p>
+                </ng-template>
+            </ng-template>
         </div>
 
-        <ng-template #buscar_contacto>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Datos</span>
-                </div>
-                <input type="text" class="form-control">
-                <div class="input-group-end">
-                    <button class="btn btn-outline-primary">Buscar</button>
-                </div>
-              </div>
-        </ng-template>
 
         <!--Seleccion del Taller-->
         <u class="align-self-center">

@@ -34,6 +34,10 @@ export class ContactoService {
     return this.http.get<IContacto>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  buscarContacto(busqueda:string): Observable<EntityArrayResponseType>{
+    return this.http.get<IContacto[]>(`${this.resourceUrl}/busqueda/${busqueda}`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IContacto[]>(this.resourceUrl, { params: options, observe: 'response' });

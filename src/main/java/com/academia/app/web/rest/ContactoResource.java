@@ -153,6 +153,20 @@ public class ContactoResource {
     }
 
     /**
+     * {@code GET  /contactos/busqueda/:busqueda} : get all the contactos by busqueda.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of alumnos in body.
+     */
+    @GetMapping("/contactos/busqueda/{busqueda}")
+    public ResponseEntity<List<Contacto>> getContactosByBusqueda(@org.springdoc.api.annotations.ParameterObject Pageable pageable, @PathVariable String busqueda) {
+        log.debug("REST request to get a page of Contactos by busqueda");
+        Page<Contacto> page = contactoService.findByBusqueda(busqueda, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /contactos/:id} : get the "id" contacto.
      *
      * @param id the id of the contacto to retrieve.

@@ -153,6 +153,20 @@ public class AlumnoResource {
     }
 
     /**
+     * {@code GET  /alumnos/busqueda/:busqueda} : get all the alumnos by busqueda.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of alumnos in body.
+     */
+    @GetMapping("/alumnos/busqueda/{busqueda}")
+    public ResponseEntity<List<Alumno>> getAlumnosByBusqueda(@org.springdoc.api.annotations.ParameterObject Pageable pageable, @PathVariable String busqueda) {
+        log.debug("REST request to get a page of Alumnos by busqueda");
+        Page<Alumno> page = alumnoService.findByBusqueda(busqueda, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /alumnos/:id} : get the "id" alumno.
      *
      * @param id the id of the alumno to retrieve.

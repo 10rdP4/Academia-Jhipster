@@ -67,6 +67,18 @@ public class ContactoService {
     }
 
     /**
+     * Get all the contactos by busqueda.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Contacto> findByBusqueda(String busqueda, Pageable pageable) {
+        log.debug("Request to get all Contactos by busqueda");
+        return contactoRepository.findByBusqueda(busqueda, pageable);
+    }
+
+    /**
      * Get all the contactos.
      *
      * @param pageable the pagination information.

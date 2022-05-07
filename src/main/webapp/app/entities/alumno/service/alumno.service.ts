@@ -37,6 +37,10 @@ export class AlumnoService {
     return this.http.get<IAlumno[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  buscarAlumno(busqueda:string): Observable<EntityArrayResponseType>{
+    return this.http.get<IAlumno[]>(`${this.resourceUrl}/busqueda/${busqueda}`, { observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
