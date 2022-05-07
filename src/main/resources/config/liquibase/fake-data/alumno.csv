@@ -1,11 +1,11 @@
-id;nombre;apellido
-1;Reducido;Regional
-2;Cambridgeshire Sorprendente Vasco;Refinado Vasco
-3;Pizza Rambla Avon;Diseñador a
-4;Representante conjunto;Supervisor infrastructures wireless
-5;Morado;copy
-6;card indexing;microchip
-7;Inteligente;payment
-8;compressing;invoice
-9;innovadora;compress compressing harness
-10;quantify Ergonómico;leverage
+id;nombre;apellido;dni
+1;Reducido;Regional;Cambridgeshire Sorprendente Vasco
+2;Refinado Vasco;Pizza Rambla Avon;Diseñador a
+3;Representante conjunto;Supervisor infrastructures wireless;Morado
+4;copy;card indexing;microchip
+5;Inteligente;payment;compressing
+6;invoice;innovadora;compress compressing harness
+7;quantify Ergonómico;leverage;Kuwaiti Bedfordshire bypassing
+8;Música;EXE;alarm
+9;auxiliary;Kazajistan Artesanal;SQL
+10;Gold Salchichas bleeding-edge;generate;Ecuatorial virtual

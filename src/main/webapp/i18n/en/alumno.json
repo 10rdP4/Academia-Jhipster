@@ -20,6 +20,7 @@
       "id": "ID",
       "nombre": "Nombre",
       "apellido": "Apellido",
+      "dni": "Dni",
       "suscripcion": "Suscripcion",
       "asistencia": "Asistencia",
       "contacto": "Contacto"

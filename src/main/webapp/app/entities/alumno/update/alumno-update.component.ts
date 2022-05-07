@@ -23,6 +23,7 @@ export class AlumnoUpdateComponent implements OnInit {
     id: [],
     nombre: [null, [Validators.required]],
     apellido: [],
+    dni: [null, [Validators.required]],
     contacto: [],
   });
 
@@ -83,6 +84,7 @@ export class AlumnoUpdateComponent implements OnInit {
       id: alumno.id,
       nombre: alumno.nombre,
       apellido: alumno.apellido,
+      dni: alumno.dni,
       contacto: alumno.contacto,
     });
 
@@ -107,6 +109,7 @@ export class AlumnoUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nombre: this.editForm.get(['nombre'])!.value,
       apellido: this.editForm.get(['apellido'])!.value,
+      dni: this.editForm.get(['dni'])!.value,
       contacto: this.editForm.get(['contacto'])!.value,
     };
   }

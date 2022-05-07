@@ -38,6 +38,9 @@ class ContactoResourceIT {
     private static final String DEFAULT_CORREO = "AAAAAAAAAA";
     private static final String UPDATED_CORREO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DNI = "AAAAAAAAAA";
+    private static final String UPDATED_DNI = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/contactos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +65,7 @@ class ContactoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Contacto createEntity(EntityManager em) {
-        Contacto contacto = new Contacto().nombre(DEFAULT_NOMBRE).telefono(DEFAULT_TELEFONO).correo(DEFAULT_CORREO);
+        Contacto contacto = new Contacto().nombre(DEFAULT_NOMBRE).telefono(DEFAULT_TELEFONO).correo(DEFAULT_CORREO).dni(DEFAULT_DNI);
         return contacto;
     }
 
@@ -73,7 +76,7 @@ class ContactoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Contacto createUpdatedEntity(EntityManager em) {
-        Contacto contacto = new Contacto().nombre(UPDATED_NOMBRE).telefono(UPDATED_TELEFONO).correo(UPDATED_CORREO);
+        Contacto contacto = new Contacto().nombre(UPDATED_NOMBRE).telefono(UPDATED_TELEFONO).correo(UPDATED_CORREO).dni(UPDATED_DNI);
         return contacto;
     }
 
@@ -98,6 +101,7 @@ class ContactoResourceIT {
         assertThat(testContacto.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testContacto.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testContacto.getCorreo()).isEqualTo(DEFAULT_CORREO);
+        assertThat(testContacto.getDni()).isEqualTo(DEFAULT_DNI);
     }
 
     @Test
@@ -137,6 +141,23 @@ class ContactoResourceIT {
 
     @Test
     @Transactional
+    void checkDniIsRequired() throws Exception {
+        int databaseSizeBeforeTest = contactoRepository.findAll().size();
+        // set the field null
+        contacto.setDni(null);
+
+        // Create the Contacto, which fails.
+
+        restContactoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(contacto)))
+            .andExpect(status().isBadRequest());
+
+        List<Contacto> contactoList = contactoRepository.findAll();
+        assertThat(contactoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllContactos() throws Exception {
         // Initialize the database
         contactoRepository.saveAndFlush(contacto);
@@ -149,7 +170,8 @@ class ContactoResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(contacto.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
-            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)));
+            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)))
+            .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)));
     }
 
     @Test
@@ -166,7 +188,8 @@ class ContactoResourceIT {
             .andExpect(jsonPath("$.id").value(contacto.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
             .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO))
-            .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO));
+            .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO))
+            .andExpect(jsonPath("$.dni").value(DEFAULT_DNI));
     }
 
     @Test
@@ -188,7 +211,7 @@ class ContactoResourceIT {
         Contacto updatedContacto = contactoRepository.findById(contacto.getId()).get();
         // Disconnect from session so that the updates on updatedContacto are not directly saved in db
         em.detach(updatedContacto);
-        updatedContacto.nombre(UPDATED_NOMBRE).telefono(UPDATED_TELEFONO).correo(UPDATED_CORREO);
+        updatedContacto.nombre(UPDATED_NOMBRE).telefono(UPDATED_TELEFONO).correo(UPDATED_CORREO).dni(UPDATED_DNI);
 
         restContactoMockMvc
             .perform(
@@ -205,6 +228,7 @@ class ContactoResourceIT {
         assertThat(testContacto.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testContacto.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testContacto.getCorreo()).isEqualTo(UPDATED_CORREO);
+        assertThat(testContacto.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test
@@ -292,6 +316,7 @@ class ContactoResourceIT {
         assertThat(testContacto.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testContacto.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testContacto.getCorreo()).isEqualTo(DEFAULT_CORREO);
+        assertThat(testContacto.getDni()).isEqualTo(DEFAULT_DNI);
     }
 
     @Test
@@ -306,7 +331,7 @@ class ContactoResourceIT {
         Contacto partialUpdatedContacto = new Contacto();
         partialUpdatedContacto.setId(contacto.getId());
 
-        partialUpdatedContacto.nombre(UPDATED_NOMBRE).telefono(UPDATED_TELEFONO).correo(UPDATED_CORREO);
+        partialUpdatedContacto.nombre(UPDATED_NOMBRE).telefono(UPDATED_TELEFONO).correo(UPDATED_CORREO).dni(UPDATED_DNI);
 
         restContactoMockMvc
             .perform(
@@ -323,6 +348,7 @@ class ContactoResourceIT {
         assertThat(testContacto.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testContacto.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testContacto.getCorreo()).isEqualTo(UPDATED_CORREO);
+        assertThat(testContacto.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test

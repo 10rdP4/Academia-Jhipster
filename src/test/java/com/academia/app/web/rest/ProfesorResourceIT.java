@@ -38,6 +38,9 @@ class ProfesorResourceIT {
     private static final Double DEFAULT_SUELDO = 1D;
     private static final Double UPDATED_SUELDO = 2D;
 
+    private static final String DEFAULT_DNI = "AAAAAAAAAA";
+    private static final String UPDATED_DNI = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/profesors";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +65,7 @@ class ProfesorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Profesor createEntity(EntityManager em) {
-        Profesor profesor = new Profesor().nombre(DEFAULT_NOMBRE).apellido(DEFAULT_APELLIDO).sueldo(DEFAULT_SUELDO);
+        Profesor profesor = new Profesor().nombre(DEFAULT_NOMBRE).apellido(DEFAULT_APELLIDO).sueldo(DEFAULT_SUELDO).dni(DEFAULT_DNI);
         return profesor;
     }
 
@@ -73,7 +76,7 @@ class ProfesorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Profesor createUpdatedEntity(EntityManager em) {
-        Profesor profesor = new Profesor().nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO);
+        Profesor profesor = new Profesor().nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO).dni(UPDATED_DNI);
         return profesor;
     }
 
@@ -98,6 +101,7 @@ class ProfesorResourceIT {
         assertThat(testProfesor.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testProfesor.getApellido()).isEqualTo(DEFAULT_APELLIDO);
         assertThat(testProfesor.getSueldo()).isEqualTo(DEFAULT_SUELDO);
+        assertThat(testProfesor.getDni()).isEqualTo(DEFAULT_DNI);
     }
 
     @Test
@@ -154,6 +158,23 @@ class ProfesorResourceIT {
 
     @Test
     @Transactional
+    void checkDniIsRequired() throws Exception {
+        int databaseSizeBeforeTest = profesorRepository.findAll().size();
+        // set the field null
+        profesor.setDni(null);
+
+        // Create the Profesor, which fails.
+
+        restProfesorMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(profesor)))
+            .andExpect(status().isBadRequest());
+
+        List<Profesor> profesorList = profesorRepository.findAll();
+        assertThat(profesorList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllProfesors() throws Exception {
         // Initialize the database
         profesorRepository.saveAndFlush(profesor);
@@ -166,7 +187,8 @@ class ProfesorResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(profesor.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO)))
-            .andExpect(jsonPath("$.[*].sueldo").value(hasItem(DEFAULT_SUELDO.doubleValue())));
+            .andExpect(jsonPath("$.[*].sueldo").value(hasItem(DEFAULT_SUELDO.doubleValue())))
+            .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)));
     }
 
     @Test
@@ -183,7 +205,8 @@ class ProfesorResourceIT {
             .andExpect(jsonPath("$.id").value(profesor.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
             .andExpect(jsonPath("$.apellido").value(DEFAULT_APELLIDO))
-            .andExpect(jsonPath("$.sueldo").value(DEFAULT_SUELDO.doubleValue()));
+            .andExpect(jsonPath("$.sueldo").value(DEFAULT_SUELDO.doubleValue()))
+            .andExpect(jsonPath("$.dni").value(DEFAULT_DNI));
     }
 
     @Test
@@ -205,7 +228,7 @@ class ProfesorResourceIT {
         Profesor updatedProfesor = profesorRepository.findById(profesor.getId()).get();
         // Disconnect from session so that the updates on updatedProfesor are not directly saved in db
         em.detach(updatedProfesor);
-        updatedProfesor.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO);
+        updatedProfesor.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO).dni(UPDATED_DNI);
 
         restProfesorMockMvc
             .perform(
@@ -222,6 +245,7 @@ class ProfesorResourceIT {
         assertThat(testProfesor.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testProfesor.getApellido()).isEqualTo(UPDATED_APELLIDO);
         assertThat(testProfesor.getSueldo()).isEqualTo(UPDATED_SUELDO);
+        assertThat(testProfesor.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test
@@ -292,7 +316,7 @@ class ProfesorResourceIT {
         Profesor partialUpdatedProfesor = new Profesor();
         partialUpdatedProfesor.setId(profesor.getId());
 
-        partialUpdatedProfesor.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO);
+        partialUpdatedProfesor.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO).dni(UPDATED_DNI);
 
         restProfesorMockMvc
             .perform(
@@ -309,6 +333,7 @@ class ProfesorResourceIT {
         assertThat(testProfesor.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testProfesor.getApellido()).isEqualTo(UPDATED_APELLIDO);
         assertThat(testProfesor.getSueldo()).isEqualTo(UPDATED_SUELDO);
+        assertThat(testProfesor.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test
@@ -323,7 +348,7 @@ class ProfesorResourceIT {
         Profesor partialUpdatedProfesor = new Profesor();
         partialUpdatedProfesor.setId(profesor.getId());
 
-        partialUpdatedProfesor.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO);
+        partialUpdatedProfesor.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).sueldo(UPDATED_SUELDO).dni(UPDATED_DNI);
 
         restProfesorMockMvc
             .perform(
@@ -340,6 +365,7 @@ class ProfesorResourceIT {
         assertThat(testProfesor.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testProfesor.getApellido()).isEqualTo(UPDATED_APELLIDO);
         assertThat(testProfesor.getSueldo()).isEqualTo(UPDATED_SUELDO);
+        assertThat(testProfesor.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test

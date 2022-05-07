@@ -21,6 +21,7 @@
       "nombre": "Nombre",
       "telefono": "Telefono",
       "correo": "Correo",
+      "dni": "Dni",
       "alumno": "Alumno"
     }
   }

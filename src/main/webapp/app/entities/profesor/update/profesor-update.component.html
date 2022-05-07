@@ -40,6 +40,16 @@
             </small>
           </div>
         </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="academiaApp.profesor.dni" for="field_dni">Dni</label>
+          <input type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" formControlName="dni" />
+          <div *ngIf="editForm.get('dni')!.invalid && (editForm.get('dni')!.dirty || editForm.get('dni')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('dni')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
       </div>
 
       <div>

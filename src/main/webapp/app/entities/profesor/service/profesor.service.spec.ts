@@ -24,6 +24,7 @@ describe('Profesor Service', () => {
       nombre: 'AAAAAAA',
       apellido: 'AAAAAAA',
       sueldo: 0,
+      dni: 'AAAAAAA',
     };
   });
 
@@ -62,6 +63,7 @@ describe('Profesor Service', () => {
           nombre: 'BBBBBB',
           apellido: 'BBBBBB',
           sueldo: 1,
+          dni: 'BBBBBB',
         },
         elemDefault
       );
@@ -102,6 +104,7 @@ describe('Profesor Service', () => {
           nombre: 'BBBBBB',
           apellido: 'BBBBBB',
           sueldo: 1,
+          dni: 'BBBBBB',
         },
         elemDefault
       );
@@ -153,7 +156,7 @@ describe('Profesor Service', () => {
       });
 
       it('should add only unique Profesor to an array', () => {
-        const profesorArray: IProfesor[] = [{ id: 123 }, { id: 456 }, { id: 17295 }];
+        const profesorArray: IProfesor[] = [{ id: 123 }, { id: 456 }, { id: 32371 }];
         const profesorCollection: IProfesor[] = [{ id: 123 }];
         expectedResult = service.addProfesorToCollectionIfMissing(profesorCollection, ...profesorArray);
         expect(expectedResult).toHaveLength(3);

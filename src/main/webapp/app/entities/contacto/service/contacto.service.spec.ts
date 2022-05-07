@@ -24,6 +24,7 @@ describe('Contacto Service', () => {
       nombre: 'AAAAAAA',
       telefono: 'AAAAAAA',
       correo: 'AAAAAAA',
+      dni: 'AAAAAAA',
     };
   });
 
@@ -62,6 +63,7 @@ describe('Contacto Service', () => {
           nombre: 'BBBBBB',
           telefono: 'BBBBBB',
           correo: 'BBBBBB',
+          dni: 'BBBBBB',
         },
         elemDefault
       );
@@ -102,6 +104,7 @@ describe('Contacto Service', () => {
           nombre: 'BBBBBB',
           telefono: 'BBBBBB',
           correo: 'BBBBBB',
+          dni: 'BBBBBB',
         },
         elemDefault
       );
@@ -153,7 +156,7 @@ describe('Contacto Service', () => {
       });
 
       it('should add only unique Contacto to an array', () => {
-        const contactoArray: IContacto[] = [{ id: 123 }, { id: 456 }, { id: 7182 }];
+        const contactoArray: IContacto[] = [{ id: 123 }, { id: 456 }, { id: 37811 }];
         const contactoCollection: IContacto[] = [{ id: 123 }];
         expectedResult = service.addContactoToCollectionIfMissing(contactoCollection, ...contactoArray);
         expect(expectedResult).toHaveLength(3);

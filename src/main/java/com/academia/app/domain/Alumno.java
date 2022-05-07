@@ -31,6 +31,10 @@ public class Alumno implements Serializable {
     @Column(name = "apellido")
     private String apellido;
 
+    @NotNull
+    @Column(name = "dni", nullable = false, unique = true)
+    private String dni;
+
     @OneToMany(mappedBy = "alumno")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "alumno", "taller" }, allowSetters = true)
@@ -84,6 +88,19 @@ public class Alumno implements Serializable {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getDni() {
+        return this.dni;
+    }
+
+    public Alumno dni(String dni) {
+        this.setDni(dni);
+        return this;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public Set<Suscripcion> getSuscripcions() {
@@ -187,6 +204,7 @@ public class Alumno implements Serializable {
             "id=" + getId() +
             ", nombre='" + getNombre() + "'" +
             ", apellido='" + getApellido() + "'" +
+            ", dni='" + getDni() + "'" +
             "}";
     }
 }

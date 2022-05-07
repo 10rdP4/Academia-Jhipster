@@ -34,6 +34,10 @@ public class Contacto implements Serializable {
     @Column(name = "correo")
     private String correo;
 
+    @NotNull
+    @Column(name = "dni", nullable = false, unique = true)
+    private String dni;
+
     @OneToMany(mappedBy = "contacto")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "suscripcions", "asistencias", "contacto" }, allowSetters = true)
@@ -91,6 +95,19 @@ public class Contacto implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getDni() {
+        return this.dni;
+    }
+
+    public Contacto dni(String dni) {
+        this.setDni(dni);
+        return this;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public Set<Alumno> getAlumnos() {
@@ -151,6 +168,7 @@ public class Contacto implements Serializable {
             ", nombre='" + getNombre() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +
+            ", dni='" + getDni() + "'" +
             "}";
     }
 }

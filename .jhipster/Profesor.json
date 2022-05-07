@@ -18,6 +18,11 @@
       "fieldName": "sueldo",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dni",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
     }
   ],
   "fluentMethods": true,

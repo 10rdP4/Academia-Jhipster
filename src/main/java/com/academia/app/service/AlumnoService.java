@@ -54,6 +54,9 @@ public class AlumnoService {
                 if (alumno.getApellido() != null) {
                     existingAlumno.setApellido(alumno.getApellido());
                 }
+                if (alumno.getDni() != null) {
+                    existingAlumno.setDni(alumno.getDni());
+                }
 
                 return existingAlumno;
             })

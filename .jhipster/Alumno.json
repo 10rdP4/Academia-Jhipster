@@ -13,6 +13,11 @@
     {
       "fieldName": "apellido",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "dni",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
     }
   ],
   "fluentMethods": true,

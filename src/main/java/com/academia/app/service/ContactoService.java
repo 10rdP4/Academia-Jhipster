@@ -57,6 +57,9 @@ public class ContactoService {
                 if (contacto.getCorreo() != null) {
                     existingContacto.setCorreo(contacto.getCorreo());
                 }
+                if (contacto.getDni() != null) {
+                    existingContacto.setDni(contacto.getDni());
+                }
 
                 return existingContacto;
             })

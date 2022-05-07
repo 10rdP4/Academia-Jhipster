@@ -39,6 +39,7 @@
           <th scope="col" jhiSortBy="apellido">
             <span jhiTranslate="academiaApp.alumno.apellido">Apellido</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="dni"><span jhiTranslate="academiaApp.alumno.dni">Dni</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="contacto.id">
             <span jhiTranslate="academiaApp.alumno.contacto">Contacto</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -52,6 +53,7 @@
           </td>
           <td>{{ alumno.nombre }}</td>
           <td>{{ alumno.apellido }}</td>
+          <td>{{ alumno.dni }}</td>
           <td>
             <div *ngIf="alumno.contacto">
               <a [routerLink]="['/contacto', alumno.contacto?.id, 'view']">{{ alumno.contacto?.id }}</a>

@@ -20,6 +20,7 @@ export class ProfesorUpdateComponent implements OnInit {
     nombre: [null, [Validators.required]],
     apellido: [],
     sueldo: [null, [Validators.required]],
+    dni: [null, [Validators.required]],
   });
 
   constructor(protected profesorService: ProfesorService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -69,6 +70,7 @@ export class ProfesorUpdateComponent implements OnInit {
       nombre: profesor.nombre,
       apellido: profesor.apellido,
       sueldo: profesor.sueldo,
+      dni: profesor.dni,
     });
   }
 
@@ -79,6 +81,7 @@ export class ProfesorUpdateComponent implements OnInit {
       nombre: this.editForm.get(['nombre'])!.value,
       apellido: this.editForm.get(['apellido'])!.value,
       sueldo: this.editForm.get(['sueldo'])!.value,
+      dni: this.editForm.get(['dni'])!.value,
     };
   }
 }

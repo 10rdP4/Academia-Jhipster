@@ -35,6 +35,10 @@ public class Profesor implements Serializable {
     @Column(name = "sueldo", nullable = false)
     private Double sueldo;
 
+    @NotNull
+    @Column(name = "dni", nullable = false, unique = true)
+    private String dni;
+
     @OneToMany(mappedBy = "profesor")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "suscripcions", "asistencias", "horarios", "profesor" }, allowSetters = true)
@@ -92,6 +96,19 @@ public class Profesor implements Serializable {
 
     public void setSueldo(Double sueldo) {
         this.sueldo = sueldo;
+    }
+
+    public String getDni() {
+        return this.dni;
+    }
+
+    public Profesor dni(String dni) {
+        this.setDni(dni);
+        return this;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public Set<Taller> getTallers() {
@@ -152,6 +169,7 @@ public class Profesor implements Serializable {
             ", nombre='" + getNombre() + "'" +
             ", apellido='" + getApellido() + "'" +
             ", sueldo=" + getSueldo() +
+            ", dni='" + getDni() + "'" +
             "}";
     }
 }

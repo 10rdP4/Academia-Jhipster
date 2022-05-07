@@ -6,6 +6,7 @@ export interface IAlumno {
   id?: number;
   nombre?: string;
   apellido?: string | null;
+  dni?: string;
   suscripcions?: ISuscripcion[] | null;
   asistencias?: IAsistencia[] | null;
   contacto?: IContacto | null;
@@ -16,6 +17,7 @@ export class Alumno implements IAlumno {
     public id?: number,
     public nombre?: string,
     public apellido?: string | null,
+    public dni?: string,
     public suscripcions?: ISuscripcion[] | null,
     public asistencias?: IAsistencia[] | null,
     public contacto?: IContacto | null

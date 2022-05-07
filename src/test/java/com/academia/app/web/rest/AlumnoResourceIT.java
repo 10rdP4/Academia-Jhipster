@@ -35,6 +35,9 @@ class AlumnoResourceIT {
     private static final String DEFAULT_APELLIDO = "AAAAAAAAAA";
     private static final String UPDATED_APELLIDO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DNI = "AAAAAAAAAA";
+    private static final String UPDATED_DNI = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/alumnos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -59,7 +62,7 @@ class AlumnoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Alumno createEntity(EntityManager em) {
-        Alumno alumno = new Alumno().nombre(DEFAULT_NOMBRE).apellido(DEFAULT_APELLIDO);
+        Alumno alumno = new Alumno().nombre(DEFAULT_NOMBRE).apellido(DEFAULT_APELLIDO).dni(DEFAULT_DNI);
         return alumno;
     }
 
@@ -70,7 +73,7 @@ class AlumnoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Alumno createUpdatedEntity(EntityManager em) {
-        Alumno alumno = new Alumno().nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO);
+        Alumno alumno = new Alumno().nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).dni(UPDATED_DNI);
         return alumno;
     }
 
@@ -94,6 +97,7 @@ class AlumnoResourceIT {
         Alumno testAlumno = alumnoList.get(alumnoList.size() - 1);
         assertThat(testAlumno.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testAlumno.getApellido()).isEqualTo(DEFAULT_APELLIDO);
+        assertThat(testAlumno.getDni()).isEqualTo(DEFAULT_DNI);
     }
 
     @Test
@@ -133,6 +137,23 @@ class AlumnoResourceIT {
 
     @Test
     @Transactional
+    void checkDniIsRequired() throws Exception {
+        int databaseSizeBeforeTest = alumnoRepository.findAll().size();
+        // set the field null
+        alumno.setDni(null);
+
+        // Create the Alumno, which fails.
+
+        restAlumnoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(alumno)))
+            .andExpect(status().isBadRequest());
+
+        List<Alumno> alumnoList = alumnoRepository.findAll();
+        assertThat(alumnoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllAlumnos() throws Exception {
         // Initialize the database
         alumnoRepository.saveAndFlush(alumno);
@@ -144,7 +165,8 @@ class AlumnoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(alumno.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
-            .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO)));
+            .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO)))
+            .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)));
     }
 
     @Test
@@ -160,7 +182,8 @@ class AlumnoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(alumno.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
-            .andExpect(jsonPath("$.apellido").value(DEFAULT_APELLIDO));
+            .andExpect(jsonPath("$.apellido").value(DEFAULT_APELLIDO))
+            .andExpect(jsonPath("$.dni").value(DEFAULT_DNI));
     }
 
     @Test
@@ -182,7 +205,7 @@ class AlumnoResourceIT {
         Alumno updatedAlumno = alumnoRepository.findById(alumno.getId()).get();
         // Disconnect from session so that the updates on updatedAlumno are not directly saved in db
         em.detach(updatedAlumno);
-        updatedAlumno.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO);
+        updatedAlumno.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).dni(UPDATED_DNI);
 
         restAlumnoMockMvc
             .perform(
@@ -198,6 +221,7 @@ class AlumnoResourceIT {
         Alumno testAlumno = alumnoList.get(alumnoList.size() - 1);
         assertThat(testAlumno.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testAlumno.getApellido()).isEqualTo(UPDATED_APELLIDO);
+        assertThat(testAlumno.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test
@@ -284,6 +308,7 @@ class AlumnoResourceIT {
         Alumno testAlumno = alumnoList.get(alumnoList.size() - 1);
         assertThat(testAlumno.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testAlumno.getApellido()).isEqualTo(UPDATED_APELLIDO);
+        assertThat(testAlumno.getDni()).isEqualTo(DEFAULT_DNI);
     }
 
     @Test
@@ -298,7 +323,7 @@ class AlumnoResourceIT {
         Alumno partialUpdatedAlumno = new Alumno();
         partialUpdatedAlumno.setId(alumno.getId());
 
-        partialUpdatedAlumno.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO);
+        partialUpdatedAlumno.nombre(UPDATED_NOMBRE).apellido(UPDATED_APELLIDO).dni(UPDATED_DNI);
 
         restAlumnoMockMvc
             .perform(
@@ -314,6 +339,7 @@ class AlumnoResourceIT {
         Alumno testAlumno = alumnoList.get(alumnoList.size() - 1);
         assertThat(testAlumno.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testAlumno.getApellido()).isEqualTo(UPDATED_APELLIDO);
+        assertThat(testAlumno.getDni()).isEqualTo(UPDATED_DNI);
     }
 
     @Test

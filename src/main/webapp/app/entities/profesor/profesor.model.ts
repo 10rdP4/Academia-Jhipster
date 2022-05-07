@@ -5,6 +5,7 @@ export interface IProfesor {
   nombre?: string;
   apellido?: string | null;
   sueldo?: number;
+  dni?: string;
   tallers?: ITaller[] | null;
 }
 
@@ -14,6 +15,7 @@ export class Profesor implements IProfesor {
     public nombre?: string,
     public apellido?: string | null,
     public sueldo?: number,
+    public dni?: string,
     public tallers?: ITaller[] | null
   ) {}
 }

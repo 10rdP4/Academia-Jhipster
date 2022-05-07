@@ -23,6 +23,9 @@
             <column name="sueldo" type="double">
                 <constraints nullable="false" />
             </column>
+            <column name="dni" type="varchar(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_profesor__dni" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -47,6 +50,7 @@
             <column name="nombre" type="string"/>
             <column name="apellido" type="string"/>
             <column name="sueldo" type="numeric"/>
+            <column name="dni" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

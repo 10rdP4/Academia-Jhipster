@@ -42,6 +42,7 @@
           <th scope="col" jhiSortBy="sueldo">
             <span jhiTranslate="academiaApp.profesor.sueldo">Sueldo</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="dni"><span jhiTranslate="academiaApp.profesor.dni">Dni</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -53,6 +54,7 @@
           <td>{{ profesor.nombre }}</td>
           <td>{{ profesor.apellido }}</td>
           <td>{{ profesor.sueldo }}</td>
+          <td>{{ profesor.dni }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button

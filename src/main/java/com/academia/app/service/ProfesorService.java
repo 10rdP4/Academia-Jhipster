@@ -57,6 +57,9 @@ public class ProfesorService {
                 if (profesor.getSueldo() != null) {
                     existingProfesor.setSueldo(profesor.getSueldo());
                 }
+                if (profesor.getDni() != null) {
+                    existingProfesor.setDni(profesor.getDni());
+                }
 
                 return existingProfesor;
             })

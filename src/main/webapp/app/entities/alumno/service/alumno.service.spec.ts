@@ -23,6 +23,7 @@ describe('Alumno Service', () => {
       id: 0,
       nombre: 'AAAAAAA',
       apellido: 'AAAAAAA',
+      dni: 'AAAAAAA',
     };
   });
 
@@ -60,6 +61,7 @@ describe('Alumno Service', () => {
           id: 1,
           nombre: 'BBBBBB',
           apellido: 'BBBBBB',
+          dni: 'BBBBBB',
         },
         elemDefault
       );
@@ -99,6 +101,7 @@ describe('Alumno Service', () => {
           id: 1,
           nombre: 'BBBBBB',
           apellido: 'BBBBBB',
+          dni: 'BBBBBB',
         },
         elemDefault
       );
@@ -150,7 +153,7 @@ describe('Alumno Service', () => {
       });
 
       it('should add only unique Alumno to an array', () => {
-        const alumnoArray: IAlumno[] = [{ id: 123 }, { id: 456 }, { id: 28954 }];
+        const alumnoArray: IAlumno[] = [{ id: 123 }, { id: 456 }, { id: 68556 }];
         const alumnoCollection: IAlumno[] = [{ id: 123 }];
         expectedResult = service.addAlumnoToCollectionIfMissing(alumnoCollection, ...alumnoArray);
         expect(expectedResult).toHaveLength(3);

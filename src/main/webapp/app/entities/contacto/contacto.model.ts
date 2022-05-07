@@ -5,6 +5,7 @@ export interface IContacto {
   nombre?: string;
   telefono?: string | null;
   correo?: string | null;
+  dni?: string;
   alumnos?: IAlumno[] | null;
 }
 
@@ -14,6 +15,7 @@ export class Contacto implements IContacto {
     public nombre?: string,
     public telefono?: string | null,
     public correo?: string | null,
+    public dni?: string,
     public alumnos?: IAlumno[] | null
   ) {}
 }

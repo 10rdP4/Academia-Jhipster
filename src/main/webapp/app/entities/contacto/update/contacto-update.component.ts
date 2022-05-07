@@ -20,6 +20,7 @@ export class ContactoUpdateComponent implements OnInit {
     nombre: [null, [Validators.required]],
     telefono: [],
     correo: [],
+    dni: [null, [Validators.required]],
   });
 
   constructor(protected contactoService: ContactoService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -69,6 +70,7 @@ export class ContactoUpdateComponent implements OnInit {
       nombre: contacto.nombre,
       telefono: contacto.telefono,
       correo: contacto.correo,
+      dni: contacto.dni,
     });
   }
 
@@ -79,6 +81,7 @@ export class ContactoUpdateComponent implements OnInit {
       nombre: this.editForm.get(['nombre'])!.value,
       telefono: this.editForm.get(['telefono'])!.value,
       correo: this.editForm.get(['correo'])!.value,
+      dni: this.editForm.get(['dni'])!.value,
     };
   }
 }

@@ -21,6 +21,7 @@
       "nombre": "Nombre",
       "apellido": "Apellido",
       "sueldo": "Sueldo",
+      "dni": "Dni",
       "taller": "Taller"
     }
   }
