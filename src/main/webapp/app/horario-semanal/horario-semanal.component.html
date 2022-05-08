@@ -2,16 +2,20 @@
 
     <!--Botones seleccion de curso-->
     <div class="btn-group-vertical p-1">
-        <button class="btn btn-info mb-1" (click)="seleccionarAccion('inf-td')">Informacion</button>
+        <button [ngClass]="[accion_seleccionada == 'inf-td' ? 'btn btn-info mb-1' : 'btn btn-outline-info mb-1']"
+            (click)="seleccionarAccion('inf-td')">Informacion</button>
 
-        <button class="btn btn-outline-success mb-1" *ngFor="let taller of talleres_disponibles"
-             (click)="seleccionarAccion('mod-td', taller)">{{taller.nombre}}</button>
+        <button
+            [ngClass]="[accion_seleccionada == 'mod-td' && taller_seleccionado == taller ? 'btn btn-success mb-1' : 'btn btn-outline-success mb-1']"
+            *ngFor="let taller of talleres_disponibles"
+            (click)="seleccionarAccion('mod-td', taller)">{{taller.nombre}}</button>
 
-        <button class="btn btn-danger" (click)="seleccionarAccion('del-td')">Eliminar</button>
+        <button [ngClass]="[accion_seleccionada == 'del-td' ? 'btn btn-danger mb-1' : 'btn btn-outline-danger mb-1']"
+            (click)="seleccionarAccion('del-td')">Eliminar</button>
     </div>
+    <!--Fin Botones-->
 
     <!--tabla horarios-->
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -27,7 +31,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let h of [].constructor(12); let hora = index">
-                <td *ngFor="let columna of [].constructor(8); let dia = index" [ngClass]="accion_seleccionada" (click)="accionTd(dia - 1, hora + hora_minima)">
+                <td *ngFor="let columna of [].constructor(8); let dia = index" [ngClass]="accion_seleccionada"
+                    (click)="accionTd(dia - 1, hora + hora_minima)">
                     <span *ngIf="dia == 0; then horas else tallerNombre"></span>
 
                     <ng-template #tallerNombre>{{buscarTallerString(dia - 1, (hora + hora_minima))}}</ng-template>
