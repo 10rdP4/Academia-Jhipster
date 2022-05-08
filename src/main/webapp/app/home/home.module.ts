@@ -6,9 +6,10 @@ import { HOME_ROUTE } from './home.route';
 import { HomeComponent } from './home.component';
 import { FormularioSuscripcionComponent } from 'app/formulario-suscripcion/formulario-suscripcion.component';
 import { HorarioSemanalComponent } from 'app/horario-semanal/horario-semanal.component';
+import { AsistenciasTalleresComponent } from 'app/asistencias-talleres/asistencias-talleres.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([HOME_ROUTE])],
-  declarations: [HomeComponent, FormularioSuscripcionComponent, HorarioSemanalComponent],
+  declarations: [HomeComponent, FormularioSuscripcionComponent, HorarioSemanalComponent, AsistenciasTalleresComponent],
 })
-export class HomeModule {}
+export class HomeModule { }

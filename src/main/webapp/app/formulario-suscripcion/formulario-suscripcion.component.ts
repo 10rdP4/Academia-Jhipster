@@ -90,36 +90,8 @@ export class FormularioSuscripcionComponent implements OnInit {
   }
 
   formatoHorario(horario: IHorario): string {
-    let dia_semana = '';
-
-    switch (horario.diaSemana) {
-      case 0:
-        dia_semana = 'Lunes';
-        break;
-      case 1:
-        dia_semana = 'Martes';
-        break;
-      case 2:
-        dia_semana = 'Miercoles';
-        break;
-      case 3:
-        dia_semana = 'Jueves';
-        break;
-      case 4:
-        dia_semana = 'Viernes';
-        break;
-      case 5:
-        dia_semana = 'Sábado';
-        break;
-      case 6:
-        dia_semana = 'Domingo';
-        break;
-
-      default:
-        dia_semana = 'Error';
-        break;
-    }
-
+    const semana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    const dia_semana = semana[horario.diaSemana!];
     return `${dia_semana} - ${horario.horaInicioTaller!}`;
   }
 

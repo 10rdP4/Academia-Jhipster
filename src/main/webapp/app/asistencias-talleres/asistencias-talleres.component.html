@@ -1,0 +1,62 @@
+<div class="d-flex flex-column">
+
+    <u><h2>Control de asistencias</h2></u>
+    <!--Seleccion del Taller-->
+    <div ngbDropdown class="d-inline-block m-3">
+        <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Talleres</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
+            <button ngbDropdownItem *ngFor="let taller of talleres_disponibles" (click)="seleccionarTaller(taller)">
+                {{taller.nombre}}
+            </button>
+        </div>
+    </div>
+
+    <!--Seleccion del Horario-->
+    <div ngbDropdown class="d-inline-block m-3" *ngIf="taller_seleccionado != undefined">
+        <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Horarios</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
+            <div *ngIf="horarios_taller.length > 0; else no_horarios">
+                <button ngbDropdownItem *ngFor="let horario of horarios_taller" (click)="seleccionarHorario(horario)">
+                    {{formatoHorario(horario)}}
+                </button>
+            </div>
+            <ng-template #no_horarios>
+                <span class="alert alert-warning">
+                    No existen horarios para ese taller
+                </span>
+            </ng-template>
+        </div>
+    </div>
+
+    <!--Alumnos del Taller-->
+    <div *ngIf="taller_seleccionado != undefined">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Dni</th>
+                <th scope="col">Asistencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let suscripcion of suscripciones_taller">
+                <td>{{suscripcion.alumno?.nombre}}</td>
+                <td>{{suscripcion.alumno?.apellido}}</td>
+                <td>{{suscripcion.alumno?.dni}}</td>
+                <td>
+                    <input type="checkbox" name="asistencia" id="asistencia">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+    <!--Guardar-->
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-success btn-lg">Guardar</button>
+    </div>
+    
+
+</div>

@@ -53,6 +53,12 @@ export class SuscripcionService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  buscarSucripcionPorTaller(taller_id:number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<ISuscripcion[]>(`${this.resourceUrl}/taller/${taller_id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

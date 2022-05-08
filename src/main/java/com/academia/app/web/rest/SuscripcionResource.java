@@ -153,6 +153,20 @@ public class SuscripcionResource {
     }
 
     /**
+     * {@code GET  /suscripcions/taller/:id_taller} : get all the suscripcions by id_taller.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of suscripcions in body.
+     */
+    @GetMapping("/suscripcions/taller/{idTaller}")
+    public ResponseEntity<List<Suscripcion>> getAllSuscripcionsByIdTaller(@org.springdoc.api.annotations.ParameterObject Pageable pageable, @PathVariable Integer idTaller) {
+        log.debug("REST request to get a page of Suscripcions by Id Taller");
+        Page<Suscripcion> page = suscripcionService.findAllByIdTaller(pageable, idTaller);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /suscripcions/:id} : get the "id" suscripcion.
      *
      * @param id the id of the suscripcion to retrieve.
