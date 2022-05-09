@@ -169,15 +169,19 @@ export class FormularioSuscripcionComponent implements OnInit {
   cargaDatos(): void {
 
     if (!this.alumno_registrado) {
-      this.formularioSuscripcionService.setNombreAlumno(this.nombre_alumno);
-      this.formularioSuscripcionService.setApellidoAlumno(this.apellido_alumno);
-      this.formularioSuscripcionService.setDniAlumno(this.dni_alumno);
+      this.formularioSuscripcionService.setAlumno({
+        nombre:this.nombre_alumno,
+        apellido:this.apellido_alumno,
+        dni: this.dni_alumno
+      });
 
       if (!this.contacto_registrado) {
-        this.formularioSuscripcionService.setNombreContacto(this.nombre_contacto);
-        this.formularioSuscripcionService.setDniContacto(this.dni_contacto);
-        this.formularioSuscripcionService.setTelefonoContacto(this.telefono_contacto);
-        this.formularioSuscripcionService.setCorreoContacto(this.correo_contacto);
+        this.formularioSuscripcionService.setContactoAlumno({
+          nombre: this.nombre_contacto,
+          dni: this.dni_contacto,
+          telefono: this.telefono_contacto,
+          correo: this.correo_contacto
+        })
       } else {
         this.formularioSuscripcionService.setContactoAlumno(this.contacto_seleccionado!);
       }

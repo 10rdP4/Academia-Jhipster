@@ -1,10 +1,30 @@
 <div class="modal-header">
-    <h4 class="modal-title">Hi there!</h4>
+    <h4 class="modal-title">Resumen de la Suscripcion {{formatFecha()}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <p>{{suscripcion?.alumno?.nombre}}</p>
-    <p>{{suscripcion?.taller?.nombre}}</p>
+    <h5>Datos del alumno</h5>
+    <ul>
+      <li>Nombre: {{suscripcion?.alumno?.nombre}}</li>
+      <li>Apellido: {{suscripcion?.alumno?.apellido}}</li>
+      <li>DNI: {{suscripcion?.alumno?.dni}}</li>
+    </ul>
+
+    <h5>Datos del Contacto</h5>
+    <ul>
+      <li>Nombre: {{suscripcion?.alumno?.contacto?.nombre}}</li>
+      <li>DNI: {{suscripcion?.alumno?.contacto?.dni}}</li>
+      <li>Telefono: {{suscripcion?.alumno?.contacto?.telefono}}</li>
+      <li>Correo: {{suscripcion?.alumno?.contacto?.correo}}</li>
+    </ul>
+
+    <h5>Taller</h5>
+    <ul>
+      <li>Nombre: {{suscripcion.taller?.nombre}}</li>
+      <li>Descripcion: {{suscripcion.taller?.descripcion}}</li>
+    </ul>
+    <hr>
+    <h5>Precio: {{suscripcion.taller?.precio}}€</h5>
   </div>
   <div class="modal-footer d-flex justify-content-between">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>

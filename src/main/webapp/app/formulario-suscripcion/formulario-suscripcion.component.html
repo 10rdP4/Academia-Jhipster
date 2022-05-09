@@ -107,6 +107,10 @@
                                 jhiTranslate="formulario-suscripcion.contacto.nombre">Nombre del contacto</label>
                         </div>
                         <div class="input-group-prepend mb-1">
+                            <label for="dni_contacto" class="input-group-text"
+                                jhiTranslate="formulario-suscripcion.contacto.dni">DNI del contacto</label>
+                        </div>
+                        <div class="input-group-prepend mb-1">
                             <label for="telefono_contacto" class="input-group-text"
                                 jhiTranslate="formulario-suscripcion.contacto.telefono">Telefono del contacto</label>
                         </div>
@@ -114,20 +118,17 @@
                             <label for="correo_contacto" class="input-group-text"
                                 jhiTranslate="formulario-suscripcion.contacto.correo">Correo del contacto</label>
                         </div>
-                        <div class="input-group-prepend mb-1">
-                            <label for="dni_contacto" class="input-group-text"
-                                jhiTranslate="formulario-suscripcion.contacto.dni">DNI del contacto</label>
-                        </div>
                     </div>
                     <div id="input_alumno">
                         <input type="text" name="nombre_contacto" id="nombre_alumno_in_text" class="form-control mb-1"
                             [(ngModel)]="nombre_contacto">
+                        <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
+                            pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
                         <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text"
                             class="form-control mb-1" pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
                         <input type="email" name="correo_contacto" id="apellido_alumno_in_text"
                             class="form-control mb-1" pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
-                        <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
-                            pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
+
                     </div>
                 </div>
             </div>

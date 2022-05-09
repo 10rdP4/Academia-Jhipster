@@ -7,6 +7,7 @@ import { IContacto } from 'app/entities/contacto/contacto.model';
 import { ContactoService } from 'app/entities/contacto/service/contacto.service';
 import { SuscripcionService } from 'app/entities/suscripcion/service/suscripcion.service';
 import { ISuscripcion } from 'app/entities/suscripcion/suscripcion.model';
+import dayjs from 'dayjs';
 import { FormularioSuscripcionService } from '../formulario-suscripcion.service';
 
 @Component({
@@ -15,10 +16,13 @@ import { FormularioSuscripcionService } from '../formulario-suscripcion.service'
 })
 export class ResumenSuscripcionModalComponent {
 
-  suscripcion?: ISuscripcion;
+  suscripcion: ISuscripcion = {};
+
+  // Para crear los componente
   contacto_recibido?: IContacto;
   alumno_recibido?: IAlumno;
 
+  // Se crean o no los componentes
   crear_contacto = false;
   crear_alumno = false;
 
@@ -48,7 +52,7 @@ export class ResumenSuscripcionModalComponent {
   }
 
   crearTodo(): void {
-    this.contactoService.create(this.formularioSuscripcionService.contacto).subscribe({
+    this.contactoService.create(this.formularioSuscripcionService.nuevaSuscripcion.alumno!.contacto!).subscribe({
       next: (contacto: HttpResponse<IContacto>) => {
         this.contacto_recibido = contacto.body ?? undefined;
         this.formularioSuscripcionService.setContactoAlumno(this.contacto_recibido!);
@@ -58,7 +62,7 @@ export class ResumenSuscripcionModalComponent {
   }
 
   guardarAlumno(): void {
-    this.alumnoService.create(this.formularioSuscripcionService.alumno).subscribe({
+    this.alumnoService.create(this.formularioSuscripcionService.nuevaSuscripcion.alumno!).subscribe({
       next: (alumno: HttpResponse<IAlumno>) => {
         this.alumno_recibido = alumno.body ?? undefined;
         this.formularioSuscripcionService.setAlumno(this.alumno_recibido!);
@@ -68,5 +72,9 @@ export class ResumenSuscripcionModalComponent {
       }
     }
     );
+  }
+
+  formatFecha():string{
+    return dayjs(this.suscripcion.fecha).format('DD/MM/YYYY');
   }
 }
