@@ -6,6 +6,7 @@ import { IHorario } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HorarioInfoModalComponent } from './horario-info-modal/horario-info-modal.component';
+import { HorarioSemanalService } from './horario-semanal.service';
 
 @Component({
   selector: 'jhi-horario-semanal',
@@ -21,7 +22,12 @@ export class HorarioSemanalComponent implements OnInit {
   accion_seleccionada = 'inf-td';
   hora_minima = 9;
 
-  constructor(public tallerService: TallerService, public horarioService: HorarioService, public modalService: NgbModal) {
+  constructor(
+    public tallerService: TallerService,
+    public horarioService: HorarioService,
+    public horarioSemanalService: HorarioSemanalService,
+    public modalService: NgbModal
+  ) {
     this.titulo = 'Horario semanal';
     this.loadTalleres();
     this.loadHorarios();
@@ -57,10 +63,10 @@ export class HorarioSemanalComponent implements OnInit {
 
   buscarTallerString(dia: number, hora: number): string {
     const hora_string = hora.toString();
-    let taller: ITaller = {}
+    let taller: ITaller = {};
 
     this.horario_semanal.forEach(horario => {
-      if (horario.diaSemana === dia && horario.horaInicioTaller?.split(":")[0] === hora_string) {
+      if (horario.diaSemana === dia && horario.horaInicioTaller?.split(':')[0] === hora_string) {
         taller = horario.taller!;
       }
     });
@@ -70,10 +76,10 @@ export class HorarioSemanalComponent implements OnInit {
 
   buscarHorario(dia: number, hora: number): IHorario {
     const hora_string = hora.toString();
-    let horario_busqueda: IHorario = {}
+    let horario_busqueda: IHorario = {};
 
     this.horario_semanal.forEach(horario => {
-      if (horario.diaSemana === dia && horario.horaInicioTaller?.split(":")[0] === hora_string) {
+      if (horario.diaSemana === dia && horario.horaInicioTaller?.split(':')[0] === hora_string) {
         horario_busqueda = horario;
       }
     });
@@ -95,46 +101,47 @@ export class HorarioSemanalComponent implements OnInit {
       id: undefined,
       diaSemana: dia,
       taller: this.taller_seleccionado,
-      horaInicioTaller: `${hora}:00`
-    }
+      horaInicioTaller: `${hora}:00`,
+    };
     const horario_busquea = this.buscarHorario(dia, hora);
     const horario = horario_busquea.id !== undefined ? horario_busquea : horario_dummy;
-    let modalRef;
 
     switch (this.accion_seleccionada) {
-      case "inf-td":
-        modalRef = this.modalService.open(HorarioInfoModalComponent);
-        modalRef.componentInstance.taller = horario_busquea.taller;
-        break;
-
-      case "mod-td":
+      case 'inf-td':
         if (horario.id !== undefined) {
-          horario.taller = this.taller_seleccionado;
-          this.horarioService.update(horario).subscribe({
-
-          });
-        } else {
-          this.horarioService.create(horario).subscribe({
-
+          this.horarioService.findHorarioByTaller(horario.taller!.id!).subscribe({
+            next: (res: HttpResponse<IHorario[]>) => {
+              this.horarioSemanalService.setHorarioTaller(res.body ?? []);
+              this.horarioSemanalService.setTaller(horario_busquea.taller!);
+              this.modalService.open(HorarioInfoModalComponent);
+            },
           });
         }
-        this.loadHorarios()
-        this.refresh()
         break;
 
-      case "del-td":
+      case 'mod-td':
         if (horario.id !== undefined) {
-          this.horarioService.delete(horario.id).subscribe({
-          });
+          horario.taller = this.taller_seleccionado;
+          this.horarioService.update(horario).subscribe({});
         } else {
-          alert("No se pudo borrar")
+          this.horarioService.create(horario).subscribe({});
+        }
+        this.loadHorarios();
+        this.refresh();
+        break;
+
+      case 'del-td':
+        if (horario.id !== undefined) {
+          this.horarioService.delete(horario.id).subscribe({});
+        } else {
+          alert('No se pudo borrar');
         }
         this.loadHorarios();
         this.refresh();
         break;
 
       default:
-        alert("Error de opcion en el td")
+        alert('Error de opcion en el td');
         break;
     }
   }

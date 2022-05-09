@@ -1,10 +1,21 @@
 <div class="modal-header">
-    <h4 class="modal-title">Hi there!</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <p>{{taller.nombre}}</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  </div>
+  <h4 class="modal-title">Datos sobre el Taller</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <h5>{{taller.nombre}}</h5>
+
+  <h6>Descripcion</h6>
+  <p>{{taller.descripcion}}</p>
+
+  <h6>Precio</h6>
+  <p>{{taller.precio}}€/mes</p>
+
+  <h6>Horarios</h6>
+  <ul>
+    <li *ngFor="let horario of horarios_taller">{{formatoHorario(horario)}}</li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
