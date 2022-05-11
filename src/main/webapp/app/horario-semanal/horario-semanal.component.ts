@@ -97,52 +97,55 @@ export class HorarioSemanalComponent implements OnInit {
   }
 
   accionTd(dia: number, hora: number): void {
-    const horario_dummy: IHorario = {
-      id: undefined,
-      diaSemana: dia,
-      taller: this.taller_seleccionado,
-      horaInicioTaller: `${hora}:00`,
-    };
-    const horario_busquea = this.buscarHorario(dia, hora);
-    const horario = horario_busquea.id !== undefined ? horario_busquea : horario_dummy;
 
-    switch (this.accion_seleccionada) {
-      case 'inf-td':
-        if (horario.id !== undefined) {
-          this.horarioService.findHorarioByTaller(horario.taller!.id!).subscribe({
-            next: (res: HttpResponse<IHorario[]>) => {
-              this.horarioSemanalService.setHorarioTaller(res.body ?? []);
-              this.horarioSemanalService.setTaller(horario_busquea.taller!);
-              this.modalService.open(HorarioInfoModalComponent);
-            },
-          });
-        }
-        break;
+    if (dia >= 0) {
+      const horario_dummy: IHorario = {
+        id: undefined,
+        diaSemana: dia,
+        taller: this.taller_seleccionado,
+        horaInicioTaller: `${hora}:00`,
+      };
+      const horario_busquea = this.buscarHorario(dia, hora);
+      const horario = horario_busquea.id !== undefined ? horario_busquea : horario_dummy;
 
-      case 'mod-td':
-        if (horario.id !== undefined) {
-          horario.taller = this.taller_seleccionado;
-          this.horarioService.update(horario).subscribe({});
-        } else {
-          this.horarioService.create(horario).subscribe({});
-        }
-        this.loadHorarios();
-        this.refresh();
-        break;
+      switch (this.accion_seleccionada) {
+        case 'inf-td':
+          if (horario.id !== undefined) {
+            this.horarioService.findHorarioByTaller(horario.taller!.id!).subscribe({
+              next: (res: HttpResponse<IHorario[]>) => {
+                this.horarioSemanalService.setHorarioTaller(res.body ?? []);
+                this.horarioSemanalService.setTaller(horario_busquea.taller!);
+                this.modalService.open(HorarioInfoModalComponent);
+              },
+            });
+          }
+          break;
 
-      case 'del-td':
-        if (horario.id !== undefined) {
-          this.horarioService.delete(horario.id).subscribe({});
-        } else {
-          alert('No se pudo borrar');
-        }
-        this.loadHorarios();
-        this.refresh();
-        break;
+        case 'mod-td':
+          if (horario.id !== undefined) {
+            horario.taller = this.taller_seleccionado;
+            this.horarioService.update(horario).subscribe({});
+          } else {
+            this.horarioService.create(horario).subscribe({});
+          }
+          this.loadHorarios();
+          this.refresh();
+          break;
 
-      default:
-        alert('Error de opcion en el td');
-        break;
+        case 'del-td':
+          if (horario.id !== undefined) {
+            this.horarioService.delete(horario.id).subscribe({});
+          } else {
+            alert('No se pudo borrar');
+          }
+          this.loadHorarios();
+          this.refresh();
+          break;
+
+        default:
+          alert('Error de opcion en el td');
+          break;
+      }
     }
   }
 
