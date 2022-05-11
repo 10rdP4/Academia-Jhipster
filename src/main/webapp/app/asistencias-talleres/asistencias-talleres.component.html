@@ -12,24 +12,33 @@
     </div>
 
     <!--Seleccion del Horario-->
-    <div ngbDropdown class="d-inline-block m-3" *ngIf="taller_seleccionado != undefined">
-        <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Horarios</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
-            <div *ngIf="horarios_taller.length > 0; else no_horarios">
-                <button ngbDropdownItem *ngFor="let horario of horarios_taller" (click)="seleccionarHorario(horario)">
-                    {{formatoHorario(horario)}}
-                </button>
+    <div *ngIf="taller_seleccionado != undefined">
+        <div ngbDropdown class="d-inline-block m-3" >
+            <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Horarios</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
+                <div *ngIf="horarios_taller.length > 0; else no_horarios">
+                    <button ngbDropdownItem *ngFor="let horario of horarios_taller" (click)="seleccionarHorario(horario)">
+                        {{formatoHorario(horario)}}
+                    </button>
+                </div>
+                <ng-template #no_horarios>
+                    <span class="alert alert-warning">
+                        No existen horarios para ese taller
+                    </span>
+                </ng-template>
             </div>
-            <ng-template #no_horarios>
-                <span class="alert alert-warning">
-                    No existen horarios para ese taller
-                </span>
-            </ng-template>
         </div>
+    
+        <div *ngIf="horario_seleccionado != undefined; else no_seleccionado" class="alert alert-success border border-success">
+            <span>Se ha seleccionado {{taller_seleccionado!.nombre}} el dia {{formatoHorario(horario_seleccionado!)}}</span>
+        </div>
+        <ng-template #no_seleccionado >
+            <span class="alert alert-warning border border-warning">No hay ninguna hora seleccionada</span>
+        </ng-template>
     </div>
 
     <!--Alumnos del Taller-->
-    <div *ngIf="taller_seleccionado != undefined">
+    <div *ngIf="taller_seleccionado != undefined && horario_seleccionado != undefined">
         <table class="table table-striped">
             <thead>
               <tr>
@@ -40,23 +49,32 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let suscripcion of suscripciones_taller">
-                <td>{{suscripcion.alumno?.nombre}}</td>
-                <td>{{suscripcion.alumno?.apellido}}</td>
-                <td>{{suscripcion.alumno?.dni}}</td>
-                <td>
-                    <input type="checkbox" name="asistencia" id="asistencia">
-                </td>
-              </tr>
+                <ng-template [ngIf]="asistencias.length <= 0" [ngIfElse]="cargar_asistencias">
+                    <tr *ngFor="let asistencia of asistencias_suscripcion">
+                        <td>{{asistencia.alumno?.nombre}}</td>
+                        <td>{{asistencia.alumno?.apellido}}</td>
+                        <td>{{asistencia.alumno?.dni}}</td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" (click)="actualizarAsistencia(asistencia, cb_sus.checked)" #cb_sus aria-label="...">
+                        </td>
+                      </tr>
+                    </ng-template>
+                <ng-template #cargar_asistencias>
+                    <tr *ngFor="let asistencia of asistencias">
+                        <td>{{asistencia.alumno?.nombre}}</td>
+                        <td>{{asistencia.alumno?.apellido}}</td>
+                        <td>{{asistencia.alumno?.dni}}</td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="checkboxNoLabel" [checked]="asistencia.asistencia" (click)="actualizarAsistencia(asistencia, cb_asis.checked)" #cb_asis aria-label="...">
+                        </td>
+                      </tr>
+                </ng-template>
             </tbody>
           </table>
     </div>
-
-
+    
     <!--Guardar-->
     <div class="d-flex justify-content-end">
-        <button class="btn btn-success btn-lg">Guardar</button>
+        <button class="btn btn-success btn-lg" (click)="guardarAsistencias()">Guardar</button>
     </div>
-    
-
 </div>

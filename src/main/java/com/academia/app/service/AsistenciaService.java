@@ -73,6 +73,18 @@ public class AsistenciaService {
     }
 
     /**
+     * Get all the asistencias by fecha and Taller id.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Asistencia> findAllByFechaTallerId(Pageable pageable, String fecha, Integer tallerId) {
+        log.debug("Request to get all Asistencias by fecha and Taller ID <<<<<");
+        return asistenciaRepository.findByTallerId(tallerId, fecha, pageable);
+    }
+
+    /**
      * Get one asistencia by id.
      *
      * @param id the id of the entity.

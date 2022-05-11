@@ -1,7 +1,11 @@
 package com.academia.app.repository;
 
 import com.academia.app.domain.Asistencia;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {}
+public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
+    @Query(value = "SELECT * FROM asistencia a WHERE fecha LIKE %:fecha% AND taller_id = :taller_id", nativeQuery = true)
+    Page<Asistencia> findByTallerId(@Param("taller_id") Integer tallerId, @Param("fecha") String fecha, Pageable pageable);
+}
