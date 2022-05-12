@@ -97,6 +97,18 @@ public class HorarioService {
     }
 
     /**
+     * Get all the horarios by Taller id and dia.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Horario> findHorarioByTallerIdYDia(Pageable pageable, Integer tallerId, Integer dia) {
+        log.debug("Request to get all Horarios by taller id and dia");
+        return horarioRepository.findByTallerIdYDia(tallerId, dia, pageable);
+    }
+
+    /**
      * Delete the horario by id.
      *
      * @param id the id of the entity.

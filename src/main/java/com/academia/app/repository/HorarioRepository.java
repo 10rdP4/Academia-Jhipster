@@ -17,5 +17,8 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     @Query(value = "SELECT * FROM horario h where taller_id = :id_taller", nativeQuery = true)
     Page<Horario> findByTallerId(@Param("id_taller") Integer tallerId, Pageable pageable);
+
+    @Query(value = "SELECT * FROM horario h where taller_id = :id_taller AND dia_semana = :dia", nativeQuery = true)
+    Page<Horario> findByTallerIdYDia(@Param("id_taller") Integer tallerId, @Param("dia") Integer dia, Pageable pageable);
     
 }

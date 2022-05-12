@@ -72,7 +72,9 @@ export class AsistenciasTalleresComponent implements OnInit {
   }
 
   cargaHorarios(taller: ITaller): void {
-    this.horarioService.findHorarioByTaller(taller.id!).subscribe({
+    let dia = dayjs().day();
+    dia = dia === 0 ? 6 : dia - 1;
+    this.horarioService.findHorarioByTallerYDia(taller.id!, dia).subscribe({
       next: (res: HttpResponse<IHorario[]>) => {
         this.horarios_taller = res.body ?? [];
       }

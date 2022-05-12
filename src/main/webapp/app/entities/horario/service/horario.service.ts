@@ -61,4 +61,7 @@ export class HorarioService {
   findHorarioByTaller(id_taller:number):Observable<EntityArrayResponseType>{
     return this.http.get<IHorario[]>(`${this.resourceUrl}/taller/${id_taller}`, {observe: 'response' });
   }
+  findHorarioByTallerYDia(id_taller:number, dia:number):Observable<EntityArrayResponseType>{
+    return this.http.get<IHorario[]>(`${this.resourceUrl}/taller/${id_taller}/${dia}`, {observe: 'response' });
+  }
 }
