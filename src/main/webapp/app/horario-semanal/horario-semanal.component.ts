@@ -45,6 +45,7 @@ export class HorarioSemanalComponent implements OnInit {
       .subscribe({
         next: (res: HttpResponse<ITaller[]>) => {
           this.talleres_disponibles = res.body ?? [];
+          this.talleres_disponibles.sort((a, b) => (a.nombre! > b.nombre!) ? 1 : -1);
         },
       });
   }

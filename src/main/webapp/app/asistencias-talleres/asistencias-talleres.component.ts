@@ -59,6 +59,7 @@ export class AsistenciasTalleresComponent implements OnInit {
       .subscribe({
         next: (res: HttpResponse<ITaller[]>) => {
           this.talleres_disponibles = res.body ?? [];
+          this.talleres_disponibles.sort((a, b) => (a.nombre! > b.nombre!) ? 1 : -1);
         },
       });
   }
@@ -81,6 +82,12 @@ export class AsistenciasTalleresComponent implements OnInit {
     this.horarioService.findHorarioByTallerYDia(taller.id!, dia).subscribe({
       next: (res: HttpResponse<IHorario[]>) => {
         this.horarios_taller = res.body ?? [];
+
+        this.horarios_taller.sort(function (a, b) {
+          const hora_a = parseInt((a.horaInicioTaller!.split(":")[0]), 10);
+          const hora_b = parseInt((b.horaInicioTaller!.split(":")[0]), 10);
+          return hora_a - hora_b;
+        });
       }
     });
   }
@@ -90,6 +97,8 @@ export class AsistenciasTalleresComponent implements OnInit {
       next: (res: HttpResponse<ISuscripcion[]>) => {
         this.suscripciones_taller = res.body ?? [];
         this.crearAsistencias();
+
+        this.asistencias_suscripcion.sort((a, b) => (a.alumno!.nombre! > b.alumno!.nombre!) ? 1 : -1);
       }
     })
   }
@@ -103,6 +112,8 @@ export class AsistenciasTalleresComponent implements OnInit {
 
         if (this.asistencias.length <= 0) {
           this.cargaSuscripciones(this.taller_seleccionado!);
+        }else{
+          this.asistencias.sort((a, b) => (a.alumno!.nombre! > b.alumno!.nombre!) ? 1 : -1);
         }
       }
     })
@@ -144,7 +155,7 @@ export class AsistenciasTalleresComponent implements OnInit {
     asistencia.asistencia = checked;
   }
 
-  vaciarListas():void{
+  vaciarListas(): void {
     this.asistencias = [];
     this.asistencias_suscripcion = [];
   }
