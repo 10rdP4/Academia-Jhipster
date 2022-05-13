@@ -15,14 +15,6 @@
       "dni": "DNI",
       "telefono":"Numero de Telefono",
       "correo":"Correo"
-    },
-    "taller-seleccionado":{
-      "titulo": "Datos del taller seleccionado",
-      "nombre": "Nombre",
-      "precio": "Precio",
-      "descripcion": "Descripcion",
-      "profesor": "Profesor",
-      "horario" : "Horarios"
     }
   }
 }

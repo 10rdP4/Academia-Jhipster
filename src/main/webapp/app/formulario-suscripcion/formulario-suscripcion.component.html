@@ -51,10 +51,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">Datos</span>
                 </div>
-                <input type="text" class="form-control" [(ngModel)]="alumno_busqueda">
-                <div class="input-group-end">
-                    <button class="btn btn-outline-primary" (click)="buscarAlumno()">Buscar</button>
-                </div>
+                <input type="text" class="form-control" [(ngModel)]="alumno_busqueda" (ngModelChange)="buscarAlumno()">
             </div>
 
             <div class="alert alert-info border border-info" *ngIf="alumnos_registrados.length > 0; else error_alumnos">
@@ -79,8 +76,12 @@
                 </table>
             </div>
 
+            <div *ngIf="alumno_seleccionado != undefined">
+                <span class="alert alert-success border border-success">Alumno: {{alumno_seleccionado.nombre}} {{alumno_seleccionado.apellido}}</span>
+            </div>
+
             <ng-template #error_alumnos>
-                <p class="alert alert-warning">Ningun Alumno Seleccionado</p>
+                <p class="alert alert-warning">Ningun alumno encontrado</p>
             </ng-template>
 
         </ng-template>
@@ -138,10 +139,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">Datos</span>
                     </div>
-                    <input type="text" class="form-control" [(ngModel)]="contacto_busqueda">
-                    <div class="input-group-end">
-                        <button class="btn btn-outline-primary" (click)="buscarContacto()">Buscar</button>
-                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="contacto_busqueda" (ngModelChange)="buscarContacto()">
                 </div>
 
                 <div class="alert alert-info border border-info"
@@ -171,7 +169,7 @@
                 </div>
 
                 <ng-template #error_contactos>
-                    <p class="alert alert-warning">Ningun Contacto Seleccionado</p>
+                    <p class="alert alert-warning">Ningun contacto encontrado</p>
                 </ng-template>
             </ng-template>
         </div>
@@ -195,43 +193,8 @@
                 </div>
             </div>
         </div>
-        <span *ngIf="taller_seleccionado != undefined" class="mt-3">
-            <span jhiTranslate="formulario-suscripcion.taller-seleccionado.titulo">Datos del Taller</span>
-            <br>
-            <ul>
-                <li>
-                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.nombre">
-                        Nombre
-                    </span>
-                    : {{taller_seleccionado.nombre}}
-                </li>
-                <li>
-                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.descripcion">
-                        Descripcion
-                    </span>
-                    : {{taller_seleccionado.descripcion}}
-                </li>
-                <li>
-                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.precio">
-                        Precio
-                    </span>
-                    : {{taller_seleccionado.precio}}€
-                </li>
-                <li>
-                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.profesor">
-                        Profesor
-                    </span>
-                    : {{taller_seleccionado.profesor?.nombre}}
-                </li>
-                <li>
-                    <span jhiTranslate="formulario-suscripcion.taller-seleccionado.horario">
-                        Horario
-                    </span>
-                    <span *ngFor="let horario of taller_seleccionado.horarios">
-                        {{this.formatoHorario(horario)}}
-                    </span>
-                </li>
-            </ul>
+        <span *ngIf="taller_seleccionado != undefined" class="alert alert-success border border-success mt-3">
+            Seleccionado: {{taller_seleccionado.nombre}}
         </span>
 
         <hr>

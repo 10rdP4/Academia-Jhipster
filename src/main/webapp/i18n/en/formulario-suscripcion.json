@@ -15,14 +15,6 @@
       "dni": "DNI",
       "telefono":"Phone number",
       "correo":"Email"
-    },
-    "taller-seleccionado":{
-      "titulo": "Selected lesson details",
-      "nombre": "Name",
-      "precio": "Price",
-      "descripcion": "Description",
-      "profesor": "Teacher",
-      "horario": "Timetable"
     }
   }
 }
