@@ -77,7 +77,7 @@
             </div>
 
             <div *ngIf="alumno_seleccionado != undefined">
-                <span class="alert alert-success border border-success">Alumno: {{alumno_seleccionado.nombre}} {{alumno_seleccionado.apellido}}</span>
+                <span class="alert alert-success border border-success">Alumno: {{alumno_seleccionado.nombre}} {{alumno_seleccionado.apellido}} {{alumno_seleccionado.dni}}</span>
             </div>
 
             <ng-template #error_alumnos>
@@ -166,6 +166,10 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div *ngIf="contacto_seleccionado != undefined">
+                    <span class="alert alert-success border border-success">Contacto: {{contacto_seleccionado.nombre}} {{contacto_seleccionado.dni}}</span>
                 </div>
 
                 <ng-template #error_contactos>
