@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SuscripcionRepository extends JpaRepository<Suscripcion, Long> {
 
-    @Query(value = "SELECT * FROM suscripcion s where taller_id = :id_taller", nativeQuery = true)
+    @Query(value = "SELECT * FROM suscripcion s where taller_id = :id_taller AND activa = true", nativeQuery = true)
     Page<Suscripcion> findByTallerId(@Param("id_taller") Integer tallerId, Pageable pageable);
 
 }
