@@ -160,6 +160,11 @@ export class AsistenciasTalleresComponent implements OnInit {
     this.asistencias_suscripcion = [];
   }
 
+  vaciarTallerHorario():void{
+    this.taller_seleccionado = undefined;
+    this.horario_seleccionado = undefined;
+  }
+
   formatoHorario(horario: IHorario): string {
     const semana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
     const dia_semana = semana[horario.diaSemana!];
