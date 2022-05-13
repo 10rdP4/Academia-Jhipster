@@ -74,6 +74,11 @@
     </div>
     
     <!--Guardar-->
+
+    <div *ngIf="guardado">
+        <span class="alert alert-success border border-success">Asistencias guardadas correctamente</span>
+    </div>
+
     <div class="d-flex justify-content-end">
         <button class="btn btn-success btn-lg" (click)="guardarAsistencias()">Guardar</button>
     </div>

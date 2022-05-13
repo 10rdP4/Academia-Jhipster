@@ -32,6 +32,9 @@ export class AsistenciasTalleresComponent implements OnInit {
   taller_seleccionado?: ITaller = undefined;
   horario_seleccionado?: IHorario = undefined;
 
+  // Guardado Correctamente
+  guardado = false;
+
 
 
   constructor(
@@ -64,6 +67,7 @@ export class AsistenciasTalleresComponent implements OnInit {
     this.taller_seleccionado = taller;
     // Cargar los horarios de ese taller
     this.cargaHorarios(taller);
+    this.guardado = false;
   }
 
   seleccionarHorario(horario: IHorario): void {
@@ -116,6 +120,10 @@ export class AsistenciasTalleresComponent implements OnInit {
         });
       }
     }
+
+    this.guardado = true;
+    this.taller_seleccionado = undefined;
+    this.horario_seleccionado = undefined;
   }
 
   crearAsistencias(): void {
