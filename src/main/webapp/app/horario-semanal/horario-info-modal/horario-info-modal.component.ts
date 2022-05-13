@@ -17,6 +17,16 @@ export class HorarioInfoModalComponent {
     public activeModal: NgbActiveModal) {
     this.taller = this.horarioSemanalService.taller;
     this.horarios_taller = this.horarioSemanalService.horario_taller;
+    this.horarios_taller.sort(
+      function(a, b) {          
+         if (a.diaSemana === b.diaSemana) {
+            
+          const hora_a = parseInt((a.horaInicioTaller!.split(":")[0]), 10);
+          const hora_b = parseInt((b.horaInicioTaller!.split(":")[0]), 10);
+          return hora_a - hora_b;
+         }
+         return a.diaSemana! > b.diaSemana! ? 1 : -1;
+      });
   }
 
   formatoHorario(horario: IHorario): string {
