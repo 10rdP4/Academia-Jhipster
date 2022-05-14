@@ -52,6 +52,10 @@ export class FormularioSuscripcionComponent implements OnInit {
   contactos_registrados: IContacto[] = [];
   contacto_seleccionado?: IContacto = undefined;
 
+  // Comprobaciones
+  comprobar_alumno:IAlumno[] = [];
+  comprobar_contacto:IContacto[] = [];
+
   constructor(
     public tallerService: TallerService,
     public horarioService: HorarioService,
@@ -130,6 +134,18 @@ export class FormularioSuscripcionComponent implements OnInit {
         this.lista_errores.push("DNI del alumno no puede estar vacio")
       }
 
+      if (this.dni_alumno !== '') {
+        this.alumnoService.buscarAlumno(this.dni_alumno).subscribe({
+          next: (res: HttpResponse<IAlumno[]>) => {
+            this.comprobar_alumno = res.body ?? [];
+            if (this.comprobar_alumno.length > 0) {
+              this.lista_errores.push("Alumno con ese DNI ya registrado");
+            }
+          }
+        });
+        
+      }
+
       // Validaciones Creacion Contacto
       if (!this.contacto_registrado) {
         if (this.nombre_contacto === '') {
@@ -147,7 +163,22 @@ export class FormularioSuscripcionComponent implements OnInit {
         if (this.telefono_contacto === '' && this.correo_contacto === '') {
           this.lista_errores.push("Al menos hay que facilitar un correo o un telefono de contacto")
         }
+
+        if (this.dni_contacto !== '') {
+          this.contactoService.buscarContacto(this.dni_contacto).subscribe({
+            next: (res: HttpResponse<IContacto[]>) => {
+              this.comprobar_contacto = res.body ?? [];
+              if (this.comprobar_contacto.length > 0) {
+                this.lista_errores.push("Contacto con ese DNI ya registrado");
+              }
+            },
+            error: () => {
+              this.comprobar_contacto = [];
+            }
+          });
+        }
       } else {
+        // Validacion contacto ya registrado
         if (this.contacto_seleccionado === undefined) {
           this.lista_errores.push("Es necesario seleccionar un contacto")
         }
@@ -155,6 +186,7 @@ export class FormularioSuscripcionComponent implements OnInit {
       // Fin Validaciones Creacion contacto
 
     } else {
+      // Validacion alumno ya registrado
       if (this.alumno_seleccionado === undefined) {
         this.lista_errores.push("Es necesario seleccionar un alumno")
       }
@@ -171,8 +203,8 @@ export class FormularioSuscripcionComponent implements OnInit {
 
     if (!this.alumno_registrado) {
       this.formularioSuscripcionService.setAlumno({
-        nombre:this.nombre_alumno,
-        apellido:this.apellido_alumno,
+        nombre: this.nombre_alumno,
+        apellido: this.apellido_alumno,
         dni: this.dni_alumno
       });
 
