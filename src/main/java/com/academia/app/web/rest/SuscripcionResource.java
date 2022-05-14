@@ -180,6 +180,20 @@ public class SuscripcionResource {
     }
 
     /**
+     * {@code GET  /suscripcions/sus/:alumno_id/:taller_id} : get suscripcion by alumno_id and taller_id.
+     *
+     * @param alumno_id the id of the alumno in the suscription to retrieve.
+     * @param taller_id the id of the taller in the suscription to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the suscripcion, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/suscripcions/sus/{alumno_id}/{taller_id}")
+    public ResponseEntity<Suscripcion> getSuscripcionByAlumnoIdTallerId(@PathVariable Integer alumno_id, @PathVariable Integer taller_id) {
+        log.debug("REST request to get Suscripcion -> alumno taller");
+        Optional<Suscripcion> suscripcion = suscripcionService.findOneByAlumnoIdTallerId(alumno_id, taller_id);
+        return ResponseUtil.wrapOrNotFound(suscripcion);
+    }
+
+    /**
      * {@code DELETE  /suscripcions/:id} : delete the "id" suscripcion.
      *
      * @param id the id of the suscripcion to delete.

@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">Suscripcion ya registrada</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <div *ngIf="activa; else renovar">
+      <span>Ya existe una suscripcion activa</span>
+    </div>
+    <ng-template #renovar>
+      <span>¿Desea renovar la suscripcion?</span>
+    </ng-template>
+  </div>
+  <div class="modal-footer d-flex justify-content-between">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('cerrar')">Cerrar</button>
+    <button *ngIf="!activa" type="button" class="btn btn-outline-success" (click)="renovarSuscripcion()">Renovar</button>
+  </div>

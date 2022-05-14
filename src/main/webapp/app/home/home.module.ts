@@ -8,13 +8,17 @@ import { FormularioSuscripcionComponent } from 'app/formulario-suscripcion/formu
 import { HorarioSemanalComponent } from 'app/horario-semanal/horario-semanal.component';
 import { AsistenciasTalleresComponent } from 'app/asistencias-talleres/asistencias-talleres.component';
 import { HorarioInfoModalComponent } from 'app/horario-semanal/horario-info-modal/horario-info-modal.component';
+import { SuscripcionRegistradaModalComponent } from 'app/formulario-suscripcion/suscripcion-registrada/suscripcion-registrada.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([HOME_ROUTE])],
-  declarations: [HomeComponent,
+  declarations: [
+    HomeComponent,
     FormularioSuscripcionComponent,
     HorarioSemanalComponent,
     AsistenciasTalleresComponent,
-    HorarioInfoModalComponent],
+    HorarioInfoModalComponent,
+    SuscripcionRegistradaModalComponent
+  ],
 })
 export class HomeModule { }

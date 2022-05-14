@@ -7,11 +7,14 @@ import { IContacto } from 'app/entities/contacto/contacto.model';
 import { ContactoService } from 'app/entities/contacto/service/contacto.service';
 import { IHorario } from 'app/entities/horario/horario.model';
 import { HorarioService } from 'app/entities/horario/service/horario.service';
+import { SuscripcionService } from 'app/entities/suscripcion/service/suscripcion.service';
+import { ISuscripcion } from 'app/entities/suscripcion/suscripcion.model';
 import { TallerService } from 'app/entities/taller/service/taller.service';
 import { ITaller } from 'app/entities/taller/taller.model';
 import dayjs from 'dayjs/esm';
 import { FormularioSuscripcionService } from './formulario-suscripcion.service';
 import { ResumenSuscripcionModalComponent } from './resumen-suscripcion-modal/resumen-suscripcion-modal.component';
+import { SuscripcionRegistradaModalComponent } from './suscripcion-registrada/suscripcion-registrada.component';
 
 @Component({
   selector: 'jhi-formulario-suscripcion',
@@ -53,14 +56,16 @@ export class FormularioSuscripcionComponent implements OnInit {
   contacto_seleccionado?: IContacto = undefined;
 
   // Comprobaciones
-  comprobar_alumno:IAlumno[] = [];
-  comprobar_contacto:IContacto[] = [];
+  comprobar_alumno: IAlumno[] = [];
+  comprobar_contacto: IContacto[] = [];
+  comprobar_suscripcion?: ISuscripcion;
 
   constructor(
     public tallerService: TallerService,
     public horarioService: HorarioService,
     public alumnoService: AlumnoService,
     public contactoService: ContactoService,
+    public suscripcionService: SuscripcionService,
     public formularioSuscripcionService: FormularioSuscripcionService,
     private modalService: NgbModal) {
     this.loadTalleres();
@@ -114,10 +119,41 @@ export class FormularioSuscripcionComponent implements OnInit {
   resumenSuscripcion(): void {
     if (!this.comprobacionErrores()) {
       this.cargaDatos();
-      const modalRef = this.modalService.open(ResumenSuscripcionModalComponent);
+      this.comprobarSuscripcion();
+    }
+  }
+
+  lanzarModales(resumen:boolean):void{
+    let modalRef;
+
+    if(resumen){
+      modalRef = this.modalService.open(ResumenSuscripcionModalComponent);
       modalRef.componentInstance.crear_alumno = !this.alumno_registrado;
       modalRef.componentInstance.crear_contacto = !this.contacto_registrado;
+    }else{
+      modalRef = this.modalService.open(SuscripcionRegistradaModalComponent);
+      modalRef.componentInstance.activa = this.comprobar_suscripcion?.activa;
     }
+  }
+
+  // comprobar si una suscripcion ya existe
+  comprobarSuscripcion(): void {
+    if (this.alumno_registrado) {
+      this.suscripcionService.buscarSuscripcionPorAlumnoTaller(this.alumno_seleccionado!.id!, this.taller_seleccionado!.id!).subscribe({
+        next: (resp) => {
+          this.comprobar_suscripcion = resp.body ?? undefined;
+          this.formularioSuscripcionService.nuevaSuscripcion = this.comprobar_suscripcion!;
+          this.lanzarModales(false);
+        },
+        error: () => {
+          this.lanzarModales(true);
+        }
+      }
+      )
+    }else{
+      this.lanzarModales(true);
+    }
+
   }
 
   comprobacionErrores(): boolean {
@@ -143,7 +179,7 @@ export class FormularioSuscripcionComponent implements OnInit {
             }
           }
         });
-        
+
       }
 
       // Validaciones Creacion Contacto

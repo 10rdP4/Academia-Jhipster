@@ -87,6 +87,19 @@ public class SuscripcionService {
     /**
      * Get one suscripcion by id.
      *
+     * @param alumno_id the id of the alumno in the suscription to retrieve.
+     * @param taller_id the id of the taller in the suscription to retrieve.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<Suscripcion> findOneByAlumnoIdTallerId(Integer alumno_id, Integer taller_id) {
+        log.debug("Request to get Suscripcion -> alumno taller");
+        return suscripcionRepository.findByAlumnoIdTallerId(alumno_id, taller_id);
+    }
+
+    /**
+     * Get one suscripcion by alumno_id and taller_id.
+     *
      * @param id the id of the entity.
      * @return the entity.
      */
