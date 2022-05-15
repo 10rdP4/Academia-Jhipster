@@ -24,6 +24,7 @@ export class SuscripcionRegistradaModalComponent {
     this.suscripcion.fecha = dayjs();
 
     this.suscripcionService.update(this.suscripcion).subscribe();
+    this.formularioSuscripcionService.crearPDFSuscripcion();
     this.activeModal.close();
   }
 }

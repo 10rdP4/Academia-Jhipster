@@ -48,6 +48,7 @@ export class ResumenSuscripcionModalComponent {
       this.suscripcionService.create(this.formularioSuscripcionService.nuevaSuscripcion).subscribe({
       });
     }
+    this.formularioSuscripcionService.crearPDFSuscripcion();
     this.activeModal.close('Close click');
   }
 
