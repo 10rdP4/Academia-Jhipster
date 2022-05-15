@@ -28,8 +28,8 @@
         </li>
 
         <!--Mis Componentes-->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/suscripcion" (click)="collapseNavbar()">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/nueva-suscripcion" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="file-lines"></fa-icon>
               <span>Suscripcion</span>
@@ -37,8 +37,8 @@
           </a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/horario" (click)="collapseNavbar()">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/horario-semanal" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="calendar-days"></fa-icon>
               <span>Horario</span>
@@ -46,7 +46,7 @@
           </a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR', 'ROLE_PROFESOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/asistencias" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="list-check"></fa-icon>
@@ -87,7 +87,7 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+          <a class="nav-link dropdown-toggle" *jhiHasAnyAuthority="['ROLE_ADMIN']" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
               <fa-icon icon="th-list"></fa-icon>
               <span jhiTranslate="global.menu.entities.main">Entities</span>

@@ -32,16 +32,28 @@ import { AsistenciasTalleresComponent } from './asistencias-talleres/asistencias
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
         },
         {
-          path: 'suscripcion',
-          component: FormularioSuscripcionComponent
+          path: 'nueva-suscripcion',
+          component: FormularioSuscripcionComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR],
+          },
+          canActivate: [UserRouteAccessService]
         },
         {
-          path: 'horario',
-          component: HorarioSemanalComponent
+          path: 'horario-semanal',
+          component: HorarioSemanalComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR],
+          },
+          canActivate: [UserRouteAccessService]
         },
         {
           path: 'asistencias',
-          component: AsistenciasTalleresComponent
+          component: AsistenciasTalleresComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR, Authority.PROFESOR],
+          },
+          canActivate: [UserRouteAccessService]
         },
         {
           path: '',
