@@ -7,6 +7,9 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { FormularioSuscripcionComponent } from './formulario-suscripcion/formulario-suscripcion.component';
+import { HorarioSemanalComponent } from './horario-semanal/horario-semanal.component';
+import { AsistenciasTalleresComponent } from './asistencias-talleres/asistencias-talleres.component';
 
 @NgModule({
   imports: [
@@ -27,6 +30,18 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
         {
           path: 'login',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        },
+        {
+          path: 'suscripcion',
+          component: FormularioSuscripcionComponent
+        },
+        {
+          path: 'horario',
+          component: HorarioSemanalComponent
+        },
+        {
+          path: 'asistencias',
+          component: AsistenciasTalleresComponent
         },
         {
           path: '',

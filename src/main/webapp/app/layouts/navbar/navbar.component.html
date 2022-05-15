@@ -1,9 +1,8 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="logo-img"></span>
-      <span jhiTranslate="global.title" class="navbar-title">Academia</span>
-      <span class="navbar-version">{{ version }}</span>
+      <fa-icon icon="laptop-code"></fa-icon>
+      <span jhiTranslate="global.title" class="navbar-title"> Academia</span>
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -27,6 +26,58 @@
             </span>
           </a>
         </li>
+
+        <!--Mis Componentes-->
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/suscripcion" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="file-lines"></fa-icon>
+              <span>Suscripcion</span>
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/horario" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="calendar-days"></fa-icon>
+              <span>Horario</span>
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/asistencias" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="list-check"></fa-icon>
+              <span>Asistencias</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- Para añadir profesores o talleres
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="home"></fa-icon>
+              <span>Añadir</span>
+            </span>
+          </a>
+        </li>
+
+        -->
+
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="circle-info"></fa-icon>
+              <span>Datos Alumno</span>
+            </span>
+          </a>
+        </li>
+
+        <!--Fin mis Componentes-->
+
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
           *ngSwitchCase="true"

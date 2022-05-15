@@ -49,6 +49,7 @@ export class ResumenSuscripcionModalComponent {
       });
     }
     this.formularioSuscripcionService.crearPDFSuscripcion();
+    window.location.reload();
     this.activeModal.close('Close click');
   }
 
