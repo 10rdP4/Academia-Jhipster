@@ -9,6 +9,8 @@ import { HorarioSemanalComponent } from 'app/horario-semanal/horario-semanal.com
 import { AsistenciasTalleresComponent } from 'app/asistencias-talleres/asistencias-talleres.component';
 import { HorarioInfoModalComponent } from 'app/horario-semanal/horario-info-modal/horario-info-modal.component';
 import { SuscripcionRegistradaModalComponent } from 'app/formulario-suscripcion/suscripcion-registrada/suscripcion-registrada.component';
+import { CreacionProfesorComponent } from 'app/creacion-profesor/creacion-profesor.component';
+import { CreacionTallerComponent } from 'app/creacion-taller/creacion-taller.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([HOME_ROUTE])],
@@ -18,7 +20,9 @@ import { SuscripcionRegistradaModalComponent } from 'app/formulario-suscripcion/
     HorarioSemanalComponent,
     AsistenciasTalleresComponent,
     HorarioInfoModalComponent,
-    SuscripcionRegistradaModalComponent
+    SuscripcionRegistradaModalComponent,
+    CreacionProfesorComponent,
+    CreacionTallerComponent
   ],
 })
 export class HomeModule { }
