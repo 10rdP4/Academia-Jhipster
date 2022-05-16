@@ -33,7 +33,7 @@ export class CreacionProfesorComponent implements OnInit {
       dni: this.dni,
       sueldo: this.sueldo
     }
-    this.profesorService.create(nuevo_profesor);
+    this.profesorService.create(nuevo_profesor).subscribe();
   }
 
   cancelar():void{
