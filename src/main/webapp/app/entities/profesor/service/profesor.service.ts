@@ -34,6 +34,10 @@ export class ProfesorService {
     return this.http.get<IProfesor>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findProfesorByDni(dni:string): Observable<EntityArrayResponseType>{
+    return this.http.get<IProfesor[]>(`${this.resourceUrl}/buscar/${dni}`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IProfesor[]>(this.resourceUrl, { params: options, observe: 'response' });

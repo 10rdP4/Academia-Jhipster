@@ -153,6 +153,20 @@ public class TallerResource {
     }
 
     /**
+     * {@code GET  /tallers} : get all the tallers by nombre.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tallers in body.
+     */
+    @GetMapping("/tallers/buscar/{nombre}")
+    public ResponseEntity<List<Taller>> getAllTallersByNombre(@org.springdoc.api.annotations.ParameterObject Pageable pageable, @PathVariable String nombre) {
+        log.debug("REST request to get a page of Tallers by nombre");
+        Page<Taller> page = tallerService.findAllByNombre(pageable, nombre);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /tallers/:id} : get the "id" taller.
      *
      * @param id the id of the taller to retrieve.

@@ -1,4 +1,4 @@
-<div class="container">
+<div>
     <h1>Taller</h1>
 
     <hr>
@@ -7,34 +7,48 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Nombre</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="nombre">
     </div>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Descripcion</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="descripcion">
     </div>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Precion</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="precio">
     </div>
 
     <div ngbDropdown class="d-inline-block">
         <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Seleccion Profesor</button>
         <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
-            <button ngbDropdownItem>
-                Profesor_1
+            <button ngbDropdownItem *ngFor="let profesor of lista_profesores" (click)="seleccionarProfesor(profesor)">
+                {{profesor.nombre}} {{profesor.apellido}}
             </button>
         </div>
     </div>
 
+    <div *ngIf="profesor_seleccionado != undefined" class="alert alert-success border border-success">
+        <span>Se ha seleccionado el profesor {{profesor_seleccionado.nombre}} {{profesor_seleccionado.apellido}}</span>
+    </div>
+
     <div class="d-flex flex-row justify-content-around">
-        <button class="btn btn-danger">Cancelar</button>
-        <button class="btn btn-success">Guardar</button>
+        <button class="btn btn-danger" (click)="vaciarCampos()">Cancelar</button>
+        <button class="btn btn-success" (click)="guardarTaller()">Guardar</button>
+    </div>
+
+    <div *ngIf="lista_errores.length > 0" class="alert alert-danger border border-danger mt-3">
+        <span>Errores</span>
+        <hr>
+        <ul>
+            <li *ngFor="let error of lista_errores ">
+                {{error}}
+            </li>
+        </ul>
     </div>
 </div>

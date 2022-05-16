@@ -153,6 +153,20 @@ public class ProfesorResource {
     }
 
     /**
+     * {@code GET  /profesors} : get all the profesors by dni.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of profesors in body.
+     */
+    @GetMapping("/profesors/buscar/{dni}")
+    public ResponseEntity<List<Profesor>> getAllProfesorsByDni(@org.springdoc.api.annotations.ParameterObject Pageable pageable, @PathVariable String dni) {
+        log.debug("REST request to get a page of Profesors by DNI");
+        Page<Profesor> page = profesorService.findAllByDni(pageable, dni);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /profesors/:id} : get the "id" profesor.
      *
      * @param id the id of the profesor to retrieve.

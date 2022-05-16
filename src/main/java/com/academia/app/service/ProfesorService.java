@@ -79,6 +79,18 @@ public class ProfesorService {
     }
 
     /**
+     * Get all the profesors.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Profesor> findAllByDni(Pageable pageable, String dni) {
+        log.debug("Request to get all Profesors");
+        return profesorRepository.findByDni(dni, pageable);
+    }
+
+    /**
      * Get one profesor by id.
      *
      * @param id the id of the entity.

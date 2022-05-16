@@ -32,6 +32,10 @@ export class TallerService {
     return this.http.get<ITaller>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findByNombre(nombre:string): Observable<EntityArrayResponseType>{
+    return this.http.get<ITaller[]>(`${this.resourceUrl}/buscar/${nombre}`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ITaller[]>(this.resourceUrl, { params: options, observe: 'response' });

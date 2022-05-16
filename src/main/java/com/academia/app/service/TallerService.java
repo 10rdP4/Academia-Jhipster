@@ -76,6 +76,18 @@ public class TallerService {
     }
 
     /**
+     * Get all the tallers by nombre.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Taller> findAllByNombre(Pageable pageable, String nombre) {
+        log.debug("Request to get all Tallers by nombre");
+        return tallerRepository.findByNombre(nombre, pageable);
+    }
+
+    /**
      * Get one taller by id.
      *
      * @param id the id of the entity.
