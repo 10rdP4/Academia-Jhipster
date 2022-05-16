@@ -45,12 +45,8 @@ export class ResumenSuscripcionModalComponent {
         this.guardarAlumno();
       }
     } else {
-      this.suscripcionService.create(this.formularioSuscripcionService.nuevaSuscripcion).subscribe({
-      });
+      this.crearSuscripcion();
     }
-    this.formularioSuscripcionService.crearPDFSuscripcion();
-    window.location.reload();
-    this.activeModal.close('Close click');
   }
 
   crearTodo(): void {
@@ -68,12 +64,20 @@ export class ResumenSuscripcionModalComponent {
       next: (alumno: HttpResponse<IAlumno>) => {
         this.alumno_recibido = alumno.body ?? undefined;
         this.formularioSuscripcionService.setAlumno(this.alumno_recibido!);
-
-        this.suscripcionService.create(this.formularioSuscripcionService.nuevaSuscripcion).subscribe({
-        });
+        this.crearSuscripcion();
       }
     }
     );
+  }
+
+  crearSuscripcion():void{
+    this.suscripcionService.create(this.formularioSuscripcionService.nuevaSuscripcion).subscribe({
+      next: () => {
+        this.formularioSuscripcionService.crearPDFSuscripcion();
+        window.location.reload();
+        this.activeModal.close('Close click');
+      }
+    });
   }
 
   formatFecha():string{
