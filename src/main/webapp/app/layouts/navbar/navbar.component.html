@@ -55,19 +55,25 @@
           </a>
         </li>
 
-        <!-- Para añadir profesores o talleres
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/nuevo-profesor" (click)="collapseNavbar()">
             <span>
-              <fa-icon icon="home"></fa-icon>
-              <span>Añadir</span>
+              <fa-icon icon="chalkboard-teacher"></fa-icon>
+              <span>Nuevo Profesor</span>
             </span>
           </a>
         </li>
 
-        -->
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/nuevo-taller" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="plus-minus"></fa-icon>
+              <span>Nuevo Taller</span>
+            </span>
+          </a>
+        </li>
 
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR', 'ROLE_PROFESOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="circle-info"></fa-icon>

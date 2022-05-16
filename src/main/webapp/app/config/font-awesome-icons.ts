@@ -42,6 +42,8 @@ import {
   faCalendarDays,
   faListCheck,
   faCircleInfo,
+  faChalkboardTeacher,
+  faPlusMinus,
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -88,6 +90,8 @@ export const fontAwesomeIcons = [
   faFileLines,
   faCalendarDays,
   faListCheck,
-  faCircleInfo
+  faCircleInfo,
+  faChalkboardTeacher,
+  faPlusMinus
   // jhipster-needle-add-icon-import
 ];

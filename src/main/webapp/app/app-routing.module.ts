@@ -10,6 +10,8 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { FormularioSuscripcionComponent } from './formulario-suscripcion/formulario-suscripcion.component';
 import { HorarioSemanalComponent } from './horario-semanal/horario-semanal.component';
 import { AsistenciasTalleresComponent } from './asistencias-talleres/asistencias-talleres.component';
+import { CreacionProfesorComponent } from './creacion-profesor/creacion-profesor.component';
+import { CreacionTallerComponent } from './creacion-taller/creacion-taller.component';
 
 @NgModule({
   imports: [
@@ -52,6 +54,22 @@ import { AsistenciasTalleresComponent } from './asistencias-talleres/asistencias
           component: AsistenciasTalleresComponent,
           data:{
             authorities: [Authority.ADMIN, Authority.GESTOR, Authority.PROFESOR],
+          },
+          canActivate: [UserRouteAccessService]
+        },
+        {
+          path: 'nuevo-profesor',
+          component: CreacionProfesorComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR],
+          },
+          canActivate: [UserRouteAccessService]
+        },
+        {
+          path: 'nuevo-taller',
+          component: CreacionTallerComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR],
           },
           canActivate: [UserRouteAccessService]
         },
