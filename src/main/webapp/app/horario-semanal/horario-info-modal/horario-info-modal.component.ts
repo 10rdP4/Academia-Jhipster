@@ -1,6 +1,8 @@
+import { HttpResponse } from '@angular/common/http';
 import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { IHorario } from 'app/entities/horario/horario.model';
+import { TallerService } from 'app/entities/taller/service/taller.service';
 import { ITaller } from 'app/entities/taller/taller.model';
 import { HorarioSemanalService } from '../horario-semanal.service';
 
@@ -14,8 +16,13 @@ export class HorarioInfoModalComponent {
 
   constructor(
     public horarioSemanalService: HorarioSemanalService,
+    public tallerService: TallerService,
     public activeModal: NgbActiveModal) {
-    this.taller = this.horarioSemanalService.taller;
+    this.tallerService.find(this.horarioSemanalService.taller.id!).subscribe({
+      next: (res: HttpResponse<ITaller>) => {
+        this.taller = res.body ?? {};
+      }
+    });
     this.horarios_taller = this.horarioSemanalService.horario_taller;
     this.horarios_taller.sort(
       function(a, b) {          

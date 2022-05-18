@@ -15,6 +15,9 @@
   <ul>
     <li *ngFor="let horario of horarios_taller">{{formatoHorario(horario)}}</li>
   </ul>
+
+  <h6>Profesor</h6>
+  <p>{{taller.profesor?.nombre}} {{taller.profesor?.apellido}}</p>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
