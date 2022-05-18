@@ -126,10 +126,9 @@
                         <input type="text" name="dni_contacto" id="dni_alumno_in_text" class="form-control mb-1"
                             pattern="[0-9]{8}[A-Z]{1}" [(ngModel)]="dni_contacto">
                         <input type="tel" name="telefono_contacto" id="apellido_alumno_in_text"
-                            class="form-control mb-1" pattern="[0-9]{9}" [(ngModel)]="telefono_contacto">
+                            class="form-control mb-1" pattern="^(6|7|9){1}[0-9]{8}$" [(ngModel)]="telefono_contacto">
                         <input type="email" name="correo_contacto" id="apellido_alumno_in_text"
                             class="form-control mb-1" pattern="[^@\s]+@[^@\s]+" [(ngModel)]="correo_contacto">
-
                     </div>
                 </div>
             </div>
@@ -215,5 +214,13 @@
             <ul>
                 <li *ngFor="let error of lista_errores">{{error}}</li>
             </ul>
+        </div>
+
+        <!--Info de los asteriscos-->
+        <div class="alert alert-info border border-info mt-4">
+            <label>
+                * El campo es obligatorio <br>
+                ** Al menos es necesario rellenar uno de los campos
+            </label>
         </div>
     </div>
