@@ -73,8 +73,8 @@
           </a>
         </li>
 
-        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR', 'ROLE_PROFESOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/info-alumnos" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="circle-info"></fa-icon>
               <span>Datos Alumno</span>

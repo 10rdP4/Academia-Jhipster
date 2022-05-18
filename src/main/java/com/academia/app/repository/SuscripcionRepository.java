@@ -23,4 +23,7 @@ public interface SuscripcionRepository extends JpaRepository<Suscripcion, Long> 
     @Query(value = "SELECT * FROM suscripcion s where alumno_id = :alumno_id AND taller_id = :taller_id", nativeQuery = true)
     Optional<Suscripcion> findByAlumnoIdTallerId(@Param("alumno_id") Integer alumno_id, @Param("taller_id") Integer taller_id);
 
+    @Query(value = "SELECT * FROM suscripcion s where alumno_id = :alumno_id", nativeQuery = true)
+    Page<Suscripcion> findByAlumnoId(@Param("alumno_id") Integer alumno_id, Pageable pageable);
+
 }

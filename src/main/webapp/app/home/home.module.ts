@@ -11,6 +11,7 @@ import { HorarioInfoModalComponent } from 'app/horario-semanal/horario-info-moda
 import { SuscripcionRegistradaModalComponent } from 'app/formulario-suscripcion/suscripcion-registrada/suscripcion-registrada.component';
 import { CreacionProfesorComponent } from 'app/creacion-profesor/creacion-profesor.component';
 import { CreacionTallerComponent } from 'app/creacion-taller/creacion-taller.component';
+import { InfoAlumnosComponent } from 'app/info-alumnos/info-alumnos.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([HOME_ROUTE])],
@@ -22,7 +23,8 @@ import { CreacionTallerComponent } from 'app/creacion-taller/creacion-taller.com
     HorarioInfoModalComponent,
     SuscripcionRegistradaModalComponent,
     CreacionProfesorComponent,
-    CreacionTallerComponent
+    CreacionTallerComponent,
+    InfoAlumnosComponent
   ],
 })
 export class HomeModule { }

@@ -85,6 +85,18 @@ public class SuscripcionService {
     }
 
     /**
+     * Get all the suscripcions by id Taller.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Suscripcion> findAllByIdAlumno(Pageable pageable, Integer idAlumno) {
+        log.debug("Request to get all Suscripcions by Id Taller");
+        return suscripcionRepository.findByAlumnoId(idAlumno, pageable);
+    }
+
+    /**
      * Get one suscripcion by id.
      *
      * @param alumno_id the id of the alumno in the suscription to retrieve.

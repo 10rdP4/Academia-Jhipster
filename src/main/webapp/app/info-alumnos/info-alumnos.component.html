@@ -1,0 +1,85 @@
+<div>
+    <h1>Buscar Alumno</h1>
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="">Datos</span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="alumno_busqueda" (ngModelChange)="buscarAlumno()">
+    </div>
+
+    <div class="alert alert-info border border-info" *ngIf="alumnos_registrados.length > 0; else error_alumnos">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let alumno of alumnos_registrados">
+                    <td>{{alumno.nombre}}</td>
+                    <td>{{alumno.apellido}}</td>
+                    <td>{{alumno.dni}}</td>
+                    <td><button class="btn btn-primary"
+                            (click)="seleccionarAlumnoExistente(alumno)">Seleccionar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="alumno_seleccionado != undefined" class="alert alert-success border border-success">
+        <span >Alumno seleccionado</span>
+    </div>
+
+    <ng-template #error_alumnos>
+        <p class="alert alert-warning">Ningun alumno encontrado</p>
+    </ng-template>
+
+    <div *ngIf="alumno_seleccionado != undefined">
+        <!--Datos del alumno-->
+        <div>
+            <h3>Datos del alumno</h3>
+            <ul>
+                <li>Nombre: {{alumno_seleccionado.nombre}}</li>
+                <li>Apellido: {{alumno_seleccionado.apellido}}</li>
+                <li>Dni: {{alumno_seleccionado.dni}}</li>
+            </ul>
+        </div>
+
+        <!--Datos del contacto-->
+        <div>
+            <h3>Datos del contacto</h3>
+            <ul>
+                <li>Nombre: {{alumno_contacto.nombre}}</li>
+                <li>Dni: {{alumno_contacto.dni}}</li>
+                <li>Telefono: {{alumno_contacto.telefono}}</li>
+            </ul>
+        </div>
+
+        <!--Suscripciones-->
+        <div>
+            <h3>Datos suscripciones</h3>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Taller</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Activa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let suscripcion of alumno_suscripciones">
+                    <th scope="row">{{suscripcion.id}}</th>
+                    <td>{{suscripcion.taller?.nombre}}</td>
+                    <td>{{suscripcion.fecha}}</td>
+                    <td [ngClass]="{'bg-success':suscripcion.activa == true, 'bg-danger':suscripcion.activa == false}">{{suscripcion.activa}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

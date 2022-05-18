@@ -12,6 +12,7 @@ import { HorarioSemanalComponent } from './horario-semanal/horario-semanal.compo
 import { AsistenciasTalleresComponent } from './asistencias-talleres/asistencias-talleres.component';
 import { CreacionProfesorComponent } from './creacion-profesor/creacion-profesor.component';
 import { CreacionTallerComponent } from './creacion-taller/creacion-taller.component';
+import { InfoAlumnosComponent } from './info-alumnos/info-alumnos.component';
 
 @NgModule({
   imports: [
@@ -68,6 +69,14 @@ import { CreacionTallerComponent } from './creacion-taller/creacion-taller.compo
         {
           path: 'nuevo-taller',
           component: CreacionTallerComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR],
+          },
+          canActivate: [UserRouteAccessService]
+        },
+        {
+          path: 'info-alumnos',
+          component: InfoAlumnosComponent,
           data:{
             authorities: [Authority.ADMIN, Authority.GESTOR],
           },

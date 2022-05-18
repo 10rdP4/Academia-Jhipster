@@ -59,6 +59,12 @@ export class SuscripcionService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  buscarSucripcionPorAlumno(alumno_id:number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<ISuscripcion[]>(`${this.resourceUrl}/alumno/${alumno_id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   buscarSuscripcionPorAlumnoTaller(alumno_id:number, taller_id:number) : Observable<EntityResponseType>{
     return this.http
       .get<ISuscripcion>(`${this.resourceUrl}/sus/${alumno_id}/${taller_id}`, { observe: 'response' })
