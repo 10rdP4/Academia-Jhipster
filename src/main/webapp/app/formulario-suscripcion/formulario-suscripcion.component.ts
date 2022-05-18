@@ -138,22 +138,18 @@ export class FormularioSuscripcionComponent implements OnInit {
 
   // comprobar si una suscripcion ya existe
   comprobarSuscripcion(): void {
-    if (this.alumno_registrado) {
       this.suscripcionService.buscarSuscripcionPorAlumnoTaller(this.alumno_seleccionado!.id!, this.taller_seleccionado!.id!).subscribe({
-        next: (resp) => {
+        next: (resp: HttpResponse<ISuscripcion>) => {
           this.comprobar_suscripcion = resp.body ?? undefined;
           this.formularioSuscripcionService.nuevaSuscripcion = this.comprobar_suscripcion!;
-          this.lanzarModales(false);
+          this.lanzarModales(this.comprobar_suscripcion === undefined);
         },
         error: () => {
-          this.lanzarModales(true);
-        }
+          this.formularioSuscripcionService.nuevaSuscripcion.id = undefined;
+          this.lanzarModales(true)
+        } 
       }
       )
-    }else{
-      this.lanzarModales(true);
-    }
-
   }
 
   comprobacionErrores(): boolean {
