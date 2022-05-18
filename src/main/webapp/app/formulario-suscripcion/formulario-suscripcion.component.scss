@@ -1,0 +1,9 @@
+.obligatorio::after {
+    content:"*";
+    color:red;
+}
+
+.especial::after{
+    content:"**";
+    color:red;
+}
