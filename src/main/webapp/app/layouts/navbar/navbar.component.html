@@ -82,6 +82,15 @@
           </a>
         </li>
 
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GESTOR']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/estadisticas" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="circle-info"></fa-icon>
+              <span>Estadisticas</span>
+            </span>
+          </a>
+        </li>
+
         <!--Fin mis Componentes-->
 
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->

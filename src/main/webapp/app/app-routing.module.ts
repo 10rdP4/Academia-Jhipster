@@ -13,6 +13,7 @@ import { AsistenciasTalleresComponent } from './asistencias-talleres/asistencias
 import { CreacionProfesorComponent } from './creacion-profesor/creacion-profesor.component';
 import { CreacionTallerComponent } from './creacion-taller/creacion-taller.component';
 import { InfoAlumnosComponent } from './info-alumnos/info-alumnos.component';
+import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 
 @NgModule({
   imports: [
@@ -77,6 +78,14 @@ import { InfoAlumnosComponent } from './info-alumnos/info-alumnos.component';
         {
           path: 'info-alumnos',
           component: InfoAlumnosComponent,
+          data:{
+            authorities: [Authority.ADMIN, Authority.GESTOR],
+          },
+          canActivate: [UserRouteAccessService]
+        },
+        {
+          path: 'estadisticas',
+          component: EstadisticasComponent,
           data:{
             authorities: [Authority.ADMIN, Authority.GESTOR],
           },
