@@ -53,9 +53,10 @@
         <div>
             <h3>Datos del contacto</h3>
             <ul>
-                <li>Nombre: {{alumno_contacto.nombre}}</li>
-                <li>Dni: {{alumno_contacto.dni}}</li>
-                <li>Telefono: {{alumno_contacto.telefono}}</li>
+                <li>Nombre: {{alumno_seleccionado.contacto?.nombre}}</li>
+                <li>Dni: {{alumno_seleccionado.contacto?.dni}}</li>
+                <li>Telefono: {{alumno_seleccionado.contacto?.telefono}}</li>
+                <li>Correo: {{alumno_seleccionado.contacto?.correo}}</li>
             </ul>
         </div>
 
@@ -75,7 +76,7 @@
                   <tr *ngFor="let suscripcion of alumno_suscripciones">
                     <th scope="row">{{suscripcion.id}}</th>
                     <td>{{suscripcion.taller?.nombre}}</td>
-                    <td>{{suscripcion.fecha}}</td>
+                    <td>{{formatearFecha(suscripcion)}}</td>
                     <td [ngClass]="{'bg-success':suscripcion.activa == true, 'bg-danger':suscripcion.activa == false}">{{suscripcion.activa}}</td>
                   </tr>
                 </tbody>

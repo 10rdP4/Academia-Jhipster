@@ -6,7 +6,7 @@ import { IContacto } from "app/entities/contacto/contacto.model";
 import { ContactoService } from "app/entities/contacto/service/contacto.service";
 import { SuscripcionService } from "app/entities/suscripcion/service/suscripcion.service";
 import { ISuscripcion } from "app/entities/suscripcion/suscripcion.model";
-
+import dayjs from "dayjs/esm";
 
 @Component({
   selector: 'jhi-horario-semanal',
@@ -60,11 +60,7 @@ export class InfoAlumnosComponent implements OnInit {
     });
   }
 
-  buscarContacto():void{
-    this.contactoService.find(this.alumno_seleccionado!.contacto!.id!).subscribe({
-        next: (resp: HttpResponse<IContacto>) => {
-            this.alumno_contacto = resp.body ?? {};
-        }
-    });
+  formatearFecha(suscripcion: ISuscripcion):string{
+    return dayjs(suscripcion.fecha).format("DD/MM/YYYY");
   }
 }
