@@ -77,7 +77,8 @@
             </div>
 
             <div *ngIf="alumno_seleccionado != undefined">
-                <span class="alert alert-success border border-success">Alumno: {{alumno_seleccionado.nombre}} {{alumno_seleccionado.apellido}} {{alumno_seleccionado.dni}}</span>
+                <span class="alert alert-success border border-success">Alumno: {{alumno_seleccionado.nombre}}
+                    {{alumno_seleccionado.apellido}} {{alumno_seleccionado.dni}}</span>
             </div>
 
             <ng-template #error_alumnos>
@@ -86,12 +87,11 @@
 
         </ng-template>
 
+        <!--Datos sobre el Contacto-->
+        <u class="align-self-center" *ngIf="!alumno_registrado">
+            <h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2>
+        </u>
         <div *ngIf="!alumno_registrado">
-            <!--Datos sobre el Contacto-->
-            <u class="align-self-center">
-                <h2 jhiTranslate="formulario-suscripcion.datos-contacto">Datos del alumno</h2>
-            </u>
-
             <div class="d-flex flex-row">
                 <label>¿Contacto ya registrado?</label>
                 <div class="form-check form-switch">
@@ -138,7 +138,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">Datos</span>
                     </div>
-                    <input type="text" class="form-control" [(ngModel)]="contacto_busqueda" (ngModelChange)="buscarContacto()">
+                    <input type="text" class="form-control" [(ngModel)]="contacto_busqueda"
+                        (ngModelChange)="buscarContacto()">
                 </div>
 
                 <div class="alert alert-info border border-info"
@@ -168,7 +169,8 @@
                 </div>
 
                 <div *ngIf="contacto_seleccionado != undefined">
-                    <span class="alert alert-success border border-success">Contacto: {{contacto_seleccionado.nombre}} {{contacto_seleccionado.dni}}</span>
+                    <span class="alert alert-success border border-success">Contacto: {{contacto_seleccionado.nombre}}
+                        {{contacto_seleccionado.dni}}</span>
                 </div>
 
                 <ng-template #error_contactos>
