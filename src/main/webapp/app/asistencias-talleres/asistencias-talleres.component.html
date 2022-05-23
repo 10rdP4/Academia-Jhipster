@@ -1,103 +1,105 @@
-<div class="d-flex flex-column">
+<div class="container">
+    <div class="d-flex flex-column">
 
-    <u>
-        <h2>Control de asistencias</h2>
-    </u>
-    <!--Seleccion del Taller-->
-    <div ngbDropdown class="d-inline-block m-3">
-        <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle
-            (click)="vaciarTallerHorario()">Talleres</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
-            <button ngbDropdownItem *ngFor="let taller of talleres_disponibles" (click)="seleccionarTaller(taller)">
-                {{taller.nombre}}
-            </button>
+       <h1>Seleccion de Taller</h1> 
+       <hr>
+        <!--Seleccion del Taller-->
+        <div ngbDropdown class="d-inline-block m-3">
+            <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle
+                (click)="vaciarTallerHorario()">Talleres</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
+                <button ngbDropdownItem *ngFor="let taller of talleres_disponibles" (click)="seleccionarTaller(taller)">
+                    {{taller.nombre}}
+                </button>
+            </div>
         </div>
-    </div>
 
-    <!--Seleccion del Horario-->
-    <div *ngIf="taller_seleccionado != undefined">
-        <div *ngIf="horarios_taller.length > 0; else no_horarios">
-            <div ngbDropdown class="d-inline-block m-3">
-                <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Horarios</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
-                    <div>
-                        <button ngbDropdownItem *ngFor="let horario of horarios_taller"
-                            (click)="seleccionarHorario(horario)">
-                            {{formatoHorario(horario)}}
-                        </button>
+        <!--Seleccion del Horario-->
+        <div *ngIf="taller_seleccionado != undefined">
+            <div *ngIf="horarios_taller.length > 0; else no_horarios">
+                <div ngbDropdown class="d-inline-block m-3">
+                    <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Horarios</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
+                        <div>
+                            <button ngbDropdownItem *ngFor="let horario of horarios_taller"
+                                (click)="seleccionarHorario(horario)">
+                                {{formatoHorario(horario)}}
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+                <div *ngIf="horario_seleccionado != undefined; else no_seleccionado"
+                    class="alert alert-success border border-success">
+                    <span>Se ha seleccionado {{taller_seleccionado!.nombre}} el dia
+                        {{formatoHorario(horario_seleccionado!)}}</span>
+                </div>
+                <ng-template #no_seleccionado>
+                    <span class="alert alert-warning border border-warning">No hay ninguna hora seleccionada</span>
+                </ng-template>
             </div>
 
-            <div *ngIf="horario_seleccionado != undefined; else no_seleccionado"
-                class="alert alert-success border border-success">
-                <span>Se ha seleccionado {{taller_seleccionado!.nombre}} el dia
-                    {{formatoHorario(horario_seleccionado!)}}</span>
-            </div>
-            <ng-template #no_seleccionado>
-                <span class="alert alert-warning border border-warning">No hay ninguna hora seleccionada</span>
+            <ng-template #no_horarios>
+                <span class="alert alert-warning border border-warning">
+                    No existen horarios para ese taller
+                </span>
             </ng-template>
         </div>
 
-        <ng-template #no_horarios>
-            <span class="alert alert-warning border border-warning">
-                No existen horarios para ese taller
-            </span>
-        </ng-template>
-    </div>
-
-    <!--Alumnos del Taller-->
-    <div *ngIf="taller_seleccionado != undefined && horario_seleccionado != undefined">
-        <div *ngIf="asistencias.length > 0 || asistencias_suscripcion.length > 0; else sin_alumnos_suscritos">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Dni</th>
-                        <th scope="col">Asistencia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-template [ngIf]="asistencias.length <= 0" [ngIfElse]="cargar_asistencias">
-                        <tr *ngFor="let asistencia of asistencias_suscripcion">
-                            <td>{{asistencia.alumno?.nombre}}</td>
-                            <td>{{asistencia.alumno?.apellido}}</td>
-                            <td>{{asistencia.alumno?.dni}}</td>
-                            <td>
-                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value=""
-                                    (click)="actualizarAsistencia(asistencia, cb_sus.checked)" #cb_sus aria-label="...">
-                            </td>
+        <!--Alumnos del Taller-->
+        <div *ngIf="taller_seleccionado != undefined && horario_seleccionado != undefined">
+            <div *ngIf="asistencias.length > 0 || asistencias_suscripcion.length > 0; else sin_alumnos_suscritos">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Dni</th>
+                            <th scope="col">Asistencia</th>
                         </tr>
-                    </ng-template>
-                    <ng-template #cargar_asistencias>
-                        <tr *ngFor="let asistencia of asistencias">
-                            <td>{{asistencia.alumno?.nombre}}</td>
-                            <td>{{asistencia.alumno?.apellido}}</td>
-                            <td>{{asistencia.alumno?.dni}}</td>
-                            <td>
-                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel"
-                                    [checked]="asistencia.asistencia"
-                                    (click)="actualizarAsistencia(asistencia, cb_asis.checked)" #cb_asis
-                                    aria-label="...">
-                            </td>
-                        </tr>
-                    </ng-template>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <ng-template [ngIf]="asistencias.length <= 0" [ngIfElse]="cargar_asistencias">
+                            <tr *ngFor="let asistencia of asistencias_suscripcion">
+                                <td>{{asistencia.alumno?.nombre}}</td>
+                                <td>{{asistencia.alumno?.apellido}}</td>
+                                <td>{{asistencia.alumno?.dni}}</td>
+                                <td>
+                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value=""
+                                        (click)="actualizarAsistencia(asistencia, cb_sus.checked)" #cb_sus
+                                        aria-label="...">
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #cargar_asistencias>
+                            <tr *ngFor="let asistencia of asistencias">
+                                <td>{{asistencia.alumno?.nombre}}</td>
+                                <td>{{asistencia.alumno?.apellido}}</td>
+                                <td>{{asistencia.alumno?.dni}}</td>
+                                <td>
+                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel"
+                                        [checked]="asistencia.asistencia"
+                                        (click)="actualizarAsistencia(asistencia, cb_asis.checked)" #cb_asis
+                                        aria-label="...">
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <ng-template #sin_alumnos_suscritos>
-        <span class="alert alert-warning border border-warning">No hay alumnos suscritos a este taller</span>
-    </ng-template>
+        <ng-template #sin_alumnos_suscritos>
+            <span class="alert alert-warning border border-warning">No hay alumnos suscritos a este taller</span>
+        </ng-template>
 
-    <!--Guardar-->
-    <div *ngIf="guardado">
-        <span class="alert alert-success border border-success">Asistencias guardadas correctamente</span>
-    </div>
+        <!--Guardar-->
+        <div *ngIf="guardado">
+            <span class="alert alert-success border border-success">Asistencias guardadas correctamente</span>
+        </div>
 
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-success btn-lg" (click)="guardarAsistencias()">Guardar</button>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-success btn-lg" (click)="guardarAsistencias()">Guardar</button>
+        </div>
     </div>
 </div>

@@ -1,14 +1,19 @@
-table{
+table {
     table-layout: fixed;
     word-wrap: break-word;
 }
 
-.inf-td:hover{
+td {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.inf-td:hover {
     background-color: #bee5eb;
 }
-.mod-td:hover{
+.mod-td:hover {
     background-color: #C3E6CB
 }
-.del-td:hover{
+.del-td:hover {
     background-color: #F5C6CB;
 }

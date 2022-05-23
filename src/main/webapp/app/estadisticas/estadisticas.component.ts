@@ -58,9 +58,9 @@ export class EstadisticasComponent implements OnInit {
   generarColores(): void {
     const color_max = 16777215;
     const color_var = color_max / this.claves.length;
-    let current_color = 0;
+    let current_color = color_max;
     for (let i = 0; i < this.claves.length; i++) {
-      current_color += color_var;
+      current_color -= color_var;
       this.colores.push(`#${Math.trunc(current_color).toString(16)}`);
     }
   }

@@ -71,8 +71,8 @@ export class HorarioSemanalComponent implements OnInit {
         taller = horario.taller!;
       }
     });
-
-    return taller.nombre === undefined ? ' ' : `${taller.nombre.substring(0, 6)}...`;
+    // `${taller.nombre.substring(0, 6)}...`
+    return taller.nombre === undefined ? ' ' : taller.nombre ;
   }
 
   buscarHorario(dia: number, hora: number): IHorario {
