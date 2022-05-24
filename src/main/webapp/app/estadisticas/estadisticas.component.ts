@@ -13,6 +13,7 @@ export class EstadisticasComponent implements OnInit {
   titulo = 'Estadisticas';
   lista_suscripciones: ISuscripcion[] = [];
   taller_cantidad = new Map<string, number>();
+  taller_precio = new Map<string, number>();
 
   claves: string[] = [];
   valores: number[] = [];
@@ -41,6 +42,7 @@ export class EstadisticasComponent implements OnInit {
               this.taller_cantidad.set(nombre, this.taller_cantidad.get(nombre)! + 1);
             } else {
               this.taller_cantidad.set(nombre, 1);
+              this.taller_precio.set(nombre, suscripcion.taller!.precio!);
             }
           });
 
@@ -48,14 +50,28 @@ export class EstadisticasComponent implements OnInit {
             this.claves.push(key);
             this.valores.push(this.taller_cantidad.get(key)!);
           }
+          // Numero de suscripciones
           this.generarColores();
+          this.numSuscripcionesChart();
 
-          this.crearGrafico();
+          this.claves = [];
+          this.valores = [];
+
+          for (const key of this.taller_precio.keys()){
+            this.claves.push(key);
+            this.valores.push(this.taller_precio.get(key)! * this.taller_cantidad.get(key)!);
+          }
+
+          // Beneficios de cada Taller
+          this.generarColores();
+          this.beneficiosTallerChart();
+
         },
       });
   }
 
   generarColores(): void {
+    this.colores = [];
     const color_max = 16777215;
     const color_var = color_max / this.claves.length;
     let current_color = color_max;
@@ -65,8 +81,33 @@ export class EstadisticasComponent implements OnInit {
     }
   }
 
-  crearGrafico(): void {
-    const myChart = new Chart('chart', {
+  numSuscripcionesChart(): void {
+    const myChart = new Chart('num_suscripciones', {
+      type: 'pie',
+      data: {
+        labels: this.claves,
+        datasets: [
+          {
+            label: '# Numero de suscripciones',
+            data: this.valores,
+            backgroundColor: this.colores,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+
+  beneficiosTallerChart(): void {
+    const myChart2 = new Chart('beneficios_taller', {
       type: 'pie',
       data: {
         labels: this.claves,
