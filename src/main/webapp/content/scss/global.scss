@@ -73,7 +73,9 @@ Generic styles
   padding: 1.5%;
   margin: auto;
   margin-top: 20px;
-  border: none;
+  border: 5px solid #243D25;
+  border-radius: 12px;
+  box-shadow: 4px 5px 9px 2px rgba(0,0,0,0.6);
   max-width: 1380px;
 }
 
@@ -236,4 +238,18 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   background: url('../images/board-2167844.jpg') no-repeat;
   background-size: cover;
   
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 5em;
+}
+
+footer {
+  margin-top: 1em;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
