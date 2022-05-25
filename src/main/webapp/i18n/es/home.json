@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Bienvenido a 'Lovelace Academia'",
+    "title": "Bienvenido a 'Academia Turing'",
     "subtitle": "Esta es su página de inicio",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."

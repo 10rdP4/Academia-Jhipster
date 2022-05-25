@@ -63,12 +63,12 @@ export class FormularioSuscripcionService {
       info: {
         title: `${this.nuevaSuscripcion.alumno!.nombre!}_${this.nuevaSuscripcion.taller!
           .nombre!}_${this.nuevaSuscripcion.fecha!.toString()}.pdf`,
-        author: 'Academia Lovelace',
+        author: 'Academia Turing',
       },
       content: [
         {
           style: 'header',
-          text: 'Lovelace Academia',
+          text: 'Turing Academia',
           alignment: 'center',
         },
         {

@@ -10,6 +10,13 @@ Main page styles
   background-size: contain;
 }
 
+#turing {
+  float: left;
+  max-height: 16em;
+  margin: 0.5em;
+  border: black solid;
+}
+
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and (-moz-min-device-pixel-ratio: 2),
