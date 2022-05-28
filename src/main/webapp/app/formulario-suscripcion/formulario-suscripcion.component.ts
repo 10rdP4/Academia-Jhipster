@@ -139,7 +139,7 @@ export class FormularioSuscripcionComponent implements OnInit {
 
   // comprobar si una suscripcion ya existe
   comprobarSuscripcion(): void {
-    if(this.alumno_registrado){
+    if (this.alumno_registrado) {
       this.suscripcionService.buscarSuscripcionPorAlumnoTaller(this.alumno_seleccionado!.id!, this.taller_seleccionado!.id!).subscribe({
         next: (resp: HttpResponse<ISuscripcion>) => {
           this.comprobar_suscripcion = resp.body ?? undefined;
@@ -151,7 +151,7 @@ export class FormularioSuscripcionComponent implements OnInit {
           this.lanzarModales(true);
         },
       });
-    }else{
+    } else {
       this.lanzarModales(true);
     }
   }
@@ -169,7 +169,9 @@ export class FormularioSuscripcionComponent implements OnInit {
       if (this.dni_alumno === '') {
         this.lista_errores.push('DNI del alumno no puede estar vacio');
       }
-
+      if (!this.formularioSuscripcionService.validateDNI(this.dni_alumno)) {
+        this.lista_errores.push('DNI del alumno inválido');
+      }
       if (this.dni_alumno !== '') {
         this.alumnoService.buscarAlumno(this.dni_alumno).subscribe({
           next: (res: HttpResponse<IAlumno[]>) => {
@@ -186,19 +188,18 @@ export class FormularioSuscripcionComponent implements OnInit {
         if (this.nombre_contacto === '') {
           this.lista_errores.push('Nombre del contacto no puede estar vacio');
         }
-
         if (this.dni_contacto === '') {
           this.lista_errores.push('DNI del contacto no puede estar vacio');
         }
-
-        if (this.telefono_contacto.length !== 9 && this.telefono_contacto.length > 0) {
-          this.lista_errores.push('Telefono Incorrecto');
+        if (!this.formularioSuscripcionService.validateDNI(this.dni_contacto)) {
+          this.lista_errores.push('DNI del contacto inválido');
         }
-
+        if (!this.formularioSuscripcionService.validateTelf(this.telefono_contacto) && this.telefono_contacto.length > 0) {
+          this.lista_errores.push('Telefono inválido');
+        }
         if (this.telefono_contacto === '' && this.correo_contacto === '') {
           this.lista_errores.push('Al menos hay que facilitar un correo o un telefono de contacto');
         }
-
         if (this.dni_contacto !== '') {
           this.contactoService.buscarContacto(this.dni_contacto).subscribe({
             next: (res: HttpResponse<IContacto[]>) => {
@@ -233,7 +234,7 @@ export class FormularioSuscripcionComponent implements OnInit {
     return (this.error = this.lista_errores.length > 0);
   }
 
-  mayusculas():void{
+  mayusculas(): void {
     this.nombre_alumno = this.nombre_alumno.toUpperCase();
     this.apellido_alumno = this.apellido_alumno.toUpperCase();
     this.dni_alumno = this.dni_alumno.toUpperCase();
@@ -242,7 +243,6 @@ export class FormularioSuscripcionComponent implements OnInit {
   }
 
   cargaDatos(): void {
-
     this.mayusculas();
 
     if (!this.alumno_registrado) {
@@ -265,7 +265,6 @@ export class FormularioSuscripcionComponent implements OnInit {
     } else {
       this.formularioSuscripcionService.setAlumno(this.alumno_seleccionado!);
     }
-
     this.formularioSuscripcionService.setTaller(this.taller_seleccionado!);
     this.formularioSuscripcionService.setFecha(dayjs());
   }

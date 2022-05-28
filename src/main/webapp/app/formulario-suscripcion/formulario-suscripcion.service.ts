@@ -154,4 +154,37 @@ export class FormularioSuscripcionService {
     const pdf_resultado = pdfMake.createPdf(pdf_suscripcion);
     pdf_resultado.open();
   }
+
+  validateDNI(dni: string): boolean {
+    let valid = false;
+    let parte_numerica = 0;
+    const arr_letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+    if (dni.length !== 9) {
+      valid = false;
+    }
+    try {
+      parte_numerica = parseInt(dni.substring(0, 8), 10);
+      if (dni[8] === arr_letras[parte_numerica % 23]) {
+        valid = true;
+      } else {
+        valid = false;
+      }
+    } catch (error) {
+      valid = false;
+    }
+    return valid;
+  }
+
+  validateTelf(tel: string): boolean {
+    let valid = false;
+    const arr_nums = ['6', '7', '9'];
+    if (tel.length === 9) {
+      arr_nums.forEach(num => {
+        if (tel[0] === num) {
+          valid = true;
+        }
+      });
+    }
+    return valid;
+  }
 }

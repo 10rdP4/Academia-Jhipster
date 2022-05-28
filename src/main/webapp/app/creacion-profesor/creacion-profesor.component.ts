@@ -2,6 +2,7 @@ import { HttpResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { IProfesor } from "app/entities/profesor/profesor.model";
 import { ProfesorService } from "app/entities/profesor/service/profesor.service";
+import { FormularioSuscripcionService } from "app/formulario-suscripcion/formulario-suscripcion.service";
 
 
 @Component({
@@ -23,7 +24,12 @@ export class CreacionProfesorComponent implements OnInit {
   lista_errores: string[] = [];
   busqueda_profesor: IProfesor[] = [];
 
-  constructor(public profesorService: ProfesorService) {
+  profesor_guardado = false;
+
+  constructor(
+    public profesorService: ProfesorService,
+    public formularioSuscripcionService: FormularioSuscripcionService
+    ){
     this.titulo = '';
   }
 
@@ -36,7 +42,7 @@ export class CreacionProfesorComponent implements OnInit {
     this.buscarProfesor();
   }
 
-  cancelar(): void {
+  vaciarCampos(): void {
     this.nombre = '';
     this.apellido = '';
     this.dni = '';
@@ -55,6 +61,9 @@ export class CreacionProfesorComponent implements OnInit {
     }
     if (this.sueldo <= 0) {
       this.lista_errores.push("Error en el sueldo del profesor");
+    }
+    if (!this.formularioSuscripcionService.validateDNI(this.dni)){
+      this.lista_errores.push("DNI inválido");
     }
 
     // Si no hay errores se crea el profesor
@@ -82,6 +91,8 @@ export class CreacionProfesorComponent implements OnInit {
         sueldo: this.sueldo
       }
       this.profesorService.create(nuevo_profesor).subscribe();
+      this.profesor_guardado = true;
+      this.vaciarCampos();      
     }
   }
 }

@@ -27,6 +27,8 @@ export class CreacionTallerComponent implements OnInit {
   lista_errores: string[] = [];
   busqueda_talleres: ITaller[] = [];
 
+  taller_guardado = false;
+
   constructor(public profesorService: ProfesorService, public tallerService: TallerService) {
     this.titulo = '';
     this.cargarProfesores();
@@ -109,6 +111,7 @@ export class CreacionTallerComponent implements OnInit {
         profesor: this.profesor_seleccionado
       }
       this.tallerService.create(nuevo_taller).subscribe();
+      this.taller_guardado = true;
       this.vaciarCampos();
     }
   }
