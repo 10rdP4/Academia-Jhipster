@@ -1,8 +1,4 @@
-<div class="modal-header">
-    <h4 class="modal-title">Resumen de la Suscripcion {{formatFecha()}}</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
+<div class="modal-header"> <h4 class="modal-title">Resumen de la Suscripcion {{formatFecha()}}</h4> <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button> </div> <div class="modal-body">
     <h5>Datos del alumno</h5>
     <ul>
       <li>Nombre: {{suscripcion?.alumno?.nombre}}</li>
@@ -27,6 +23,6 @@
     <h5>Precio: {{suscripcion.taller?.precio}}€</h5>
   </div>
   <div class="modal-footer d-flex justify-content-between">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cerrar</button>
     <button type="button" class="btn btn-outline-success" (click)="guardarSuscripcion()">Guardar</button>
   </div>

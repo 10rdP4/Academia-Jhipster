@@ -72,12 +72,13 @@ export class EstadisticasComponent implements OnInit {
 
   generarColores(): void {
     this.colores = [];
-    const color_max = 16777215;
-    const color_var = color_max / this.claves.length;
+    const color_max = 16711680;
+    const color_min = 255;
+    const color_var = (color_max - color_min) / this.claves.length;
     let current_color = color_max;
     for (let i = 0; i < this.claves.length; i++) {
-      current_color -= color_var;
       this.colores.push(`#${Math.trunc(current_color).toString(16)}`);
+      current_color -= color_var;
     }
   }
 
@@ -104,6 +105,7 @@ export class EstadisticasComponent implements OnInit {
         },
       },
     });
+    myChart;
   }
 
   beneficiosTallerChart(): void {
@@ -129,5 +131,6 @@ export class EstadisticasComponent implements OnInit {
         },
       },
     });
+    myChart2;
   }
 }
