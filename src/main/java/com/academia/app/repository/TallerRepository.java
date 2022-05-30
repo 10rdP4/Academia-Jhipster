@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TallerRepository extends JpaRepository<Taller, Long> {
 
-    @Query(value = "SELECT * FROM taller t where nombre LIKE %:nombre%", nativeQuery = true)
+    @Query(value = "SELECT * FROM taller t where nombre LIKE :nombre%", nativeQuery = true)
     Page<Taller> findByNombre(@Param("nombre") String nombre, Pageable pageable);
 
 }

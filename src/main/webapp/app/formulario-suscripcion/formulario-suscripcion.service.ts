@@ -161,16 +161,13 @@ export class FormularioSuscripcionService {
     const arr_letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
     if (dni.length !== 9) {
       valid = false;
-    }
-    try {
+    }else{
       parte_numerica = parseInt(dni.substring(0, 8), 10);
-      if (dni[8] === arr_letras[parte_numerica % 23]) {
+      if (dni.charAt(8) === arr_letras[parte_numerica % 23]) {
         valid = true;
       } else {
         valid = false;
       }
-    } catch (error) {
-      valid = false;
     }
     return valid;
   }

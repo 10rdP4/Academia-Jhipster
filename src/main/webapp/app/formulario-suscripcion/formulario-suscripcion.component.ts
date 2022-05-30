@@ -166,9 +166,6 @@ export class FormularioSuscripcionComponent implements OnInit {
       if (this.apellido_alumno === '') {
         this.lista_errores.push('Apellido del alumno no puede estar vacio');
       }
-      if (this.dni_alumno === '') {
-        this.lista_errores.push('DNI del alumno no puede estar vacio');
-      }
       if (!this.formularioSuscripcionService.validateDNI(this.dni_alumno)) {
         this.lista_errores.push('DNI del alumno inválido');
       }
@@ -181,13 +178,12 @@ export class FormularioSuscripcionComponent implements OnInit {
             }
           },
         });
+      } else {
+        this.lista_errores.push('DNI del alumno no puede estar vacio');
       }
 
       // Validaciones Creacion Contacto
       if (!this.contacto_registrado) {
-        if (this.nombre_contacto === '') {
-          this.lista_errores.push('Nombre del contacto no puede estar vacio');
-        }
         if (this.dni_contacto === '') {
           this.lista_errores.push('DNI del contacto no puede estar vacio');
         }
@@ -212,6 +208,8 @@ export class FormularioSuscripcionComponent implements OnInit {
               this.comprobar_contacto = [];
             },
           });
+        } else {
+          this.lista_errores.push('Nombre del contacto no puede estar vacio');
         }
       } else {
         // Validacion contacto ya registrado

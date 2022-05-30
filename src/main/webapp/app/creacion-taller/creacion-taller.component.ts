@@ -90,6 +90,7 @@ export class CreacionTallerComponent implements OnInit {
 
   comprobarTaller(): void {
     if (this.nombre !== '') {
+      this.nombre = this.nombre.charAt(0).toUpperCase() + this.nombre.substring(1, this.nombre.length);
       this.tallerService.findByNombre(this.nombre).subscribe({
         next: (talleres: HttpResponse<ITaller[]>) => {
           this.busqueda_talleres = talleres.body ?? [];
@@ -105,7 +106,7 @@ export class CreacionTallerComponent implements OnInit {
   crearTaller():void{
     if (this.lista_errores.length <= 0) {
       const nuevo_taller: ITaller = {
-        nombre: this.nombre,
+        nombre: this.nombre.charAt(0).toUpperCase() + this.nombre.substring(1, this.nombre.length),
         descripcion: this.descripcion,
         precio: this.precio,
         profesor: this.profesor_seleccionado
