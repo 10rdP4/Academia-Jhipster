@@ -51,6 +51,12 @@ export class AsistenciaService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  buscarPorFecha(fecha:string):Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IAsistencia[]>(`${this.resourceUrl}/fecha/${fecha}`, {observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

@@ -1,9 +1,10 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-       <h1>Seleccion de Taller</h1> 
-       <hr>
+        <h1>Guardar Asistencias</h1>
+        <hr>
         <!--Seleccion del Taller-->
+        <h3>Selecciona un taller</h3>
         <div ngbDropdown class="d-inline-block m-3">
             <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle
                 (click)="vaciarTallerHorario()">Talleres</button>
@@ -101,5 +102,38 @@
         <div class="d-flex justify-content-end">
             <button class="btn btn-success btn-lg" (click)="guardarAsistencias()">Guardar</button>
         </div>
+
+
+        <h1 class="mt-4">Comprobacion de asistencias</h1>
+        <hr>
+        <!--Primero seleccionamos la fecha-->
+        <ngb-datepicker [(ngModel)]="model" style="width: fit-content;align-self: center;" (ngModelChange)="seleccionarFecha()">
+        </ngb-datepicker>
+
+        <table *ngIf="lista_asistencias_comprobacion.length > 0" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Taller</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Presente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let asistencia of lista_asistencias_comprobacion">
+                    <td>{{asistencia.alumno?.nombre}}</td>
+                    <td>{{asistencia.alumno?.apellido}}</td>
+                    <td>{{asistencia.alumno?.dni}}</td>
+                    <td>{{asistencia.taller?.nombre}}</td>
+                    <td>{{formatoHora(asistencia.fecha!)}}</td>
+                    <td>
+                        <fa-icon *ngIf="asistencia.asistencia" icon="check"></fa-icon>
+                        <fa-icon *ngIf="!asistencia.asistencia" icon="xmark"></fa-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

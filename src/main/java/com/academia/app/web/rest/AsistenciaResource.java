@@ -166,6 +166,19 @@ public class AsistenciaResource {
     }
 
     /**
+     * {@code GET  /asistencias/fecha/:fecha} : get all the asistencias by fecha.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of asistencias in body.
+     */
+    @GetMapping("/asistencias/fecha/{fecha}")
+    public ResponseEntity<List<Asistencia>> getAllAsistencias(@PathVariable String fecha) {
+        log.debug("REST request to get a page of Asistencias by fecha");
+        List<Asistencia> result = asistenciaService.findAllByFecha(fecha);
+        return ResponseEntity.ok().body(result);
+    }
+
+    /**
      * {@code GET  /asistencias} : get all the asistencias by fecha and Id Taller.
      *
      * @param pageable the pagination information.

@@ -44,6 +44,7 @@ import {
   faCircleInfo,
   faChalkboardTeacher,
   faPlusMinus,
+  faXmark,
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -92,6 +93,7 @@ export const fontAwesomeIcons = [
   faListCheck,
   faCircleInfo,
   faChalkboardTeacher,
-  faPlusMinus
+  faPlusMinus,
+  faXmark
   // jhipster-needle-add-icon-import
 ];

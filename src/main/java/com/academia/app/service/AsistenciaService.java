@@ -2,6 +2,8 @@ package com.academia.app.service;
 
 import com.academia.app.domain.Asistencia;
 import com.academia.app.repository.AsistenciaRepository;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Service Implementation for managing {@link Asistencia}.
@@ -73,6 +76,17 @@ public class AsistenciaService {
     }
 
     /**
+     * Get all the asistencias by fecha. 
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Asistencia> findAllByFecha(String fecha) {
+        log.debug("Request to get all Asistencias by fecha and Taller ID");
+        return asistenciaRepository.findByFecha(fecha);
+    }
+
+    /**
      * Get all the asistencias by fecha and Taller id.
      *
      * @param pageable the pagination information.
@@ -80,7 +94,7 @@ public class AsistenciaService {
      */
     @Transactional(readOnly = true)
     public Page<Asistencia> findAllByFechaTallerId(Pageable pageable, String fecha, Integer tallerId) {
-        log.debug("Request to get all Asistencias by fecha and Taller ID <<<<<");
+        log.debug("Request to get all Asistencias by fecha and Taller ID");
         return asistenciaRepository.findByTallerId(tallerId, fecha, pageable);
     }
 

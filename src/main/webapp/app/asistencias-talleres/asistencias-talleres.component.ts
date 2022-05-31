@@ -1,20 +1,20 @@
-import { HttpResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { IAsistencia } from "app/entities/asistencia/asistencia.model";
-import { AsistenciaService } from "app/entities/asistencia/service/asistencia.service";
-import { IHorario } from "app/entities/horario/horario.model";
-import { HorarioService } from "app/entities/horario/service/horario.service";
-import { SuscripcionService } from "app/entities/suscripcion/service/suscripcion.service";
-import { ISuscripcion } from "app/entities/suscripcion/suscripcion.model";
-import { TallerService } from "app/entities/taller/service/taller.service";
-import { ITaller } from "app/entities/taller/taller.model";
-import dayjs from "dayjs/esm";
-
+import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { IAsistencia } from 'app/entities/asistencia/asistencia.model';
+import { AsistenciaService } from 'app/entities/asistencia/service/asistencia.service';
+import { IHorario } from 'app/entities/horario/horario.model';
+import { HorarioService } from 'app/entities/horario/service/horario.service';
+import { SuscripcionService } from 'app/entities/suscripcion/service/suscripcion.service';
+import { ISuscripcion } from 'app/entities/suscripcion/suscripcion.model';
+import { TallerService } from 'app/entities/taller/service/taller.service';
+import { ITaller } from 'app/entities/taller/taller.model';
+import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-asistencias-talleres',
   templateUrl: './asistencias-talleres.component.html',
-  styleUrls: ['./asistencias-talleres.component.scss']
+  styleUrls: ['./asistencias-talleres.component.scss'],
 })
 export class AsistenciasTalleresComponent implements OnInit {
   titulo = '';
@@ -32,10 +32,13 @@ export class AsistenciasTalleresComponent implements OnInit {
   taller_seleccionado?: ITaller = undefined;
   horario_seleccionado?: IHorario = undefined;
 
+  // Comprobacion asistencias
+  taller_comprobacion_asistencias?: ITaller = undefined;
+  model?: Date;
+  lista_asistencias_comprobacion: IAsistencia[] = [];
+
   // Guardado Correctamente
   guardado = false;
-
-
 
   constructor(
     public tallerService: TallerService,
@@ -59,7 +62,7 @@ export class AsistenciasTalleresComponent implements OnInit {
       .subscribe({
         next: (res: HttpResponse<ITaller[]>) => {
           this.talleres_disponibles = res.body ?? [];
-          this.talleres_disponibles.sort((a, b) => (a.nombre! > b.nombre!) ? 1 : -1);
+          this.talleres_disponibles.sort((a, b) => (a.nombre! > b.nombre! ? 1 : -1));
         },
       });
   }
@@ -84,11 +87,11 @@ export class AsistenciasTalleresComponent implements OnInit {
         this.horarios_taller = res.body ?? [];
 
         this.horarios_taller.sort(function (a, b) {
-          const hora_a = parseInt((a.horaInicioTaller!.split(":")[0]), 10);
-          const hora_b = parseInt((b.horaInicioTaller!.split(":")[0]), 10);
+          const hora_a = parseInt(a.horaInicioTaller!.split(':')[0], 10);
+          const hora_b = parseInt(b.horaInicioTaller!.split(':')[0], 10);
           return hora_a - hora_b;
         });
-      }
+      },
     });
   }
 
@@ -98,25 +101,27 @@ export class AsistenciasTalleresComponent implements OnInit {
         this.suscripciones_taller = res.body ?? [];
         this.crearAsistencias();
 
-        this.asistencias_suscripcion.sort((a, b) => (a.alumno!.nombre! > b.alumno!.nombre!) ? 1 : -1);
-      }
-    })
+        this.asistencias_suscripcion.sort((a, b) => (a.alumno!.nombre! > b.alumno!.nombre! ? 1 : -1));
+      },
+    });
   }
 
   cargaAsistencias(): void {
-    const hora_inicio = parseInt(this.horario_seleccionado!.horaInicioTaller!.split(":")[0], 10)
-    const fecha = dayjs().hour(hora_inicio - 2).format('YYYY-MM-DD HH');
+    const hora_inicio = parseInt(this.horario_seleccionado!.horaInicioTaller!.split(':')[0], 10);
+    const fecha = dayjs()
+      .hour(hora_inicio - 2)
+      .format('YYYY-MM-DD HH');
     this.asistenciaService.buscarPorFechaTaller(fecha, this.taller_seleccionado!.id!).subscribe({
       next: (res: HttpResponse<IAsistencia[]>) => {
         this.asistencias = res.body ?? [];
 
         if (this.asistencias.length <= 0) {
           this.cargaSuscripciones(this.taller_seleccionado!);
-        }else{
-          this.asistencias.sort((a, b) => (a.alumno!.nombre! > b.alumno!.nombre!) ? 1 : -1);
+        } else {
+          this.asistencias.sort((a, b) => (a.alumno!.nombre! > b.alumno!.nombre! ? 1 : -1));
         }
-      }
-    })
+      },
+    });
   }
 
   guardarAsistencias(): void {
@@ -140,13 +145,13 @@ export class AsistenciasTalleresComponent implements OnInit {
   crearAsistencias(): void {
     this.vaciarListas();
     this.suscripciones_taller.forEach(suscripcion => {
-      const hora_inicio = parseInt(this.horario_seleccionado!.horaInicioTaller!.split(":")[0], 10);
+      const hora_inicio = parseInt(this.horario_seleccionado!.horaInicioTaller!.split(':')[0], 10);
       const nueva_asistencia: IAsistencia = {
         alumno: suscripcion.alumno,
         fecha: dayjs().hour(hora_inicio),
         asistencia: false,
-        taller: this.taller_seleccionado
-      }
+        taller: this.taller_seleccionado,
+      };
       this.asistencias_suscripcion.push(nueva_asistencia);
     });
   }
@@ -160,14 +165,27 @@ export class AsistenciasTalleresComponent implements OnInit {
     this.asistencias_suscripcion = [];
   }
 
-  vaciarTallerHorario():void{
+  vaciarTallerHorario(): void {
     this.taller_seleccionado = undefined;
     this.horario_seleccionado = undefined;
   }
 
   formatoHorario(horario: IHorario): string {
-    const semana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    const semana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     const dia_semana = semana[horario.diaSemana!];
     return `${dia_semana} - ${horario.horaInicioTaller!}`;
+  }
+
+  formatoHora(fecha:Dayjs):string{
+    return `${fecha.get('hour').toLocaleString()}:00`;
+  }
+
+  seleccionarFecha(): void {
+    const fecha = dayjs(this.model);
+    this.asistenciaService.buscarPorFecha(fecha.format('YYYY-MM-DD')).subscribe({
+      next: (res: HttpResponse<IAsistencia[]>) => {
+        this.lista_asistencias_comprobacion = res.body ?? [];
+      },
+    });
   }
 }
