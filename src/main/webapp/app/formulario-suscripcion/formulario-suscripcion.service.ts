@@ -173,16 +173,8 @@ export class FormularioSuscripcionService {
   }
 
   validateTelf(tel: string): boolean {
-    let valid = false;
-    const arr_nums = ['6', '7', '9'];
-    if (tel.length === 9) {
-      arr_nums.forEach(num => {
-        if (tel[0] === num) {
-          valid = true;
-        }
-      });
-    }
-    return valid;
+    const regex = /^(6|7|9){1}[0-9]{8}$/g;
+    return regex.test(tel);
   }
 
   validateMail(mail: string): boolean{
