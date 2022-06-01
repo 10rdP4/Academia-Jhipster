@@ -184,4 +184,9 @@ export class FormularioSuscripcionService {
     }
     return valid;
   }
+
+  validateMail(mail: string): boolean{
+    const regex = /[^@\s]+@[^@\s]+/g;
+    return regex.test(mail);
+  }
 }

@@ -193,6 +193,9 @@ export class FormularioSuscripcionComponent implements OnInit {
         if (!this.formularioSuscripcionService.validateTelf(this.telefono_contacto) && this.telefono_contacto.length > 0) {
           this.lista_errores.push('Telefono inválido');
         }
+        if (!this.formularioSuscripcionService.validateMail(this.correo_contacto) && this.correo_contacto.length > 0) {
+          this.lista_errores.push('Correo inválido');
+        }
         if (this.telefono_contacto === '' && this.correo_contacto === '') {
           this.lista_errores.push('Al menos hay que facilitar un correo o un telefono de contacto');
         }
