@@ -8,7 +8,7 @@
     <!--Botones seleccion de curso-->
     <div class="btn-group-vertical p-1">
         <button [ngClass]="[accion_seleccionada == 'inf-td' ? 'btn btn-info mb-1' : 'btn btn-outline-info mb-1']"
-            (click)="seleccionarAccion('inf-td')">Informacion</button>
+            (click)="seleccionarAccion('inf-td')">Información</button>
 
         <button
             [ngClass]="[accion_seleccionada == 'mod-td' && taller_seleccionado == taller ? 'btn btn-success mb-1' : 'btn btn-outline-success mb-1']"
@@ -27,10 +27,10 @@
                 <th>Hora</th>
                 <th>Lunes</th>
                 <th>Martes</th>
-                <th>Miercoles</th>
+                <th>Miércoles</th>
                 <th>Jueves</th>
                 <th>Viernes</th>
-                <th>Sabado</th>
+                <th>Sábado</th>
                 <th>Domingo</th>
             </tr>
         </thead>

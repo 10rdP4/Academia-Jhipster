@@ -1,6 +1,6 @@
 {
   "formulario-suscripcion": {
-    "titulo": "Formulario de inscripcion de un nuevo alumno",
+    "titulo": "Formulario de inscripción de un nuevo alumno",
     "datos-alumno": "Datos del alumno",
     "datos-contacto": "Datos del contacto",
     "seleccion-taller": "Selecciona el taller",
@@ -13,7 +13,7 @@
     "contacto":{
       "nombre":"Nombre",
       "dni": "DNI",
-      "telefono":"Numero de Telefono",
+      "telefono":"Número de Teléfono",
       "correo":"Correo"
     }
   }

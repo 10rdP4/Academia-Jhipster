@@ -16,7 +16,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
                     <th scope="col">DNI</th>
-                    <th scope="col">Accion</th>
+                    <th scope="col">Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
     </div>
 
     <ng-template #error_alumnos>
-        <p class="alert alert-warning">Ningun alumno encontrado</p>
+        <p class="alert alert-warning">Ningún alumno encontrado</p>
     </ng-template>
 
     <div *ngIf="alumno_seleccionado != undefined">
@@ -56,7 +56,7 @@
             <ul>
                 <li>Nombre: {{alumno_seleccionado.contacto?.nombre}}</li>
                 <li>Dni: {{alumno_seleccionado.contacto?.dni}}</li>
-                <li>Telefono: {{alumno_seleccionado.contacto?.telefono}}</li>
+                <li>Teléfono: {{alumno_seleccionado.contacto?.telefono}}</li>
                 <li>Correo: {{alumno_seleccionado.contacto?.correo}}</li>
             </ul>
         </div>

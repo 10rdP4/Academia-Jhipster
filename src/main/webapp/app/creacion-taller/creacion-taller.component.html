@@ -25,7 +25,7 @@
     </div>
 
     <div ngbDropdown class="d-inline-block">
-        <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Seleccion Profesor</button>
+        <button type="button" class="btn btn-outline-primary btn-lg" ngbDropdownToggle>Selección Profesor</button>
         <div ngbDropdownMenu aria-labelledby="dropdownTalleres">
             <button ngbDropdownItem *ngFor="let profesor of lista_profesores" (click)="seleccionarProfesor(profesor)">
                 {{profesor.nombre}} {{profesor.apellido}}
