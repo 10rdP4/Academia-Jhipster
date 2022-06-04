@@ -78,7 +78,10 @@
                     <th scope="row">{{suscripcion.id}}</th>
                     <td>{{suscripcion.taller?.nombre}}</td>
                     <td>{{formatearFecha(suscripcion)}}</td>
-                    <td [ngClass]="{'bg-success':suscripcion.activa == true, 'bg-danger':suscripcion.activa == false}">{{suscripcion.activa}}</td>
+                    <td [ngClass]="{'bg-success':suscripcion.activa == true, 'bg-danger':suscripcion.activa == false}" class="centered">
+                        <fa-icon *ngIf="suscripcion.activa" icon="check"></fa-icon>
+                        <fa-icon *ngIf="!suscripcion.activa" icon="xmark"></fa-icon>
+                    </td>
                   </tr>
                 </tbody>
               </table>
